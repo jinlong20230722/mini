@@ -308,10 +308,7 @@ export default function Profile(props) {
 
       <div className="max-w-lg mx-auto px-4 -mt-8">
         {/* 统计卡片 - 装饰边框 */}
-        <div className="bg-white rounded-xl shadow-card p-4 mb-4 border-l-4 border-slate-700 animate-fade-in-up hover-lift" style={{
-        animationDelay: '0.1s' }}>
-
-          
+        
 
 
 
@@ -328,7 +325,10 @@ export default function Profile(props) {
 
 
 
-        </div>
+
+
+
+
 
         {/* 证件信息 */}
         <div className="bg-white rounded-xl shadow-card overflow-hidden mb-4 animate-fade-in-up hover-lift" style={{
