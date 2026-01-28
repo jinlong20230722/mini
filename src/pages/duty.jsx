@@ -93,34 +93,34 @@ export default function Duty(props) {
   }];
   const colorClasses = {
     blue: {
-      bg: 'bg-blue-50',
-      text: 'text-blue-900',
-      border: 'border-blue-200',
-      icon: 'text-blue-600'
+      bg: 'bg-[#E6F7FF]',
+      text: 'text-[#003366]',
+      border: 'border-[#91D5FF]',
+      icon: 'text-[#003366]'
     },
     green: {
-      bg: 'bg-green-50',
-      text: 'text-green-900',
-      border: 'border-green-200',
-      icon: 'text-green-600'
+      bg: 'bg-[#E8F5E9]',
+      text: 'text-[#007A5A]',
+      border: 'border-[#95DE64]',
+      icon: 'text-[#007A5A]'
     },
     red: {
-      bg: 'bg-red-50',
-      text: 'text-red-900',
-      border: 'border-red-200',
-      icon: 'text-red-600'
+      bg: 'bg-[#FFF1F0]',
+      text: 'text-[#D92121]',
+      border: 'border-[#FFA39E]',
+      icon: 'text-[#D92121]'
     },
     purple: {
-      bg: 'bg-purple-50',
-      text: 'text-purple-900',
-      border: 'border-purple-200',
-      icon: 'text-purple-600'
+      bg: 'bg-[#F9F0FF]',
+      text: 'text-[#722ED1]',
+      border: 'border-[#D3ADF7]',
+      icon: 'text-[#722ED1]'
     },
     orange: {
-      bg: 'bg-orange-50',
-      text: 'text-orange-900',
-      border: 'border-orange-200',
-      icon: 'text-orange-600'
+      bg: 'bg-[#FFF7E6]',
+      text: 'text-[#FA8C16]',
+      border: 'border-[#FFD591]',
+      icon: 'text-[#FA8C16]'
     }
   };
   return <div className="min-h-screen bg-[#F5F7FA] pb-20">
@@ -136,20 +136,20 @@ export default function Duty(props) {
         <div className="bg-white rounded-xl shadow-card overflow-hidden animate-fade-in-up hover-lift" style={{
         animationDelay: '0.1s'
       }}>
-          <div className={`p-4 cursor-pointer flex items-center justify-between transition-all duration-300 ease-in-out ${expandedSections.ethics ? 'bg-gradient-primary text-white' : 'bg-gray-50 hover:bg-gray-100'}`} onClick={() => toggleSection('ethics')}>
+          <div className={`p-4 cursor-pointer flex items-center justify-between transition-all duration-300 ease-in-out ${expandedSections.ethics ? 'bg-[#003366] text-white' : 'bg-gray-50 hover:bg-gray-100'}`} onClick={() => toggleSection('ethics')}>
             <div className="flex items-center gap-3">
-              <div className={`p-2 rounded-lg ${expandedSections.ethics ? 'bg-white/20' : 'bg-gradient-to-br from-slate-100 to-slate-200'}`}>
-                <Shield size={24} className={expandedSections.ethics ? 'text-white' : 'text-slate-700'} />
+              <div className={`p-2 rounded-lg ${expandedSections.ethics ? 'bg-white/20' : 'bg-[#F5F7FA]'}`}>
+                <Shield size={24} className={expandedSections.ethics ? 'text-white' : 'text-[#333333]'} />
               </div>
-              <h2 className="text-lg font-semibold font-['Space_Grotesk']">保安职业道德</h2>
+              <h2 className="text-lg font-semibold font-['Space_Grotesk'] text-[#333333]">保安职业道德</h2>
             </div>
             {expandedSections.ethics ? <ChevronUp size={20} className="transition-transform duration-300 ease-in-out" /> : <ChevronDown size={20} className="transition-transform duration-300 ease-in-out" />}
           </div>
           
           {expandedSections.ethics && <div className="p-4 space-y-4 transition-all duration-300 ease-in-out">
-              {ethicsContent.items.map((item, index) => <div key={index} className="p-4 bg-gradient-to-r from-slate-50 to-slate-100 rounded-lg border-l-4 border-slate-700 transition-all duration-300 ease-in-out hover:shadow-md hover-lift">
-                  <h3 className="font-semibold text-slate-800 mb-2 font-['Space_Grotesk']">{item.title}</h3>
-                  <p className="text-gray-700 text-sm leading-relaxed font-['JetBrains_Mono']">{item.content}</p>
+              {ethicsContent.items.map((item, index) => <div key={index} className="p-4 bg-[#F5F7FA] rounded-lg border-l-4 border-[#003366] transition-all duration-300 ease-in-out hover:shadow-md hover-lift">
+                  <h3 className="font-semibold text-[#333333] mb-2 font-['Space_Grotesk']">{item.title}</h3>
+                  <p className="text-[#666666] text-sm leading-relaxed font-['JetBrains_Mono']">{item.content}</p>
                 </div>)}
             </div>}
         </div>
@@ -164,12 +164,12 @@ export default function Duty(props) {
         }}>
               <div className={`p-4 cursor-pointer flex items-center justify-between transition-all duration-300 ease-in-out ${isExpanded ? colors.bg : 'bg-gray-50 hover:bg-gray-100'}`} onClick={() => toggleSection(section.id)}>
                 <div className="flex items-center gap-3">
-                  <div className={`p-2 rounded-lg ${isExpanded ? colors.bg : 'bg-gradient-to-br from-slate-100 to-slate-200'}`}>
-                    <Icon size={20} className={isExpanded ? colors.icon : 'text-slate-700'} />
+                  <div className={`p-2 rounded-lg ${isExpanded ? colors.bg : 'bg-[#F5F7FA]'}`}>
+                    <Icon size={20} className={isExpanded ? colors.icon : 'text-[#333333]'} />
                   </div>
-                  <h2 className={`text-lg font-semibold ${isExpanded ? colors.text : 'text-gray-800'} font-['Space_Grotesk']`}>{section.title}</h2>
+                  <h2 className={`text-lg font-semibold ${isExpanded ? colors.text : 'text-[#333333]'} font-['Space_Grotesk']`}>{section.title}</h2>
                 </div>
-                {isExpanded ? <ChevronUp size={20} className={`${colors.text} transition-transform duration-300 ease-in-out`} /> : <ChevronDown size={20} className="text-gray-500 transition-transform duration-300 ease-in-out" />}
+                {isExpanded ? <ChevronUp size={20} className={`${colors.text} transition-transform duration-300 ease-in-out`} /> : <ChevronDown size={20} className="text-[#999999] transition-transform duration-300 ease-in-out" />}
               </div>
               
               {isExpanded && <div className={`p-4 ${colors.bg} transition-all duration-300 ease-in-out`}>
@@ -184,16 +184,16 @@ export default function Duty(props) {
       })}
 
         {/* 底部提示 - 装饰边框 */}
-        <div className="bg-gradient-to-r from-slate-50 to-slate-100 rounded-xl p-4 border-l-4 border-slate-700 animate-fade-in-up hover-lift" style={{
+        <div className="bg-[#F5F7FA] rounded-xl p-4 border-l-4 border-[#003366] animate-fade-in-up hover-lift" style={{
         animationDelay: '0.8s'
       }}>
           <div className="flex items-start gap-3">
-            <div className="bg-gradient-to-br from-slate-700 to-slate-800 p-2 rounded-lg">
+            <div className="bg-[#003366] p-2 rounded-lg">
               <AlertTriangle className="text-white flex-shrink-0" size={20} />
             </div>
             <div>
-              <h3 className="font-semibold text-slate-800 mb-1 font-['Space_Grotesk']">温馨提示</h3>
-              <p className="text-sm text-slate-700 leading-relaxed font-['JetBrains_Mono']">
+              <h3 className="font-semibold text-[#333333] mb-1 font-['Space_Grotesk']">温馨提示</h3>
+              <p className="text-sm text-[#666666] leading-relaxed font-['JetBrains_Mono']">
                 请严格遵守保安职业道德和岗位规范，认真履行职责，确保安保工作质量。如有疑问，请及时向上级汇报。
               </p>
             </div>
