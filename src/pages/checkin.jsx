@@ -37,34 +37,17 @@ export default function CheckIn(props) {
   // 逆地理编码：将经纬度转换为详细地址
   const reverseGeocode = async (latitude, longitude) => {
     try {
-      // 使用免费的 Nominatim API（OpenStreetMap）
-      return await fallbackGeocode(latitude, longitude);
-    } catch (error) {
-      console.error('逆地理编码失败:', error);
-      return {
-        formatted: '地址解析失败',
-        detail: '无法获取详细地址信息',
-        province: '',
-        city: '',
-        district: '',
-        township: '',
-        street: '',
-        streetNumber: ''
-      };
-    }
-  };
-
-  // 逆地理编码方案：使用 Nominatim API
-  const fallbackGeocode = async (latitude, longitude, retryCount = 0) => {
-    try {
-      // 使用 OpenStreetMap 的 Nominatim API（免费，无需 API Key）
+      // 使用腾讯地图逆地理编码 API
       const controller = new AbortController();
       const timeoutId = setTimeout(() => controller.abort(), 8000); // 8秒超时
 
-      const url = `https://nominatim.openstreetmap.org/reverse?format=json&lat=${latitude}&lon=${longitude}&accept-language=zh-CN`;
+      // 腾讯地图 API Key
+      const API_KEY = 'J5BBZ-YPECN-XOBFC-STPG6-YSTRV-3FBCK';
+
+      // 腾讯地图 API 参数格式：location=纬度,经度
+      const url = `https://apis.map.qq.com/ws/geocoder/v1/?location=${latitude},${longitude}&key=${API_KEY}&get_poi=1`;
       const response = await fetch(url, {
         headers: {
-          'User-Agent': 'CheckInApp/1.0',
           'Accept': 'application/json'
         },
         signal: controller.signal
@@ -74,17 +57,18 @@ export default function CheckIn(props) {
         throw new Error(`HTTP ${response.status}: ${response.statusText}`);
       }
       const data = await response.json();
-      if (data && data.address) {
-        const addr = data.address;
-        const formattedAddress = data.display_name || '';
+      if (data.status === 0 && data.result) {
+        const result = data.result;
+        const addr = result.address_component || {};
 
-        // 构建标准地址格式
-        const province = addr.province || addr.state || '';
-        const city = addr.city || addr.town || addr.district || addr.county || '';
-        const district = addr.district || addr.county || addr.suburb || '';
-        const township = addr.township || addr.village || '';
-        const street = addr.road || addr.street || '';
-        const streetNumber = addr.house_number || '';
+        // 腾讯地图返回的地址信息
+        const formattedAddress = result.address || '';
+        const province = addr.province || '';
+        const city = addr.city || '';
+        const district = addr.district || '';
+        const township = addr.township || '';
+        const street = addr.street || '';
+        const streetNumber = addr.street_number || '';
 
         // 组合详细地址
         let detailAddress = '';
@@ -105,17 +89,10 @@ export default function CheckIn(props) {
           streetNumber
         };
       } else {
-        throw new Error('无法解析地址');
+        throw new Error(data.message || '地址解析失败');
       }
     } catch (error) {
       console.error('逆地理编码失败:', error);
-
-      // 如果是网络错误或超时，且重试次数小于2，则重试
-      if ((error.name === 'AbortError' || error.message.includes('fetch') || error.message.includes('network')) && retryCount < 2) {
-        console.log(`重试逆地理编码 (${retryCount + 1}/2)...`);
-        await new Promise(resolve => setTimeout(resolve, 1000)); // 等待1秒后重试
-        return fallbackGeocode(latitude, longitude, retryCount + 1);
-      }
       return {
         formatted: '地址解析失败',
         detail: '无法获取详细地址信息',
