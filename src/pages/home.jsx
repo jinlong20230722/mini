@@ -215,30 +215,30 @@ export default function Home(props) {
     id: 'checkIn',
     name: '打卡签到',
     icon: MapPin,
-    color: '#3D5A3D',
+    color: '#00A8E8',
     description: '位置打卡',
     isPrimary: true
   }, {
     id: 'event',
     name: '事件上报',
     icon: AlertTriangle,
-    color: '#8B3A3A',
+    color: '#FF6B35',
     description: '异常事件',
     isPrimary: true
   }, {
     id: 'leave',
     name: '请销假',
     icon: Calendar,
-    color: '#F0F2F5',
-    textColor: '#2C3E50',
+    color: '#9B59B6',
+    textColor: '#FFFFFF',
     description: '班长/队长及以上人员',
     isPrimary: false
   }, {
     id: 'feedback',
     name: '意见反馈',
     icon: MessageSquare,
-    color: '#F0F2F5',
-    textColor: '#2C3E50',
+    color: '#1ABC9C',
+    textColor: '#FFFFFF',
     description: '现场/公司管理建议',
     isPrimary: false
   }];
@@ -319,7 +319,7 @@ export default function Home(props) {
 
             <div className="flex items-center justify-between mb-4">
               <div className="flex items-center space-x-2">
-                <div className="bg-[#3D5A3D] p-2 rounded-[8px]">
+                <div className="bg-[#00A8E8] p-2 rounded-[8px]">
                   <MapPin className="w-5 h-5 text-white" />
                 </div>
                 <h4 className="font-semibold text-[#2C3E50]">打卡签到</h4>
@@ -328,15 +328,15 @@ export default function Home(props) {
             </div>
             <div className="grid grid-cols-3 gap-4">
               <div className="text-center">
-                <div className="text-[24px] font-bold text-[#3D5A3D]">{attendanceStats.todayCount}</div>
+                <div className="text-[24px] font-bold text-[#00A8E8]">{attendanceStats.todayCount}</div>
                 <div className="text-[12px] text-[#7F8C8D] mt-1">今日打卡</div>
               </div>
               <div className="text-center">
-                <div className="text-[24px] font-bold text-[#3D5A3D]">{attendanceStats.monthCount}</div>
+                <div className="text-[24px] font-bold text-[#00A8E8]">{attendanceStats.monthCount}</div>
                 <div className="text-[12px] text-[#7F8C8D] mt-1">本月打卡</div>
               </div>
               <div className="text-center">
-                <div className={`text-[14px] font-semibold ${attendanceStats.lastStatus === '正常' ? 'text-[#4A5D4A]' : 'text-[#B87033]'}`}>
+                <div className={`text-[14px] font-semibold ${attendanceStats.lastStatus === '正常' ? 'text-[#00A8E8]' : 'text-[#FF6B35]'}`}>
                   {attendanceStats.lastStatus}
                 </div>
                 <div className="text-[12px] text-[#7F8C8D] mt-1">最近状态</div>
@@ -355,7 +355,7 @@ export default function Home(props) {
 
             <div className="flex items-center justify-between mb-4">
               <div className="flex items-center space-x-2">
-                <div className="bg-[#8B3A3A] p-2 rounded-[8px]">
+                <div className="bg-[#FF6B35] p-2 rounded-[8px]">
                   <AlertTriangle className="w-5 h-5 text-white" />
                 </div>
                 <h4 className="font-semibold text-[#2C3E50]">事件上报</h4>
@@ -364,11 +364,11 @@ export default function Home(props) {
             </div>
             <div className="grid grid-cols-3 gap-4">
               <div className="text-center">
-                <div className="text-[24px] font-bold text-[#8B3A3A]">{eventStats.todayCount}</div>
+                <div className="text-[24px] font-bold text-[#FF6B35]">{eventStats.todayCount}</div>
                 <div className="text-[12px] text-[#7F8C8D] mt-1">今日上报</div>
               </div>
               <div className="text-center">
-                <div className="text-[24px] font-bold text-[#8B3A3A]">{eventStats.monthCount}</div>
+                <div className="text-[24px] font-bold text-[#FF6B35]">{eventStats.monthCount}</div>
                 <div className="text-[12px] text-[#7F8C8D] mt-1">本月上报</div>
               </div>
               <div className="text-center">
