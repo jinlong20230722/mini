@@ -215,21 +215,21 @@ export default function Home(props) {
     id: 'checkIn',
     name: '打卡签到',
     icon: MapPin,
-    color: '#3D5A3D',
+    color: '#0A2463',
     description: '位置打卡',
     isPrimary: true
   }, {
     id: 'event',
     name: '事件上报',
     icon: AlertTriangle,
-    color: '#8B3A3A',
+    color: '#1E3A8A',
     description: '异常事件',
     isPrimary: true
   }, {
     id: 'leave',
     name: '请销假',
     icon: Calendar,
-    color: '#F0F2F5',
+    color: '#FFFFFF',
     textColor: '#2C3E50',
     description: '班长/队长及以上人员',
     isPrimary: false
@@ -237,7 +237,7 @@ export default function Home(props) {
     id: 'feedback',
     name: '意见反馈',
     icon: MessageSquare,
-    color: '#F0F2F5',
+    color: '#FFFFFF',
     textColor: '#2C3E50',
     description: '现场/公司管理建议',
     isPrimary: false
