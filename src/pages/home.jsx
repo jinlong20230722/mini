@@ -43,8 +43,6 @@ export default function Home(props) {
     lastTime: '-',
     lastType: '-'
   });
-  const [announcements, setAnnouncements] = useState([]);
-  const [announcementsLoading, setAnnouncementsLoading] = useState(true);
   useEffect(() => {
     checkLoginAndLoadData();
     setTimeout(() => setPageLoaded(true), 100);
@@ -56,7 +54,6 @@ export default function Home(props) {
     });
     await checkRegistrationStatus();
     await loadRealTimeData();
-    await loadAnnouncements();
   };
   const checkRegistrationStatus = async () => {
     try {
@@ -164,47 +161,6 @@ export default function Home(props) {
       }
     } catch (error) {
       console.error('加载实时数据失败:', error);
-    }
-  };
-  const loadAnnouncements = async () => {
-    try {
-      setAnnouncementsLoading(true);
-      const result = await props.$w.cloud.callDataSource({
-        dataSourceName: 'announcement',
-        methodName: 'wedaGetRecordsV2',
-        params: {
-          filter: {
-            where: {}
-          },
-          select: {
-            $master: true
-          },
-          getCount: true
-        }
-      });
-      if (result.records && result.records.length > 0) {
-        // 排序逻辑：置顶公告优先，然后按发布时间倒序
-        const sortedAnnouncements = result.records.sort((a, b) => {
-          // 如果两个都是置顶或都不是置顶，按发布时间倒序
-          if (a.isPinned === b.isPinned) {
-            return b.publishTime - a.publishTime;
-          }
-          // 置顶的排在前面
-          return a.isPinned ? -1 : 1;
-        });
-        setAnnouncements(sortedAnnouncements);
-      } else {
-        setAnnouncements([]);
-      }
-      setAnnouncementsLoading(false);
-    } catch (error) {
-      console.error('加载公告失败:', error);
-      setAnnouncementsLoading(false);
-      toast({
-        title: '加载公告失败',
-        description: error.message || '请稍后重试',
-        variant: 'destructive'
-      });
     }
   };
   const handleFunctionClick = functionName => {
@@ -317,50 +273,6 @@ export default function Home(props) {
           <p className="text-[14px] text-[#999999]">
             {hasRegistered ? '您已完成入职登记，可正常使用各项功能' : '请先完成入职登记，以便使用全部功能'}
           </p>
-        </div>
-
-        {/* 公告信息区域 */}
-        <div className="mb-6 animate-fade-in-up" style={{
-        animationDelay: '0.15s'
-      }}>
-          <div className="flex items-center justify-between mb-3">
-            <h3 className="text-[18px] font-bold text-[#333333]">公告信息</h3>
-            <button onClick={() => handleFunctionClick('announcement')} className="text-[14px] text-[#003366] font-medium">
-              查看全部
-            </button>
-          </div>
-          {announcementsLoading ? <div className="bg-white rounded-[8px] shadow-md p-5 text-center">
-              <div className="text-[#999999]">加载中...</div>
-            </div> : announcements.length === 0 ? <div className="bg-white rounded-[8px] shadow-md p-5 text-center">
-              <div className="text-[#999999]">暂无公告</div>
-            </div> : <div className="space-y-3">
-              {announcements.slice(0, 3).map((announcement, index) => <div key={announcement._id || index} className="bg-white rounded-[8px] shadow-md p-4 hover-lift transition-all duration-300 cursor-pointer" onClick={() => handleFunctionClick('announcement')}>
-                  <div className="flex items-start justify-between">
-                    <div className="flex-1">
-                      <div className="flex items-center space-x-2 mb-2">
-                        {announcement.isPinned && <span className="bg-[#FA8C16] text-white text-[10px] px-2 py-0.5 rounded-full font-medium">
-                            置顶
-                          </span>}
-                        <h4 className="text-[16px] font-semibold text-[#333333] line-clamp-1">
-                          {announcement.title}
-                        </h4>
-                      </div>
-                      <p className="text-[14px] text-[#666666] line-clamp-2 mb-2">
-                        {announcement.content}
-                      </p>
-                      <div className="flex items-center space-x-3 text-[12px] text-[#999999]">
-                        <span>{announcement.publishDepartment || announcement.publisher || '未知部门'}</span>
-                        <span>•</span>
-                        <span>{announcement.publishTime ? new Date(announcement.publishTime).toLocaleDateString('zh-CN', {
-                      year: 'numeric',
-                      month: '2-digit',
-                      day: '2-digit'
-                    }) : '未知时间'}</span>
-                      </div>
-                    </div>
-                  </div>
-                </div>)}
-            </div>}
         </div>
 
         {/* 功能模块网格 - 调整间距 */}
