@@ -8,8 +8,8 @@ import { useToast } from '@/components/ui';
 import { TabBar } from '@/components/TabBar';
 export default function Announcement(props) {
   const {
-    toast
-  } = useToast();
+    toast } =
+  useToast();
   const [activeTab, setActiveTab] = useState('announcement');
   const [loading, setLoading] = useState(true);
   const [announcements, setAnnouncements] = useState([]);
@@ -18,20 +18,20 @@ export default function Announcement(props) {
   const [selectedType, setSelectedType] = useState('全部');
   const [searchKeyword, setSearchKeyword] = useState('');
   const [showFilter, setShowFilter] = useState(false);
-  const handleTabChange = tabId => {
+  const handleTabChange = (tabId) => {
     setActiveTab(tabId);
     const pageMap = {
       'home': 'home',
       'duty': 'duty',
       'announcement': 'announcement',
-      'profile': 'profile'
-    };
+      'profile': 'profile' };
+
     const targetPage = pageMap[tabId];
     if (targetPage) {
       props.$w.utils.navigateTo({
         pageId: targetPage,
-        params: {}
-      });
+        params: {} });
+
     }
   };
   useEffect(() => {
@@ -45,13 +45,13 @@ export default function Announcement(props) {
 
     // 按类型筛选
     if (selectedType !== '全部') {
-      filtered = filtered.filter(item => item.announcementType === selectedType);
+      filtered = filtered.filter((item) => item.announcementType === selectedType);
     }
 
     // 按关键词搜索
     if (searchKeyword.trim()) {
       const keyword = searchKeyword.toLowerCase();
-      filtered = filtered.filter(item => item.title.toLowerCase().includes(keyword) || item.content.toLowerCase().includes(keyword));
+      filtered = filtered.filter((item) => item.title.toLowerCase().includes(keyword) || item.content.toLowerCase().includes(keyword));
     }
     setFilteredAnnouncements(filtered);
   };
@@ -67,15 +67,15 @@ export default function Announcement(props) {
           filter: {
             where: {},
             orderBy: [{
-              publishTime: 'desc'
-            }]
-          },
+              publishTime: 'desc' }] },
+
+
           select: {
-            $master: true
-          },
-          getCount: true
-        }
-      });
+            $master: true },
+
+          getCount: true } });
+
+
       setAnnouncements(result.records || []);
       setLoading(false);
     } catch (error) {
@@ -83,18 +83,18 @@ export default function Announcement(props) {
       toast({
         title: '加载失败',
         description: error.message || '加载公告信息失败，请稍后重试',
-        variant: 'destructive'
-      });
+        variant: 'destructive' });
+
       setLoading(false);
     }
   };
-  const toggleExpand = id => {
-    setExpandedItems(prev => ({
+  const toggleExpand = (id) => {
+    setExpandedItems((prev) => ({
       ...prev,
-      [id]: !prev[id]
-    }));
+      [id]: !prev[id] }));
+
   };
-  const getTypeColor = type => {
+  const getTypeColor = (type) => {
     switch (type) {
       case '表彰公告':
         return 'bg-[#FEF3C7] text-[#D97706] border-[#FCD34D]';
@@ -103,10 +103,10 @@ export default function Announcement(props) {
       case '活动通知':
         return 'bg-[#D1FAE5] text-[#047857] border-[#6EE7B7]';
       default:
-        return 'bg-[#F8FAFC] text-[#1E293B] border-[#E2E8F0]';
-    }
+        return 'bg-[#F8FAFC] text-[#1E293B] border-[#E2E8F0]';}
+
   };
-  const getTypeIcon = type => {
+  const getTypeIcon = (type) => {
     switch (type) {
       case '表彰公告':
         return '🏆';
@@ -115,10 +115,10 @@ export default function Announcement(props) {
       case '活动通知':
         return '🎉';
       default:
-        return '📋';
-    }
+        return '📋';}
+
   };
-  const formatDate = timestamp => {
+  const formatDate = (timestamp) => {
     if (!timestamp) return '';
     const date = new Date(timestamp);
     const year = date.getFullYear();
@@ -164,13 +164,13 @@ export default function Announcement(props) {
           {/* 搜索框 */}
           <div className="flex-1 relative">
             <Search className="w-4 h-4 absolute left-3 top-1/2 -translate-y-1/2 text-[#94A3B8]" />
-            <input type="text" placeholder="搜索公告标题或内容..." value={searchKeyword} onChange={e => setSearchKeyword(e.target.value)} className="w-full pl-9 pr-4 py-2 bg-[#F8FAFC] border border-[#E2E8F0] rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-[#6366F1] focus:border-transparent transition-all font-['JetBrains_Mono']" />
+            <input type="text" placeholder="搜索公告标题或内容..." value={searchKeyword} onChange={(e) => setSearchKeyword(e.target.value)} className="w-full pl-9 pr-4 py-2 bg-[#F8FAFC] border border-[#E2E8F0] rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-[#6366F1] focus:border-transparent transition-all font-['JetBrains_Mono']" />
           </div>
         </div>
 
         {/* 类型筛选标签 */}
         {showFilter && <div className="mt-3 flex flex-wrap gap-2">
-            {['全部', '表彰公告', '公司通知', '活动通知'].map(type => <button key={type} onClick={() => setSelectedType(type)} className={`px-3 py-1.5 rounded-full text-xs font-medium transition-all ${selectedType === type ? 'bg-[#6366F1] text-white' : 'bg-[#F8FAFC] text-[#64748B] hover:bg-[#E2E8F0]'} font-['Space_Grotesk']`}>
+            {['全部', '表彰公告', '公司通知', '活动通知'].map((type) => <button key={type} onClick={() => setSelectedType(type)} className={`px-3 py-1.5 rounded-full text-xs font-medium transition-all ${selectedType === type ? 'bg-[#6366F1] text-white' : 'bg-[#F8FAFC] text-[#64748B] hover:bg-[#E2E8F0]'} font-['Space_Grotesk']`}>
                 {type}
               </button>)}
           </div>}
@@ -199,9 +199,9 @@ export default function Announcement(props) {
                   <div className="flex items-start justify-between mb-3">
                     <div className="flex-1 pr-3">
                       <div className="flex items-center mb-2">
-                        <span className={`px-2.5 py-1 rounded-full text-xs font-medium border ${getTypeColor(item.announcementType)} mr-2`}>
-                          {getTypeIcon(item.announcementType)} {item.announcementType}
-                        </span>
+                        
+
+
                       </div>
                       <h3 className="text-base font-semibold text-[#0F172A] leading-snug font-['Space_Grotesk']">
                         {item.title}
