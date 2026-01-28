@@ -218,8 +218,8 @@ export default function LeavePage(props) {
         icon: Clock
       },
       '已通过': {
-        bg: 'bg-[#E8F5E9]',
-        text: 'text-[#52C41A]',
+        bg: 'bg-[#E8F0E8]',
+        text: 'text-[#3D5A3D]',
         icon: CheckCircle
       },
       '已驳回': {
@@ -448,7 +448,7 @@ export default function LeavePage(props) {
                     </div>
                   </div>
                   <div className="flex gap-2 mt-3">
-                    <Button size="sm" onClick={() => handleApprove(record, '已通过')} className="flex-1 bg-[#52C41A] hover:bg-[#45A049] rounded-[8px] button-press button-hover">
+                    <Button size="sm" onClick={() => handleApprove(record, '已通过')} className="flex-1 bg-[#3D5A3D] hover:bg-[#2D4A2D] rounded-[8px] button-press button-hover">
                       通过
                     </Button>
                     <Button size="sm" variant="destructive" onClick={() => handleApprove(record, '已驳回')} className="flex-1 bg-[#D92121] hover:bg-[#B91C1C] rounded-[8px] button-press button-hover">

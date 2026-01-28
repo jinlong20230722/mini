@@ -99,10 +99,10 @@ export default function Duty(props) {
       icon: 'text-[#0A2463]'
     },
     green: {
-      bg: 'bg-[#E8F5E9]',
-      text: 'text-[#007A5A]',
-      border: 'border-[#95DE64]',
-      icon: 'text-[#007A5A]'
+      bg: 'bg-[#E8F0E8]',
+      text: 'text-[#3D5A3D]',
+      border: 'border-[#8FB891]',
+      icon: 'text-[#3D5A3D]'
     },
     red: {
       bg: 'bg-[#FFF1F0]',

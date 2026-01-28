@@ -354,7 +354,7 @@ export default function RegistrationPage(props) {
 
       <div className="px-4 py-6 max-w-lg mx-auto">
         {/* 状态卡片 */}
-        <div className={`rounded-xl p-4 mb-6 flex items-center gap-3 shadow-md ${isRegistered ? 'bg-[#52C41A] text-white' : 'bg-[#0A2463] text-white'}`}>
+        <div className={`rounded-xl p-4 mb-6 flex items-center gap-3 shadow-md ${isRegistered ? 'bg-[#3D5A3D] text-white' : 'bg-[#0A2463] text-white'}`}>
           {isRegistered ? <CheckCircle2 className="w-8 h-8 flex-shrink-0" /> : <AlertCircle className="w-8 h-8 flex-shrink-0" />}
           <div>
             <p className="font-semibold text-lg">

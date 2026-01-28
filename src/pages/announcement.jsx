@@ -142,7 +142,7 @@ export default function Announcement(props) {
       case '公司通知':
         return 'bg-[#E6F7FF] text-[#0A2463] border-[#91D5FF]';
       case '活动通知':
-        return 'bg-[#E8F5E9] text-[#007A5A] border-[#95DE64]';
+        return 'bg-[#E8F0E8] text-[#3D5A3D] border-[#8FB891]';
       default:
         return 'bg-[#F5F7FA] text-[#333333] border-[#E8E8E8]';
     }

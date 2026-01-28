@@ -215,7 +215,7 @@ export default function Home(props) {
     id: 'checkIn',
     name: '打卡签到',
     icon: MapPin,
-    color: '#2D5A4A',
+    color: '#3D5A3D',
     description: '位置打卡',
     isPrimary: true
   }, {
@@ -324,7 +324,7 @@ export default function Home(props) {
 
             <div className="flex items-center justify-between mb-4">
               <div className="flex items-center space-x-2">
-                <div className="bg-[#2D5A4A] p-2 rounded-[8px]">
+                <div className="bg-[#3D5A3D] p-2 rounded-[8px]">
                   <MapPin className="w-5 h-5 text-white" />
                 </div>
                 <h4 className="font-semibold text-[#2C3E50]">打卡签到</h4>
@@ -333,7 +333,7 @@ export default function Home(props) {
             </div>
             <div className="grid grid-cols-3 gap-4">
               <div className="text-center">
-                <div className="text-[24px] font-bold text-[#2D5A4A] transition-all duration-300 hover:scale-110">{attendanceStats.todayCount}</div>
+                <div className="text-[24px] font-bold text-[#3D5A3D] transition-all duration-300 hover:scale-110">{attendanceStats.todayCount}</div>
                 <div className="text-[12px] text-[#7F8C8D] mt-1">今日打卡</div>
               </div>
               <div className="text-center">
@@ -341,7 +341,7 @@ export default function Home(props) {
                 <div className="text-[12px] text-[#7F8C8D] mt-1">本月打卡</div>
               </div>
               <div className="text-center">
-                <div className={`text-[14px] font-semibold transition-all duration-300 hover:scale-110 ${attendanceStats.lastStatus === '正常' ? 'text-[#4A7C59]' : 'text-[#B87033]'}`}>
+                <div className={`text-[14px] font-semibold transition-all duration-300 hover:scale-110 ${attendanceStats.lastStatus === '正常' ? 'text-[#4A5D4A]' : 'text-[#B87033]'}`}>
                   {attendanceStats.lastStatus}
                 </div>
                 <div className="text-[12px] text-[#7F8C8D] mt-1">最近状态</div>

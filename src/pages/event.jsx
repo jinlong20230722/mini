@@ -33,7 +33,7 @@ export default function EventReport(props) {
     id: '好人好事',
     label: '好人好事',
     icon: Heart,
-    color: 'bg-[#52C41A]',
+    color: 'bg-[#3D5A3D]',
     desc: '拾金不昧、助人为乐'
   }, {
     id: '应急处突',
@@ -57,7 +57,7 @@ export default function EventReport(props) {
     id: '临时勤务',
     label: '临时勤务',
     icon: Clock,
-    color: 'bg-[#007A5A]',
+    color: 'bg-[#3D5A3D]',
     desc: '临时任务安排'
   }];
 
@@ -434,7 +434,7 @@ export default function EventReport(props) {
         <div className="bg-white rounded-[8px] shadow-md p-4">
           <div className="flex items-center space-x-3">
             <div className="w-10 h-10 bg-[#E8F5E9] rounded-full flex items-center justify-center">
-              <MapPin className="w-5 h-5 text-[#007A5A]" />
+              <MapPin className="w-5 h-5 text-[#3D5A3D]" />
             </div>
             <div className="flex-1">
               <p className="text-[12px] text-[#999999] mb-1">当前位置</p>

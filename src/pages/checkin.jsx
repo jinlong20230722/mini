@@ -314,9 +314,9 @@ export default function CheckIn(props) {
           </CardHeader>
           <CardContent className="pt-0 px-4 pb-3">
             <div className="grid grid-cols-2 gap-2">
-              <button onClick={() => setStatus('normal')} className={`p-3 rounded-[8px] border-2 transition-all button-press button-hover ${status === 'normal' ? 'border-[#007A5A] bg-[#E8F5E9]' : 'border-[#E8E8E8] bg-white hover:border-[#007A5A]'}`}>
-                <CheckCircle className={`w-6 h-6 mx-auto mb-1 ${status === 'normal' ? 'text-[#007A5A]' : 'text-[#BFBFBF]'}`} />
-                <p className={`text-[14px] font-medium ${status === 'normal' ? 'text-[#007A5A]' : 'text-[#333333]'}`}>正常</p>
+              <button onClick={() => setStatus('normal')} className={`p-3 rounded-[8px] border-2 transition-all button-press button-hover ${status === 'normal' ? 'border-[#3D5A3D] bg-[#E8F0E8]' : 'border-[#E8E8E8] bg-white hover:border-[#3D5A3D]'}`}>
+                <CheckCircle className={`w-6 h-6 mx-auto mb-1 ${status === 'normal' ? 'text-[#3D5A3D]' : 'text-[#BFBFBF]'}`} />
+                <p className={`text-[14px] font-medium ${status === 'normal' ? 'text-[#3D5A3D]' : 'text-[#333333]'}`}>正常</p>
               </button>
               <button onClick={() => setStatus('abnormal')} className={`p-3 rounded-[8px] border-2 transition-all button-press button-hover ${status === 'abnormal' ? 'border-[#FA8C16] bg-[#FFF7E6]' : 'border-[#E8E8E8] bg-white hover:border-[#FA8C16]'}`}>
                 <AlertCircle className={`w-6 h-6 mx-auto mb-1 ${status === 'abnormal' ? 'text-[#FA8C16]' : 'text-[#BFBFBF]'}`} />
@@ -359,8 +359,8 @@ export default function CheckIn(props) {
           </CardContent>
         </Card>
 
-        {/* 提交按钮 - 深绿色 */}
-        <Button onClick={handleSubmit} disabled={submitting} className="w-full h-11 text-[16px] font-bold bg-[#007A5A] hover:bg-[#006648] shadow-lg rounded-[8px] button-press button-hover">
+        {/* 提交按钮 - 军绿色 */}
+        <Button onClick={handleSubmit} disabled={submitting} className="w-full h-11 text-[16px] font-bold bg-[#3D5A3D] hover:bg-[#2D4A2D] shadow-lg rounded-[8px] button-press button-hover">
           {submitting ? <>
               <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-white mr-2"></div>
               提交中...
