@@ -229,7 +229,7 @@ export default function LeavePage(props) {
       },
       '已销假': {
         bg: 'bg-[#E6F7FF]',
-        text: 'text-[#003366]',
+        text: 'text-[#0A2463]',
         icon: UserCheck
       }
     };
@@ -254,7 +254,7 @@ export default function LeavePage(props) {
   if (loading) {
     return <div className="min-h-screen bg-[#F5F7FA] flex items-center justify-center">
         <div className="text-center">
-          <div className="inline-block animate-spin rounded-full h-12 w-12 border-b-2 border-[#003366]"></div>
+          <div className="inline-block animate-spin rounded-full h-12 w-12 border-b-2 border-[#0A2463]"></div>
           <p className="mt-4 text-[#999999]">加载中...</p>
         </div>
       </div>;
@@ -268,7 +268,7 @@ export default function LeavePage(props) {
           <Button onClick={() => $w.utils.navigateTo({
           pageId: 'home',
           params: {}
-        })} className="w-full bg-[#003366] hover:bg-[#004488] rounded-[8px] button-press button-hover">
+        })} className="w-full bg-[#0A2463] hover:bg-[#0D2E7A] rounded-[8px] button-press button-hover">
             返回首页
           </Button>
         </div>
@@ -276,18 +276,18 @@ export default function LeavePage(props) {
   }
   return <div className="min-h-screen bg-[#F5F7FA] pb-20">
       {/* 顶部导航栏 - 深蓝色 */}
-      <div className="bg-[#003366] text-white px-4 py-4 sticky top-0 z-10 shadow-lg">
+      <div className="bg-[#0A2463] text-white px-4 py-4 sticky top-0 z-10 shadow-lg">
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-3">
             <Button variant="ghost" size="icon" onClick={() => $w.utils.navigateTo({
             pageId: 'home',
             params: {}
-          })} className="text-white hover:bg-[#004488] button-press">
+          })} className="text-white hover:bg-[#0D2E7A] button-press">
               <ArrowLeft className="w-5 h-5" />
             </Button>
             <h1 className="text-[18px] font-bold">请销假管理</h1>
           </div>
-          <Button variant="ghost" size="icon" onClick={() => setRefreshKey(prev => prev + 1)} className="text-white hover:bg-[#004488] button-press">
+          <Button variant="ghost" size="icon" onClick={() => setRefreshKey(prev => prev + 1)} className="text-white hover:bg-[#0D2E7A] button-press">
             <RefreshCw className="w-5 h-5" />
           </Button>
         </div>
@@ -314,7 +314,7 @@ export default function LeavePage(props) {
           icon: RefreshCw
         }].map(tab => {
           const Icon = tab.icon;
-          return <button key={tab.id} onClick={() => setActiveTab(tab.id)} className={`flex-1 flex items-center justify-center gap-2 py-3 px-4 rounded-[8px] text-[14px] font-medium transition-all button-press button-hover ${activeTab === tab.id ? 'bg-[#003366] text-white shadow-md' : 'text-[#333333] hover:bg-[#F5F7FA]'}`}>
+          return <button key={tab.id} onClick={() => setActiveTab(tab.id)} className={`flex-1 flex items-center justify-center gap-2 py-3 px-4 rounded-[8px] text-[14px] font-medium transition-all button-press button-hover ${activeTab === tab.id ? 'bg-[#0A2463] text-white shadow-md' : 'text-[#333333] hover:bg-[#F5F7FA]'}`}>
                 <Icon className="w-4 h-4" />
                 {tab.label}
               </button>;
@@ -324,7 +324,7 @@ export default function LeavePage(props) {
         {/* 请假申请表单 */}
         {activeTab === 'apply' && <div className="bg-white rounded-[8px] shadow-md p-6">
             <h2 className="text-[18px] font-bold text-[#333333] mb-6 flex items-center gap-2">
-              <FileText className="w-5 h-5 text-[#003366]" />
+              <FileText className="w-5 h-5 text-[#0A2463]" />
               请假申请
             </h2>
             <Form {...form}>
@@ -380,7 +380,7 @@ export default function LeavePage(props) {
                       <FormMessage />
                     </FormItem>} />
 
-                <Button type="submit" disabled={submitting} className="w-full bg-[#003366] hover:bg-[#004488] rounded-[8px] button-press button-hover">
+                <Button type="submit" disabled={submitting} className="w-full bg-[#0A2463] hover:bg-[#0D2E7A] rounded-[8px] button-press button-hover">
                   {submitting ? '提交中...' : '提交申请'}
                 </Button>
               </form>
@@ -408,7 +408,7 @@ export default function LeavePage(props) {
                       <span className="font-medium">审批人：</span>
                       {record.approver}
                     </div>}
-                  {record.approvalTarget && !record.approver && <div className="text-[14px] text-[#003366] mt-1">
+                  {record.approvalTarget && !record.approver && <div className="text-[14px] text-[#0A2463] mt-1">
                       <span className="font-medium">审批目标：</span>
                       {record.approvalTarget}
                     </div>}
@@ -442,7 +442,7 @@ export default function LeavePage(props) {
                       {record.reason && <p className="text-[14px] text-[#999999] mt-1">
                           原因：{record.reason}
                         </p>}
-                      {record.approvalTarget && <p className="text-[12px] text-[#003366] mt-1">
+                      {record.approvalTarget && <p className="text-[12px] text-[#0A2463] mt-1">
                           审批目标：{record.approvalTarget}
                         </p>}
                     </div>
@@ -475,7 +475,7 @@ export default function LeavePage(props) {
                         </p>
                       </div>
                     </div>
-                    <Button size="sm" onClick={() => handleReturn(record)} className="w-full bg-[#003366] hover:bg-[#004488] rounded-[8px] button-press button-hover">
+                    <Button size="sm" onClick={() => handleReturn(record)} className="w-full bg-[#0A2463] hover:bg-[#0D2E7A] rounded-[8px] button-press button-hover">
                       销假
                     </Button>
                   </div>)}

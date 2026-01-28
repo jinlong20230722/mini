@@ -248,14 +248,14 @@ export default function Home(props) {
       </div>;
   }
   return <div className="min-h-screen bg-[#F0F2F5] pb-20">
-      {/* 顶部导航栏 - 深蓝色背景 */}
-      <div className="bg-[#1A3A52] text-white px-4 py-4 shadow-lg">
+      {/* 顶部导航栏 - 警务蓝色背景 */}
+      <div className="bg-[#0A2463] text-white px-4 py-4 shadow-lg">
         <div className="flex items-center justify-between">
           <div>
             <h1 className="font-bold text-[24px]">天顺保安</h1>
           </div>
           <div className="flex items-center space-x-3">
-            <button onClick={handleTopRightAction} className="flex items-center space-x-1 text-[14px] text-[#1A3A52] bg-white rounded-[8px] px-3 py-2 button-press button-hover transition-all duration-300">
+            <button onClick={handleTopRightAction} className="flex items-center space-x-1 text-[14px] text-[#0A2463] bg-white rounded-[8px] px-3 py-2 button-press button-hover transition-all duration-300">
               <UserCheck className="w-4 h-4" />
               <span className="font-medium">入职登记</span>
             </button>
@@ -337,7 +337,7 @@ export default function Home(props) {
                 <div className="text-[12px] text-[#7F8C8D] mt-1">今日打卡</div>
               </div>
               <div className="text-center">
-                <div className="text-[24px] font-bold text-[#1A3A52] transition-all duration-300 hover:scale-110">{attendanceStats.monthCount}</div>
+                <div className="text-[24px] font-bold text-[#0A2463] transition-all duration-300 hover:scale-110">{attendanceStats.monthCount}</div>
                 <div className="text-[12px] text-[#7F8C8D] mt-1">本月打卡</div>
               </div>
               <div className="text-center">
@@ -375,7 +375,7 @@ export default function Home(props) {
                 <div className="text-[12px] text-[#7F8C8D] mt-1">今日上报</div>
               </div>
               <div className="text-center">
-                <div className="text-[24px] font-bold text-[#1A3A52] transition-all duration-300 hover:scale-110">{eventStats.monthCount}</div>
+                <div className="text-[24px] font-bold text-[#0A2463] transition-all duration-300 hover:scale-110">{eventStats.monthCount}</div>
                 <div className="text-[12px] text-[#7F8C8D] mt-1">本月上报</div>
               </div>
               <div className="text-center">

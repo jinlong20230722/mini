@@ -27,7 +27,7 @@ export default function EventReport(props) {
     id: '培训演习',
     label: '培训演习',
     icon: Shield,
-    color: 'bg-[#003366]',
+    color: 'bg-[#0A2463]',
     desc: '培训、演练活动'
   }, {
     id: '好人好事',
@@ -51,7 +51,7 @@ export default function EventReport(props) {
     id: '警保联动',
     label: '警保联动',
     icon: Users,
-    color: 'bg-[#003366]',
+    color: 'bg-[#0A2463]',
     desc: '警保协同工作'
   }, {
     id: '临时勤务',
@@ -335,15 +335,15 @@ export default function EventReport(props) {
   if (loading) {
     return <div className="min-h-screen bg-[#F5F7FA] flex items-center justify-center">
         <div className="text-center">
-          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-[#003366] mx-auto mb-4"></div>
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-[#0A2463] mx-auto mb-4"></div>
           <p className="text-[#999999]">加载中...</p>
         </div>
       </div>;
   }
   return <div className="min-h-screen bg-[#F5F7FA]">
       {/* 顶部导航栏 - 深蓝色 */}
-      <div className="bg-[#003366] text-white px-4 py-4 flex items-center justify-between shadow-lg">
-        <button onClick={() => $w.utils.navigateBack()} className="flex items-center space-x-2 hover:bg-[#004488] px-3 py-2 rounded-[8px] transition-colors button-press">
+      <div className="bg-[#0A2463] text-white px-4 py-4 flex items-center justify-between shadow-lg">
+        <button onClick={() => $w.utils.navigateBack()} className="flex items-center space-x-2 hover:bg-[#0D2E7A] px-3 py-2 rounded-[8px] transition-colors button-press">
           <ArrowLeft className="w-5 h-5" />
           <span className="font-medium">返回</span>
         </button>
@@ -359,7 +359,7 @@ export default function EventReport(props) {
             {eventTypes.map(type => {
             const Icon = type.icon;
             const isSelected = selectedType === type.id;
-            return <button key={type.id} onClick={() => handleSelectType(type.id)} className={`p-4 rounded-[8px] border-2 transition-all button-press button-hover ${isSelected ? `${type.color} border-transparent text-white shadow-lg scale-105` : 'border-[#E8E8E8] hover:border-[#003366] hover:shadow-md'}`}>
+            return <button key={type.id} onClick={() => handleSelectType(type.id)} className={`p-4 rounded-[8px] border-2 transition-all button-press button-hover ${isSelected ? `${type.color} border-transparent text-white shadow-lg scale-105` : 'border-[#E8E8E8] hover:border-[#0A2463] hover:shadow-md'}`}>
                   <div className="flex flex-col items-center text-center space-y-2">
                     <Icon className={`w-8 h-8 ${isSelected ? 'text-white' : 'text-[#333333]'}`} />
                     <div>
@@ -380,12 +380,12 @@ export default function EventReport(props) {
         <div className="bg-white rounded-[8px] shadow-md p-4">
           <div className="flex items-center justify-between mb-3">
             <h2 className="text-[14px] font-bold text-[#333333]">事件描述</h2>
-            <button onMouseDown={handleVoicePressStart} onMouseUp={handleVoicePressEnd} onMouseLeave={handleVoicePressEnd} onTouchStart={handleVoicePressStart} onTouchEnd={handleVoicePressEnd} className={`flex items-center space-x-2 px-4 py-2 rounded-[8px] text-[14px] font-medium transition-all select-none touch-manipulation button-press button-hover ${isRecording ? 'bg-[#D92121] text-white animate-pulse scale-105' : 'bg-[#003366] text-white hover:bg-[#004488]'}`}>
+            <button onMouseDown={handleVoicePressStart} onMouseUp={handleVoicePressEnd} onMouseLeave={handleVoicePressEnd} onTouchStart={handleVoicePressStart} onTouchEnd={handleVoicePressEnd} className={`flex items-center space-x-2 px-4 py-2 rounded-[8px] text-[14px] font-medium transition-all select-none touch-manipulation button-press button-hover ${isRecording ? 'bg-[#D92121] text-white animate-pulse scale-105' : 'bg-[#0A2463] text-white hover:bg-[#0D2E7A]'}`}>
               <Mic className="w-5 h-5" />
               <span>{isRecording ? '松开停止' : '按住语音输入'}</span>
             </button>
           </div>
-          <textarea value={description} onChange={e => setDescription(e.target.value)} placeholder="请详细描述事件情况..." className="w-full h-32 px-4 py-3 border border-[#E8E8E8] rounded-[8px] text-[14px] focus:outline-none focus:ring-2 focus:ring-[#003366] focus:border-transparent resize-none" />
+          <textarea value={description} onChange={e => setDescription(e.target.value)} placeholder="请详细描述事件情况..." className="w-full h-32 px-4 py-3 border border-[#E8E8E8] rounded-[8px] text-[14px] focus:outline-none focus:ring-2 focus:ring-[#0A2463] focus:border-transparent resize-none" />
           <p className="text-[12px] text-[#999999] mt-2">支持语音输入自动转文字</p>
         </div>
 
@@ -397,14 +397,14 @@ export default function EventReport(props) {
             <div className="grid grid-cols-2 gap-3">
               <label className="cursor-pointer">
                 <input type="file" accept="image/*" multiple onChange={handleFileUpload} className="hidden" />
-                <div className="p-4 border-2 border-dashed border-[#E8E8E8] rounded-[8px] hover:border-[#003366] hover:bg-[#F5F7FA] transition-all text-center button-press">
+                <div className="p-4 border-2 border-dashed border-[#E8E8E8] rounded-[8px] hover:border-[#0A2463] hover:bg-[#F5F7FA] transition-all text-center button-press">
                   <Camera className="w-8 h-8 mx-auto mb-2 text-[#BFBFBF]" />
                   <p className="text-[12px] font-medium text-[#333333]">拍照</p>
                 </div>
               </label>
               <label className="cursor-pointer">
                 <input type="file" accept="video/*" multiple onChange={handleFileUpload} className="hidden" />
-                <div className="p-4 border-2 border-dashed border-[#E8E8E8] rounded-[8px] hover:border-[#003366] hover:bg-[#F5F7FA] transition-all text-center button-press">
+                <div className="p-4 border-2 border-dashed border-[#E8E8E8] rounded-[8px] hover:border-[#0A2463] hover:bg-[#F5F7FA] transition-all text-center button-press">
                   <Video className="w-8 h-8 mx-auto mb-2 text-[#BFBFBF]" />
                   <p className="text-[12px] font-medium text-[#333333]">录像</p>
                 </div>
@@ -440,7 +440,7 @@ export default function EventReport(props) {
               <p className="text-[12px] text-[#999999] mb-1">当前位置</p>
               <p className="text-[14px] font-medium text-[#333333] truncate">{address || '获取中...'}</p>
             </div>
-            <button onClick={getCurrentLocation} className="px-3 py-1.5 bg-[#F5F7FA] text-[#003366] text-[12px] font-medium rounded-[8px] hover:bg-[#E8E8E8] transition-colors button-press button-hover">
+            <button onClick={getCurrentLocation} className="px-3 py-1.5 bg-[#F5F7FA] text-[#0A2463] text-[12px] font-medium rounded-[8px] hover:bg-[#E8E8E8] transition-colors button-press button-hover">
               重新定位
             </button>
           </div>

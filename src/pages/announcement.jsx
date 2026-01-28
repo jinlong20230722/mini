@@ -140,7 +140,7 @@ export default function Announcement(props) {
       case '表彰公告':
         return 'bg-[#FFF7E6] text-[#FA8C16] border-[#FFD591]';
       case '公司通知':
-        return 'bg-[#E6F7FF] text-[#003366] border-[#91D5FF]';
+        return 'bg-[#E6F7FF] text-[#0A2463] border-[#91D5FF]';
       case '活动通知':
         return 'bg-[#E8F5E9] text-[#007A5A] border-[#95DE64]';
       default:
@@ -179,7 +179,7 @@ export default function Announcement(props) {
   }
   return <div className="min-h-screen bg-[#F5F7FA]">
       {/* 顶部导航栏 */}
-      <div className="bg-[#003366] text-white px-4 py-4 shadow-lg sticky top-0 z-10">
+      <div className="bg-[#0A2463] text-white px-4 py-4 shadow-lg sticky top-0 z-10">
         <div className="flex items-center justify-between">
           <div className="flex items-center">
             <button onClick={handleBack} className="p-2 hover:bg-white/10 rounded-full transition-all duration-300 button-press mr-2">
@@ -196,11 +196,11 @@ export default function Announcement(props) {
       {/* 主内容区域 */}
       <div className="px-4 py-6 pb-8">
         {/* 页面说明 - 装饰边框 */}
-        <div className="bg-[#F5F7FA] rounded-xl p-4 mb-6 border-l-4 border-[#003366] animate-fade-in-up hover-lift" style={{
+        <div className="bg-[#F5F7FA] rounded-xl p-4 mb-6 border-l-4 border-[#0A2463] animate-fade-in-up hover-lift" style={{
         animationDelay: '0.1s'
       }}>
           <div className="flex items-start">
-            <div className="bg-[#003366] rounded-full p-2 mr-3">
+            <div className="bg-[#0A2463] rounded-full p-2 mr-3">
               <Megaphone className="w-4 h-4 text-white" />
             </div>
             <div className="flex-1">

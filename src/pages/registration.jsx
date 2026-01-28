@@ -331,14 +331,14 @@ export default function RegistrationPage(props) {
   if (loading) {
     return <div className="min-h-screen bg-[#F5F7FA] flex items-center justify-center">
         <div className="text-center">
-          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-[#003366] mx-auto mb-4"></div>
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-[#0A2463] mx-auto mb-4"></div>
           <p className="text-[#999999]">加载中...</p>
         </div>
       </div>;
   }
   return <div className="min-h-screen bg-[#F5F7FA] pb-24">
       {/* 顶部导航栏 */}
-      <div className="bg-[#003366] text-white px-4 py-4 sticky top-0 z-10 shadow-lg">
+      <div className="bg-[#0A2463] text-white px-4 py-4 sticky top-0 z-10 shadow-lg">
         <div className="flex items-center justify-between">
           <button onClick={() => props.$w.utils.navigateTo({
           pageId: 'home',
@@ -354,7 +354,7 @@ export default function RegistrationPage(props) {
 
       <div className="px-4 py-6 max-w-lg mx-auto">
         {/* 状态卡片 */}
-        <div className={`rounded-xl p-4 mb-6 flex items-center gap-3 shadow-md ${isRegistered ? 'bg-[#52C41A] text-white' : 'bg-[#003366] text-white'}`}>
+        <div className={`rounded-xl p-4 mb-6 flex items-center gap-3 shadow-md ${isRegistered ? 'bg-[#52C41A] text-white' : 'bg-[#0A2463] text-white'}`}>
           {isRegistered ? <CheckCircle2 className="w-8 h-8 flex-shrink-0" /> : <AlertCircle className="w-8 h-8 flex-shrink-0" />}
           <div>
             <p className="font-semibold text-lg">
@@ -372,7 +372,7 @@ export default function RegistrationPage(props) {
             {/* 基本信息 */}
             <div className="bg-white rounded-xl p-4 shadow-sm">
               <h2 className="text-lg font-semibold text-[#333333] mb-4 flex items-center gap-2">
-                <User className="w-5 h-5 text-[#003366]" />
+                <User className="w-5 h-5 text-[#0A2463]" />
                 基本信息
               </h2>
               
@@ -382,7 +382,7 @@ export default function RegistrationPage(props) {
               }) => <FormItem>
                       <FormLabel className="text-[#333333]">姓名 *</FormLabel>
                       <FormControl>
-                        <Input placeholder="请输入姓名" {...field} className="border-[#E8E8E8] focus:border-[#003366]" />
+                        <Input placeholder="请输入姓名" {...field} className="border-[#E8E8E8] focus:border-[#0A2463]" />
                       </FormControl>
                       <FormMessage />
                     </FormItem>} />
@@ -392,7 +392,7 @@ export default function RegistrationPage(props) {
               }) => <FormItem>
                       <FormLabel className="text-[#333333]">手机号 *</FormLabel>
                       <FormControl>
-                        <Input placeholder="请输入手机号" type="tel" {...field} className="border-[#E8E8E8] focus:border-[#003366]" />
+                        <Input placeholder="请输入手机号" type="tel" {...field} className="border-[#E8E8E8] focus:border-[#0A2463]" />
                       </FormControl>
                       <FormMessage />
                     </FormItem>} />
@@ -403,7 +403,7 @@ export default function RegistrationPage(props) {
                       <FormLabel className="text-[#333333]">部门 *</FormLabel>
                       <Select onValueChange={field.onChange} value={field.value}>
                         <FormControl>
-                          <SelectTrigger className="border-[#E8E8E8] focus:border-[#003366]">
+                          <SelectTrigger className="border-[#E8E8E8] focus:border-[#0A2463]">
                             <SelectValue placeholder="请选择部门" />
                           </SelectTrigger>
                         </FormControl>
@@ -433,7 +433,7 @@ export default function RegistrationPage(props) {
                       <FormLabel className="text-[#333333]">职务 *</FormLabel>
                       <Select onValueChange={field.onChange} value={field.value}>
                         <FormControl>
-                          <SelectTrigger className="border-[#E8E8E8] focus:border-[#003366]">
+                          <SelectTrigger className="border-[#E8E8E8] focus:border-[#0A2463]">
                             <SelectValue placeholder="请选择职务" />
                           </SelectTrigger>
                         </FormControl>
@@ -453,7 +453,7 @@ export default function RegistrationPage(props) {
               }) => <FormItem>
                       <FormLabel className="text-[#333333]">入职时间 *</FormLabel>
                       <FormControl>
-                        <Input type="date" {...field} className="border-[#E8E8E8] focus:border-[#003366]" />
+                        <Input type="date" {...field} className="border-[#E8E8E8] focus:border-[#0A2463]" />
                       </FormControl>
                       <FormMessage />
                     </FormItem>} />
@@ -463,7 +463,7 @@ export default function RegistrationPage(props) {
             {/* 身份证信息 */}
             <div className="bg-white rounded-xl p-4 shadow-sm">
               <h2 className="text-lg font-semibold text-[#333333] mb-4 flex items-center gap-2">
-                <IdCard className="w-5 h-5 text-[#003366]" />
+                <IdCard className="w-5 h-5 text-[#0A2463]" />
                 身份证信息
               </h2>
 
@@ -474,7 +474,7 @@ export default function RegistrationPage(props) {
                     <label className="block text-sm font-medium text-[#333333] mb-2 text-center">
                       身份证正面 *
                     </label>
-                    <div className="border-2 border-dashed border-[#E8E8E8] rounded-lg p-4 hover:border-[#003366] transition-colors">
+                    <div className="border-2 border-dashed border-[#E8E8E8] rounded-lg p-4 hover:border-[#0A2463] transition-colors">
                       {idCardFront ? <div className="relative">
                           <img src={idCardFront} alt="身份证正面" className="w-full h-40 object-cover rounded-lg" />
                           <button type="button" onClick={() => removeDocument(null, 'front')} className="absolute top-2 right-2 bg-red-500 text-white rounded-full p-1 hover:bg-red-600 transition-colors">
@@ -492,7 +492,7 @@ export default function RegistrationPage(props) {
                     <label className="block text-sm font-medium text-[#333333] mb-2 text-center">
                       身份证背面 *
                     </label>
-                    <div className="border-2 border-dashed border-[#E8E8E8] rounded-lg p-4 hover:border-[#003366] transition-colors">
+                    <div className="border-2 border-dashed border-[#E8E8E8] rounded-lg p-4 hover:border-[#0A2463] transition-colors">
                       {idCardBack ? <div className="relative">
                           <img src={idCardBack} alt="身份证背面" className="w-full h-40 object-cover rounded-lg" />
                           <button type="button" onClick={() => removeDocument(null, 'back')} className="absolute top-2 right-2 bg-red-500 text-white rounded-full p-1 hover:bg-red-600 transition-colors">
@@ -527,7 +527,7 @@ export default function RegistrationPage(props) {
                 }) => <FormItem>
                         <FormLabel className="text-[#333333]">户籍所在地 *</FormLabel>
                         <FormControl>
-                          <Input placeholder="上传身份证正面自动识别" {...field} className="border-[#E8E8E8] focus:border-[#003366]" />
+                          <Input placeholder="上传身份证正面自动识别" {...field} className="border-[#E8E8E8] focus:border-[#0A2463]" />
                         </FormControl>
                         <FormMessage />
                       </FormItem>} />
@@ -538,7 +538,7 @@ export default function RegistrationPage(props) {
             {/* 紧急联系人 */}
             <div className="bg-white rounded-xl p-4 shadow-sm">
               <h2 className="text-lg font-semibold text-[#333333] mb-4 flex items-center gap-2">
-                <PhoneCall className="w-5 h-5 text-[#003366]" />
+                <PhoneCall className="w-5 h-5 text-[#0A2463]" />
                 紧急联系人
               </h2>
 
@@ -548,7 +548,7 @@ export default function RegistrationPage(props) {
               }) => <FormItem>
                       <FormLabel className="text-[#333333]">紧急联系人 *</FormLabel>
                       <FormControl>
-                        <Input placeholder="请输入紧急联系人姓名" {...field} className="border-[#E8E8E8] focus:border-[#003366]" />
+                        <Input placeholder="请输入紧急联系人姓名" {...field} className="border-[#E8E8E8] focus:border-[#0A2463]" />
                       </FormControl>
                       <FormMessage />
                     </FormItem>} />
@@ -558,7 +558,7 @@ export default function RegistrationPage(props) {
               }) => <FormItem>
                       <FormLabel className="text-[#333333]">紧急联系电话 *</FormLabel>
                       <FormControl>
-                        <Input placeholder="请输入紧急联系电话" type="tel" {...field} className="border-[#E8E8E8] focus:border-[#003366]" />
+                        <Input placeholder="请输入紧急联系电话" type="tel" {...field} className="border-[#E8E8E8] focus:border-[#0A2463]" />
                       </FormControl>
                       <FormMessage />
                     </FormItem>} />
@@ -568,11 +568,11 @@ export default function RegistrationPage(props) {
             {/* 其他证件 */}
             <div className="bg-white rounded-xl p-4 shadow-sm">
               <h2 className="text-lg font-semibold text-[#333333] mb-4 flex items-center gap-2">
-                <Briefcase className="w-5 h-5 text-[#003366]" />
+                <Briefcase className="w-5 h-5 text-[#0A2463]" />
                 其他证件
               </h2>
 
-              <div className="border-2 border-dashed border-[#E8E8E8] rounded-lg p-4 hover:border-[#003366] transition-colors">
+              <div className="border-2 border-dashed border-[#E8E8E8] rounded-lg p-4 hover:border-[#0A2463] transition-colors">
                 <label className="flex flex-col items-center justify-center cursor-pointer">
                   <Upload className="w-8 h-8 text-[#BFBFBF] mb-2" />
                   <span className="text-sm text-[#666666]">点击上传其他证件（可多选）</span>
@@ -592,7 +592,7 @@ export default function RegistrationPage(props) {
             </div>
 
             {/* 提交按钮 */}
-            <Button type="submit" disabled={submitting} className="w-full bg-[#003366] hover:bg-[#004488] text-white font-semibold py-6 text-lg shadow-lg button-press button-hover rounded-[8px]">
+            <Button type="submit" disabled={submitting} className="w-full bg-[#0A2463] hover:bg-[#0D2E7A] text-white font-semibold py-6 text-lg shadow-lg button-press button-hover rounded-[8px]">
               {submitting ? <span className="flex items-center gap-2">
                   <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-white"></div>
                   提交中...

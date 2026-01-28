@@ -238,14 +238,14 @@ export default function CheckIn(props) {
   if (loading) {
     return <div className="min-h-screen bg-[#F5F7FA] flex items-center justify-center">
         <div className="text-center">
-          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-[#003366] mx-auto mb-4"></div>
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-[#0A2463] mx-auto mb-4"></div>
           <p className="text-[#999999]">加载中...</p>
         </div>
       </div>;
   }
   return <div className="min-h-screen bg-[#F5F7FA] pb-24">
       {/* 顶部导航栏 - 深蓝色 */}
-      <div className="bg-[#003366] text-white px-4 py-3 shadow-lg">
+      <div className="bg-[#0A2463] text-white px-4 py-3 shadow-lg">
         <div className="flex items-center justify-between">
           <button onClick={() => $w.utils.navigateBack()} className="flex items-center text-white hover:text-[#E8E8E8] transition-colors button-press">
             <svg className="w-5 h-5 mr-1.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -262,24 +262,24 @@ export default function CheckIn(props) {
         {/* 当前时间和位置信息 - 1x1 并排布局 */}
         <div className="grid grid-cols-2 gap-3">
           {/* 当前时间卡片 */}
-          <Card className="shadow-md border-l-4 border-l-[#003366] rounded-[8px]">
+          <Card className="shadow-md border-l-4 border-l-[#0A2463] rounded-[8px]">
             <CardHeader className="pb-1.5 pt-3 px-3">
-              <CardTitle className="text-[12px] flex items-center text-[#003366]">
+              <CardTitle className="text-[12px] flex items-center text-[#0A2463]">
                 <Clock className="w-3.5 h-3.5 mr-1" />
                 当前时间
               </CardTitle>
             </CardHeader>
             <CardContent className="pt-0 px-3 pb-3">
-              <div className="text-[18px] font-bold text-[#003366] font-mono">
+              <div className="text-[18px] font-bold text-[#0A2463] font-mono">
                 {currentTime}
               </div>
             </CardContent>
           </Card>
 
           {/* 位置信息卡片 */}
-          <Card className="shadow-md border-l-4 border-l-[#003366] rounded-[8px]">
+          <Card className="shadow-md border-l-4 border-l-[#0A2463] rounded-[8px]">
             <CardHeader className="pb-1.5 pt-3 px-3">
-              <CardTitle className="text-[12px] flex items-center text-[#003366]">
+              <CardTitle className="text-[12px] flex items-center text-[#0A2463]">
                 <MapPin className="w-3.5 h-3.5 mr-1" />
                 打卡位置
               </CardTitle>
@@ -343,14 +343,14 @@ export default function CheckIn(props) {
               </div> : <div className="grid grid-cols-2 gap-2">
                 <label className="cursor-pointer">
                   <input type="file" accept="image/*" onChange={handleFileSelect} className="hidden" />
-                  <div className="p-3 border-2 border-dashed border-[#E8E8E8] rounded-[8px] hover:border-[#003366] hover:bg-[#F5F7FA] transition-all text-center button-press">
+                  <div className="p-3 border-2 border-dashed border-[#E8E8E8] rounded-[8px] hover:border-[#0A2463] hover:bg-[#F5F7FA] transition-all text-center button-press">
                     <Camera className="w-6 h-6 mx-auto mb-1 text-[#BFBFBF]" />
                     <p className="text-[12px] font-medium text-[#333333]">拍照</p>
                   </div>
                 </label>
                 <label className="cursor-pointer">
                   <input type="file" accept="video/*" onChange={handleFileSelect} className="hidden" />
-                  <div className="p-3 border-2 border-dashed border-[#E8E8E8] rounded-[8px] hover:border-[#003366] hover:bg-[#F5F7FA] transition-all text-center button-press">
+                  <div className="p-3 border-2 border-dashed border-[#E8E8E8] rounded-[8px] hover:border-[#0A2463] hover:bg-[#F5F7FA] transition-all text-center button-press">
                     <Video className="w-6 h-6 mx-auto mb-1 text-[#BFBFBF]" />
                     <p className="text-[12px] font-medium text-[#333333]">录像</p>
                   </div>

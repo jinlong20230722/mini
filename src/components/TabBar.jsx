@@ -29,8 +29,8 @@ export function TabBar({
         {tabs.map(tab => {
         const Icon = tab.icon;
         const isActive = activeTab === tab.id;
-        return <button key={tab.id} onClick={() => onTabChange(tab.id)} className={`flex flex-col items-center gap-1 px-4 py-2 rounded-lg transition-all duration-300 button-press button-hover ${isActive ? 'text-[#1A3A52] bg-[#F0F2F5] tab-active' : 'text-[#7F8C8D] hover:text-[#2C3E50]'}`}>
-              <Icon size={24} className={isActive ? 'text-[#1A3A52]' : 'text-[#7F8C8D]'} />
+        return <button key={tab.id} onClick={() => onTabChange(tab.id)} className={`flex flex-col items-center gap-1 px-4 py-2 rounded-lg transition-all duration-300 button-press button-hover ${isActive ? 'text-[#0A2463] bg-[#F0F2F5] tab-active' : 'text-[#7F8C8D] hover:text-[#2C3E50]'}`}>
+              <Icon size={24} className={isActive ? 'text-[#0A2463]' : 'text-[#7F8C8D]'} />
               <span className="text-xs font-medium">{tab.label}</span>
             </button>;
       })}

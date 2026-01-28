@@ -94,9 +94,9 @@ export default function Duty(props) {
   const colorClasses = {
     blue: {
       bg: 'bg-[#E6F7FF]',
-      text: 'text-[#003366]',
+      text: 'text-[#0A2463]',
       border: 'border-[#91D5FF]',
-      icon: 'text-[#003366]'
+      icon: 'text-[#0A2463]'
     },
     green: {
       bg: 'bg-[#E8F5E9]',
@@ -125,7 +125,7 @@ export default function Duty(props) {
   };
   return <div className="min-h-screen bg-[#F5F7FA] pb-20">
       {/* 顶部导航栏 */}
-      <div className="bg-[#003366] text-white px-4 py-4 shadow-lg">
+      <div className="bg-[#0A2463] text-white px-4 py-4 shadow-lg">
         <div className="flex items-center justify-between">
           <h1 className="text-[18px] font-bold">岗位职责</h1>
         </div>
@@ -136,7 +136,7 @@ export default function Duty(props) {
         <div className="bg-white rounded-xl shadow-card overflow-hidden animate-fade-in-up hover-lift" style={{
         animationDelay: '0.1s'
       }}>
-          <div className={`p-4 cursor-pointer flex items-center justify-between transition-all duration-300 ease-in-out ${expandedSections.ethics ? 'bg-[#003366] text-white' : 'bg-gray-50 hover:bg-gray-100'}`} onClick={() => toggleSection('ethics')}>
+          <div className={`p-4 cursor-pointer flex items-center justify-between transition-all duration-300 ease-in-out ${expandedSections.ethics ? 'bg-[#0A2463] text-white' : 'bg-gray-50 hover:bg-gray-100'}`} onClick={() => toggleSection('ethics')}>
             <div className="flex items-center gap-3">
               <div className={`p-2 rounded-lg ${expandedSections.ethics ? 'bg-white/20' : 'bg-[#F5F7FA]'}`}>
                 <Shield size={24} className={expandedSections.ethics ? 'text-white' : 'text-[#333333]'} />
@@ -147,7 +147,7 @@ export default function Duty(props) {
           </div>
           
           {expandedSections.ethics && <div className="p-4 space-y-4 transition-all duration-300 ease-in-out">
-              {ethicsContent.items.map((item, index) => <div key={index} className="p-4 bg-[#F5F7FA] rounded-lg border-l-4 border-[#003366] transition-all duration-300 ease-in-out hover:shadow-md hover-lift">
+              {ethicsContent.items.map((item, index) => <div key={index} className="p-4 bg-[#F5F7FA] rounded-lg border-l-4 border-[#0A2463] transition-all duration-300 ease-in-out hover:shadow-md hover-lift">
                   <h3 className="font-semibold text-[#333333] mb-2 font-['Space_Grotesk']">{item.title}</h3>
                   <p className="text-[#666666] text-sm leading-relaxed font-['JetBrains_Mono']">{item.content}</p>
                 </div>)}
@@ -184,11 +184,11 @@ export default function Duty(props) {
       })}
 
         {/* 底部提示 - 装饰边框 */}
-        <div className="bg-[#F5F7FA] rounded-xl p-4 border-l-4 border-[#003366] animate-fade-in-up hover-lift" style={{
+        <div className="bg-[#F5F7FA] rounded-xl p-4 border-l-4 border-[#0A2463] animate-fade-in-up hover-lift" style={{
         animationDelay: '0.8s'
       }}>
           <div className="flex items-start gap-3">
-            <div className="bg-[#003366] p-2 rounded-lg">
+            <div className="bg-[#0A2463] p-2 rounded-lg">
               <AlertTriangle className="text-white flex-shrink-0" size={20} />
             </div>
             <div>
