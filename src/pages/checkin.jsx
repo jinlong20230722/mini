@@ -34,18 +34,18 @@ export default function CheckIn(props) {
   const [attachments, setAttachments] = useState([]);
   const [previewUrl, setPreviewUrl] = useState(null);
 
-  // 逆地理编码：将经纬度转换为详细地址
+  // 逆地理编码：将经纬度转换为详细地址（使用腾讯地图 API）
   const reverseGeocode = async (latitude, longitude) => {
     try {
-      // 使用高德地图逆地理编码 API
-      // 注意：实际项目中需要替换为您自己的高德地图 API Key
-      const AMAP_API_KEY = 'YOUR_AMAP_API_KEY'; // 请替换为真实的高德地图 API Key
-      const url = `https://restapi.amap.com/v3/geocode/regeo?key=${AMAP_API_KEY}&location=${longitude},${latitude}&poitype=&radius=1000&extensions=base&batch=false&roadlevel=0`;
+      // 使用腾讯地图逆地理编码 API
+      // 注意：实际项目中需要替换为您自己的腾讯地图 API Key
+      const TENCENT_MAP_KEY = 'YOUR_TENCENT_MAP_KEY'; // 请替换为真实的腾讯地图 API Key
+      const url = `https://apis.map.qq.com/ws/geocoder/v1/?location=${latitude},${longitude}&key=${TENCENT_MAP_KEY}&get_poi=1`;
       const response = await fetch(url);
       const data = await response.json();
-      if (data.status === '1' && data.regeocode) {
-        const addressComponent = data.regeocode.addressComponent || {};
-        const formattedAddress = data.regeocode.formatted_address || '';
+      if (data.status === 0 && data.result) {
+        const addressComponent = data.result.address_component || {};
+        const formattedAddress = data.result.address || '';
 
         // 构建标准地址格式
         const province = addressComponent.province || '';
@@ -53,7 +53,7 @@ export default function CheckIn(props) {
         const district = addressComponent.district || '';
         const township = addressComponent.township || '';
         const street = addressComponent.street || '';
-        const streetNumber = addressComponent.streetNumber || '';
+        const streetNumber = addressComponent.street_number || '';
 
         // 组合详细地址
         let detailAddress = '';
@@ -74,14 +74,14 @@ export default function CheckIn(props) {
           streetNumber
         };
       } else {
-        throw new Error(data.info || '逆地理编码失败');
+        throw new Error(data.message || '逆地理编码失败');
       }
     } catch (error) {
       console.error('逆地理编码失败:', error);
-      // 如果高德 API 失败，使用备用方案
+      // 如果腾讯地图 API 失败，返回错误信息
       return {
-        formatted: `${latitude.toFixed(6)}, ${longitude.toFixed(6)}`,
-        detail: `纬度: ${latitude.toFixed(6)}, 经度: ${longitude.toFixed(6)}`,
+        formatted: '地址解析失败',
+        detail: '无法获取详细地址信息',
         province: '',
         city: '',
         district: '',
@@ -408,13 +408,7 @@ export default function CheckIn(props) {
                   </div>
                 </div>}
               
-              {/* 经纬度坐标 */}
-              <div className="flex items-center space-x-1">
-                <div className="w-3 h-3 rounded-full bg-[#BFBFBF] flex-shrink-0"></div>
-                <p className="text-[12px] text-[#999999]">
-                  坐标: {location.longitude?.toFixed(6) || '--'}, {location.latitude?.toFixed(6) || '--'}
-                </p>
-              </div>
+
               
               {/* 重新定位按钮 */}
               <Button onClick={getCurrentLocation} variant="outline" size="sm" className="w-full mt-1 h-7 text-[12px] rounded-[4px] border-[#3B82F6] text-[#3B82F6] hover:bg-[#DBEAFE]">
