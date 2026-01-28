@@ -213,23 +213,23 @@ export default function LeavePage(props) {
   const getStatusBadge = status => {
     const statusConfig = {
       '待审批': {
-        bg: 'bg-[#FFF7E6]',
-        text: 'text-[#FA8C16]',
+        bg: 'bg-[#FEF3C7]',
+        text: 'text-[#D97706]',
         icon: Clock
       },
       '已通过': {
-        bg: 'bg-[#E8F0E8]',
-        text: 'text-[#3D5A3D]',
+        bg: 'bg-[#D1FAE5]',
+        text: 'text-[#047857]',
         icon: CheckCircle
       },
       '已驳回': {
-        bg: 'bg-[#FFF1F0]',
-        text: 'text-[#D92121]',
+        bg: 'bg-[#FEE2E2]',
+        text: 'text-[#DC2626]',
         icon: XCircle
       },
       '已销假': {
-        bg: 'bg-[#E6F7FF]',
-        text: 'text-[#0A2463]',
+        bg: 'bg-[#DBEAFE]',
+        text: 'text-[#1E40AF]',
         icon: UserCheck
       }
     };
@@ -252,42 +252,42 @@ export default function LeavePage(props) {
     });
   };
   if (loading) {
-    return <div className="min-h-screen bg-[#F5F7FA] flex items-center justify-center">
+    return <div className="min-h-screen bg-[#F8FAFC] flex items-center justify-center">
         <div className="text-center">
-          <div className="inline-block animate-spin rounded-full h-12 w-12 border-b-2 border-[#0A2463]"></div>
+          <div className="inline-block animate-spin rounded-full h-12 w-12 border-b-2 border-[#3B82F6]"></div>
           <p className="mt-4 text-[#999999]">加载中...</p>
         </div>
       </div>;
   }
   if (!hasPermission) {
-    return <div className="min-h-screen bg-[#F5F7FA] flex items-center justify-center p-4">
+    return <div className="min-h-screen bg-[#F8FAFC] flex items-center justify-center p-4">
         <div className="bg-white rounded-[4px] shadow-sm p-8 max-w-md w-full text-center">
-          <AlertCircle className="w-16 h-16 text-[#D92121] mx-auto mb-4" />
-          <h2 className="text-[20px] font-bold text-[#333333] mb-2">权限不足</h2>
-          <p className="text-[#999999] mb-6">仅班长、队长、部长、办公室人员、开发者可访问此页面</p>
+          <AlertCircle className="w-16 h-16 text-[#EF4444] mx-auto mb-4" />
+          <h2 className="text-[20px] font-bold text-[#1E293B] mb-2">权限不足</h2>
+          <p className="text-[#64748B] mb-6">仅班长、队长、部长、办公室人员、开发者可访问此页面</p>
           <Button onClick={() => $w.utils.navigateTo({
           pageId: 'home',
           params: {}
-        })} className="w-full bg-[#0A2463] hover:bg-[#0D2E7A] rounded-[4px]">
+        })} className="w-full bg-[#3B82F6] hover:bg-[#2563EB] rounded-[4px]">
             返回首页
           </Button>
         </div>
       </div>;
   }
-  return <div className="min-h-screen bg-[#F5F7FA] pb-20">
-      {/* 顶部导航栏 - 深蓝色 */}
-      <div className="bg-[#0A2463] text-white px-4 py-4 sticky top-0 z-10 shadow-sm">
+  return <div className="min-h-screen bg-[#F8FAFC] pb-20">
+      {/* 顶部导航栏 - 明亮蓝色 */}
+      <div className="bg-[#3B82F6] text-white px-4 py-4 sticky top-0 z-10 shadow-sm">
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-3">
             <Button variant="ghost" size="icon" onClick={() => $w.utils.navigateTo({
             pageId: 'home',
             params: {}
-          })} className="text-white hover:bg-[#0D2E7A]">
+          })} className="text-white hover:bg-[#2563EB]">
               <ArrowLeft className="w-5 h-5" />
             </Button>
             <h1 className="text-[18px] font-bold">请销假管理</h1>
           </div>
-          <Button variant="ghost" size="icon" onClick={() => setRefreshKey(prev => prev + 1)} className="text-white hover:bg-[#0D2E7A]">
+          <Button variant="ghost" size="icon" onClick={() => setRefreshKey(prev => prev + 1)} className="text-white hover:bg-[#2563EB]">
             <RefreshCw className="w-5 h-5" />
           </Button>
         </div>
@@ -314,7 +314,7 @@ export default function LeavePage(props) {
           icon: RefreshCw
         }].map(tab => {
           const Icon = tab.icon;
-          return <button key={tab.id} onClick={() => setActiveTab(tab.id)} className={`flex-1 flex items-center justify-center gap-2 py-3 px-4 rounded-[4px] text-[14px] font-medium transition-all ${activeTab === tab.id ? 'bg-[#0A2463] text-white shadow-sm' : 'text-[#333333] hover:bg-[#F5F7FA]'}`}>
+          return <button key={tab.id} onClick={() => setActiveTab(tab.id)} className={`flex-1 flex items-center justify-center gap-2 py-3 px-4 rounded-[4px] text-[14px] font-medium transition-all ${activeTab === tab.id ? 'bg-[#3B82F6] text-white shadow-sm' : 'text-[#1E293B] hover:bg-[#F1F5F9]'}`}>
                 <Icon className="w-4 h-4" />
                 {tab.label}
               </button>;
@@ -323,8 +323,8 @@ export default function LeavePage(props) {
 
         {/* 请假申请表单 */}
         {activeTab === 'apply' && <div className="bg-white rounded-[8px] shadow-md p-6">
-            <h2 className="text-[18px] font-bold text-[#333333] mb-6 flex items-center gap-2">
-              <FileText className="w-5 h-5 text-[#0A2463]" />
+            <h2 className="text-[18px] font-bold text-[#1E293B] mb-6 flex items-center gap-2">
+              <FileText className="w-5 h-5 text-[#3B82F6]" />
               请假申请
             </h2>
             <Form {...form}>
@@ -332,7 +332,7 @@ export default function LeavePage(props) {
                 <FormField control={form.control} name="leaveType" render={({
               field
             }) => <FormItem>
-                      <FormLabel className="text-[#333333] font-medium">请假类型 *</FormLabel>
+                      <FormLabel className="text-[#1E293B] font-medium">请假类型 *</FormLabel>
                       <Select onValueChange={field.onChange} value={field.value}>
                         <FormControl>
                           <SelectTrigger className="w-full rounded-[8px]">
@@ -353,7 +353,7 @@ export default function LeavePage(props) {
                 <FormField control={form.control} name="startTime" render={({
               field
             }) => <FormItem>
-                      <FormLabel className="text-[#333333] font-medium">开始时间 *</FormLabel>
+                      <FormLabel className="text-[#1E293B] font-medium">开始时间 *</FormLabel>
                       <FormControl>
                         <Input type="datetime-local" {...field} className="w-full rounded-[8px]" />
                       </FormControl>
@@ -363,7 +363,7 @@ export default function LeavePage(props) {
                 <FormField control={form.control} name="endTime" render={({
               field
             }) => <FormItem>
-                      <FormLabel className="text-[#333333] font-medium">结束时间 *</FormLabel>
+                      <FormLabel className="text-[#1E293B] font-medium">结束时间 *</FormLabel>
                       <FormControl>
                         <Input type="datetime-local" {...field} className="w-full rounded-[8px]" />
                       </FormControl>
@@ -373,14 +373,14 @@ export default function LeavePage(props) {
                 <FormField control={form.control} name="reason" render={({
               field
             }) => <FormItem>
-                      <FormLabel className="text-[#333333] font-medium">请假原因 *</FormLabel>
+                      <FormLabel className="text-[#1E293B] font-medium">请假原因 *</FormLabel>
                       <FormControl>
                         <Textarea placeholder="请详细说明请假原因" {...field} className="w-full min-h-[100px] resize-none rounded-[8px]" />
                       </FormControl>
                       <FormMessage />
                     </FormItem>} />
 
-                <Button type="submit" disabled={submitting} className="w-full bg-[#0A2463] hover:bg-[#0D2E7A] rounded-[4px]">
+                <Button type="submit" disabled={submitting} className="w-full bg-[#3B82F6] hover:bg-[#2563EB] rounded-[4px]">
                   {submitting ? '提交中...' : '提交申请'}
                 </Button>
               </form>
@@ -396,27 +396,27 @@ export default function LeavePage(props) {
                   <div className="flex items-start justify-between mb-3">
                     <div className="flex-1">
                       <div className="flex items-center gap-2 mb-1">
-                        <span className="font-semibold text-[#333333]">{record.leaveType}</span>
+                        <span className="font-semibold text-[#1E293B]">{record.leaveType}</span>
                         {getStatusBadge(record.approvalStatus)}
                       </div>
-                      <p className="text-[14px] text-[#999999]">
+                      <p className="text-[14px] text-[#64748B]">
                         {formatDate(record.startTime)} - {formatDate(record.endTime)}
                       </p>
                     </div>
                   </div>
-                  {record.approver && <div className="text-[14px] text-[#999999]">
+                  {record.approver && <div className="text-[14px] text-[#64748B]">
                       <span className="font-medium">审批人：</span>
                       {record.approver}
                     </div>}
-                  {record.approvalTarget && !record.approver && <div className="text-[14px] text-[#0A2463] mt-1">
+                  {record.approvalTarget && !record.approver && <div className="text-[14px] text-[#3B82F6] mt-1">
                       <span className="font-medium">审批目标：</span>
                       {record.approvalTarget}
                     </div>}
-                  {record.reason && <div className="text-[14px] text-[#999999] mt-1">
+                  {record.reason && <div className="text-[14px] text-[#64748B] mt-1">
                       <span className="font-medium">请假原因：</span>
                       {record.reason}
                     </div>}
-                  {record.returnTime && <div className="text-[14px] text-[#999999] mt-1">
+                  {record.returnTime && <div className="text-[14px] text-[#64748B] mt-1">
                       <span className="font-medium">销假时间：</span>
                       {formatDate(record.returnTime)}
                     </div>}
@@ -427,31 +427,31 @@ export default function LeavePage(props) {
         {activeTab === 'approval' && <div className="space-y-4">
             {approvalRecords.length === 0 ? <div className="bg-white rounded-[4px] shadow-sm p-8 text-center">
                 <CheckCircle className="w-16 h-16 text-[#BFBFBF] mx-auto mb-4" />
-                <p className="text-[#999999]">暂无待审批记录</p>
+                <p className="text-[#64748B]">暂无待审批记录</p>
               </div> : approvalRecords.map(record => <div key={record._id} className="bg-white rounded-[4px] shadow-sm p-4 hover:shadow-md transition-shadow">
                   <div className="flex items-start justify-between mb-3">
                     <div className="flex-1">
                       <div className="flex items-center gap-2 mb-1">
-                        <span className="font-semibold text-[#333333]">{record.personnelName}</span>
-                        <span className="text-[14px] text-[#999999]">{record.position}</span>
+                        <span className="font-semibold text-[#1E293B]">{record.personnelName}</span>
+                        <span className="text-[14px] text-[#64748B]">{record.position}</span>
                         {getStatusBadge(record.approvalStatus)}
                       </div>
-                      <p className="text-[14px] text-[#999999]">
+                      <p className="text-[14px] text-[#64748B]">
                         {record.leaveType} | {formatDate(record.startTime)} - {formatDate(record.endTime)}
                       </p>
-                      {record.reason && <p className="text-[14px] text-[#999999] mt-1">
+                      {record.reason && <p className="text-[14px] text-[#64748B] mt-1">
                           原因：{record.reason}
                         </p>}
-                      {record.approvalTarget && <p className="text-[12px] text-[#0A2463] mt-1">
+                      {record.approvalTarget && <p className="text-[12px] text-[#3B82F6] mt-1">
                           审批目标：{record.approvalTarget}
                         </p>}
                     </div>
                   </div>
                   <div className="flex gap-2 mt-3">
-                    <Button size="sm" onClick={() => handleApprove(record, '已通过')} className="flex-1 bg-[#3D5A3D] hover:bg-[#2D4A2D] rounded-[4px]">
+                    <Button size="sm" onClick={() => handleApprove(record, '已通过')} className="flex-1 bg-[#10B981] hover:bg-[#059669] rounded-[4px]">
                       通过
                     </Button>
-                    <Button size="sm" variant="destructive" onClick={() => handleApprove(record, '已驳回')} className="flex-1 bg-[#D92121] hover:bg-[#B91C1C] rounded-[4px]">
+                    <Button size="sm" variant="destructive" onClick={() => handleApprove(record, '已驳回')} className="flex-1 bg-[#EF4444] hover:bg-[#DC2626] rounded-[4px]">
                       驳回
                     </Button>
                   </div>
@@ -461,21 +461,21 @@ export default function LeavePage(props) {
         {/* 销假管理 */}
         {activeTab === 'return' && <div className="space-y-4">
             {leaveRecords.length === 0 ? <div className="bg-white rounded-[4px] shadow-sm p-8 text-center">
-                <RefreshCw className="w-16 h-16 text-[#BFBFBF] mx-auto mb-4" />
-                <p className="text-[#999999]">暂无请假记录</p>
+                <RefreshCw className="w-16 h-16 text-[#9CA3AF] mx-auto mb-4" />
+                <p className="text-[#64748B]">暂无请假记录</p>
               </div> : leaveRecords.filter(record => record.approvalStatus === '已通过').map(record => <div key={record._id} className="bg-white rounded-[4px] shadow-sm p-4 hover:shadow-md transition-shadow">
                     <div className="flex items-start justify-between mb-3">
                       <div className="flex-1">
                         <div className="flex items-center gap-2 mb-1">
-                          <span className="font-semibold text-[#333333]">{record.leaveType}</span>
+                          <span className="font-semibold text-[#1E293B]">{record.leaveType}</span>
                           {getStatusBadge(record.approvalStatus)}
                         </div>
-                        <p className="text-[14px] text-[#999999]">
+                        <p className="text-[14px] text-[#64748B]">
                           {formatDate(record.startTime)} - {formatDate(record.endTime)}
                         </p>
                       </div>
                     </div>
-                    <Button size="sm" onClick={() => handleReturn(record)} className="w-full bg-[#0A2463] hover:bg-[#0D2E7A] rounded-[4px]">
+                    <Button size="sm" onClick={() => handleReturn(record)} className="w-full bg-[#3B82F6] hover:bg-[#2563EB] rounded-[4px]">
                       销假
                     </Button>
                   </div>)}

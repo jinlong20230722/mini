@@ -236,16 +236,16 @@ export default function CheckIn(props) {
     };
   }, []);
   if (loading) {
-    return <div className="min-h-screen bg-[#F5F7FA] flex items-center justify-center">
+    return <div className="min-h-screen bg-[#F8FAFC] flex items-center justify-center">
         <div className="text-center">
-          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-[#0A2463] mx-auto mb-4"></div>
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-[#3B82F6] mx-auto mb-4"></div>
           <p className="text-[#999999]">加载中...</p>
         </div>
       </div>;
   }
-  return <div className="min-h-screen bg-[#F5F7FA] pb-24">
-      {/* 顶部导航栏 - 深蓝色 */}
-      <div className="bg-[#0A2463] text-white px-4 py-3 shadow-sm">
+  return <div className="min-h-screen bg-[#F8FAFC] pb-24">
+      {/* 顶部导航栏 - 明亮蓝色 */}
+      <div className="bg-[#3B82F6] text-white px-4 py-3 shadow-sm">
         <div className="flex items-center justify-between">
           <button onClick={() => $w.utils.navigateBack()} className="flex items-center text-white hover:text-[#E8E8E8] transition-colors">
             <svg className="w-5 h-5 mr-1.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -262,24 +262,24 @@ export default function CheckIn(props) {
         {/* 当前时间和位置信息 - 1x1 并排布局 */}
         <div className="grid grid-cols-2 gap-3">
           {/* 当前时间卡片 */}
-          <Card className="shadow-sm border-l-4 border-l-[#0A2463] rounded-[4px]">
+          <Card className="shadow-sm border-l-4 border-l-[#3B82F6] rounded-[4px]">
             <CardHeader className="pb-1.5 pt-3 px-3">
-              <CardTitle className="text-[12px] flex items-center text-[#0A2463]">
+              <CardTitle className="text-[12px] flex items-center text-[#3B82F6]">
                 <Clock className="w-3.5 h-3.5 mr-1" />
                 当前时间
               </CardTitle>
             </CardHeader>
             <CardContent className="pt-0 px-3 pb-3">
-              <div className="text-[18px] font-bold text-[#0A2463] font-mono">
+              <div className="text-[18px] font-bold text-[#3B82F6] font-mono">
                 {currentTime}
               </div>
             </CardContent>
           </Card>
 
           {/* 位置信息卡片 */}
-          <Card className="shadow-sm border-l-4 border-l-[#0A2463] rounded-[4px]">
+          <Card className="shadow-sm border-l-4 border-l-[#3B82F6] rounded-[4px]">
             <CardHeader className="pb-1.5 pt-3 px-3">
-              <CardTitle className="text-[12px] flex items-center text-[#0A2463]">
+              <CardTitle className="text-[12px] flex items-center text-[#3B82F6]">
                 <MapPin className="w-3.5 h-3.5 mr-1" />
                 打卡位置
               </CardTitle>
@@ -298,7 +298,7 @@ export default function CheckIn(props) {
                   {location.longitude?.toFixed(4) || '--'}, {location.latitude?.toFixed(4) || '--'}
                 </p>
               </div>
-              <Button onClick={getCurrentLocation} variant="outline" size="sm" className="w-full mt-1 h-7 text-[12px] rounded-[4px]">
+              <Button onClick={getCurrentLocation} variant="outline" size="sm" className="w-full mt-1 h-7 text-[12px] rounded-[4px] border-[#3B82F6] text-[#3B82F6] hover:bg-[#DBEAFE]">
                 <Navigation className="w-3 h-3 mr-1" />
                 重新定位
               </Button>
@@ -314,13 +314,13 @@ export default function CheckIn(props) {
           </CardHeader>
           <CardContent className="pt-0 px-4 pb-3">
             <div className="grid grid-cols-2 gap-2">
-              <button onClick={() => setStatus('normal')} className={`p-3 rounded-[4px] border-2 ${status === 'normal' ? 'border-[#3D5A3D] bg-[#E8F0E8]' : 'border-[#E8E8E8] bg-white'}`}>
-                <CheckCircle className={`w-6 h-6 mx-auto mb-1 ${status === 'normal' ? 'text-[#3D5A3D]' : 'text-[#BFBFBF]'}`} />
-                <p className={`text-[14px] font-medium ${status === 'normal' ? 'text-[#3D5A3D]' : 'text-[#333333]'}`}>正常</p>
+              <button onClick={() => setStatus('normal')} className={`p-3 rounded-[4px] border-2 ${status === 'normal' ? 'border-[#10B981] bg-[#D1FAE5]' : 'border-[#E2E8F0] bg-white'}`}>
+                <CheckCircle className={`w-6 h-6 mx-auto mb-1 ${status === 'normal' ? 'text-[#10B981]' : 'text-[#9CA3AF]'}`} />
+                <p className={`text-[14px] font-medium ${status === 'normal' ? 'text-[#10B981]' : 'text-[#1E293B]'}`}>正常</p>
               </button>
-              <button onClick={() => setStatus('abnormal')} className={`p-3 rounded-[4px] border-2 ${status === 'abnormal' ? 'border-[#FA8C16] bg-[#FFF7E6]' : 'border-[#E8E8E8] bg-white'}`}>
-                <AlertCircle className={`w-6 h-6 mx-auto mb-1 ${status === 'abnormal' ? 'text-[#FA8C16]' : 'text-[#BFBFBF]'}`} />
-                <p className={`text-[14px] font-medium ${status === 'abnormal' ? 'text-[#FA8C16]' : 'text-[#333333]'}`}>异常</p>
+              <button onClick={() => setStatus('abnormal')} className={`p-3 rounded-[4px] border-2 ${status === 'abnormal' ? 'border-[#F59E0B] bg-[#FEF3C7]' : 'border-[#E2E8F0] bg-white'}`}>
+                <AlertCircle className={`w-6 h-6 mx-auto mb-1 ${status === 'abnormal' ? 'text-[#F59E0B]' : 'text-[#9CA3AF]'}`} />
+                <p className={`text-[14px] font-medium ${status === 'abnormal' ? 'text-[#F59E0B]' : 'text-[#1E293B]'}`}>异常</p>
               </button>
             </div>
           </CardContent>
@@ -343,24 +343,24 @@ export default function CheckIn(props) {
               </div> : <div className="grid grid-cols-2 gap-2">
                 <label className="cursor-pointer">
                   <input type="file" accept="image/*" onChange={handleFileSelect} className="hidden" />
-                  <div className="p-3 border-2 border-dashed border-[#E8E8E8] rounded-[4px] hover:border-[#0A2463] hover:bg-[#F5F7FA] transition-all text-center">
-                    <Camera className="w-6 h-6 mx-auto mb-1 text-[#BFBFBF]" />
-                    <p className="text-[12px] font-medium text-[#333333]">拍照</p>
+                  <div className="p-3 border-2 border-dashed border-[#E2E8F0] rounded-[4px] hover:border-[#3B82F6] hover:bg-[#DBEAFE] transition-all text-center">
+                    <Camera className="w-6 h-6 mx-auto mb-1 text-[#9CA3AF]" />
+                    <p className="text-[12px] font-medium text-[#1E293B]">拍照</p>
                   </div>
                 </label>
                 <label className="cursor-pointer">
                   <input type="file" accept="video/*" onChange={handleFileSelect} className="hidden" />
-                  <div className="p-3 border-2 border-dashed border-[#E8E8E8] rounded-[4px] hover:border-[#0A2463] hover:bg-[#F5F7FA] transition-all text-center">
-                    <Video className="w-6 h-6 mx-auto mb-1 text-[#BFBFBF]" />
-                    <p className="text-[12px] font-medium text-[#333333]">录像</p>
+                  <div className="p-3 border-2 border-dashed border-[#E2E8F0] rounded-[4px] hover:border-[#3B82F6] hover:bg-[#DBEAFE] transition-all text-center">
+                    <Video className="w-6 h-6 mx-auto mb-1 text-[#9CA3AF]" />
+                    <p className="text-[12px] font-medium text-[#1E293B]">录像</p>
                   </div>
                 </label>
               </div>}
           </CardContent>
         </Card>
 
-        {/* 提交按钮 - 军绿色 */}
-        <Button onClick={handleSubmit} disabled={submitting} className="w-full h-11 text-[16px] font-bold bg-[#3D5A3D] hover:bg-[#2D4A2D] shadow-sm rounded-[4px]">
+        {/* 提交按钮 - 明亮绿色 */}
+        <Button onClick={handleSubmit} disabled={submitting} className="w-full h-11 text-[16px] font-bold bg-[#10B981] hover:bg-[#059669] shadow-sm rounded-[4px]">
           {submitting ? <>
               <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-white mr-2"></div>
               提交中...

@@ -27,37 +27,37 @@ export default function EventReport(props) {
     id: '培训演习',
     label: '培训演习',
     icon: Shield,
-    color: 'bg-[#0A2463]',
+    color: 'bg-[#3B82F6]',
     desc: '培训、演练活动'
   }, {
     id: '好人好事',
     label: '好人好事',
     icon: Heart,
-    color: 'bg-[#3D5A3D]',
+    color: 'bg-[#10B981]',
     desc: '拾金不昧、助人为乐'
   }, {
     id: '应急处突',
     label: '应急处突',
     icon: AlertTriangle,
-    color: 'bg-[#FA8C16]',
+    color: 'bg-[#F59E0B]',
     desc: '突发事件处理'
   }, {
     id: '治安消防',
     label: '治安消防',
     icon: Flame,
-    color: 'bg-[#D92121]',
+    color: 'bg-[#EF4444]',
     desc: '治安、消防事件'
   }, {
     id: '警保联动',
     label: '警保联动',
     icon: Users,
-    color: 'bg-[#0A2463]',
+    color: 'bg-[#3B82F6]',
     desc: '警保协同工作'
   }, {
     id: '临时勤务',
     label: '临时勤务',
     icon: Clock,
-    color: 'bg-[#3D5A3D]',
+    color: 'bg-[#10B981]',
     desc: '临时任务安排'
   }];
 
@@ -333,17 +333,17 @@ export default function EventReport(props) {
     }
   };
   if (loading) {
-    return <div className="min-h-screen bg-[#F5F7FA] flex items-center justify-center">
+    return <div className="min-h-screen bg-[#F8FAFC] flex items-center justify-center">
         <div className="text-center">
-          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-[#0A2463] mx-auto mb-4"></div>
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-[#3B82F6] mx-auto mb-4"></div>
           <p className="text-[#999999]">加载中...</p>
         </div>
       </div>;
   }
-  return <div className="min-h-screen bg-[#F5F7FA]">
-      {/* 顶部导航栏 - 深蓝色 */}
-      <div className="bg-[#0A2463] text-white px-4 py-4 flex items-center justify-between shadow-sm">
-        <button onClick={() => $w.utils.navigateBack()} className="flex items-center space-x-2 hover:bg-[#0D2E7A] px-3 py-2 rounded-[4px] transition-colors">
+  return <div className="min-h-screen bg-[#F8FAFC]">
+      {/* 顶部导航栏 - 明亮蓝色 */}
+      <div className="bg-[#3B82F6] text-white px-4 py-4 flex items-center justify-between shadow-sm">
+        <button onClick={() => $w.utils.navigateBack()} className="flex items-center space-x-2 hover:bg-[#2563EB] px-3 py-2 rounded-[4px] transition-colors">
           <ArrowLeft className="w-5 h-5" />
           <span className="font-medium">返回</span>
         </button>
@@ -380,12 +380,12 @@ export default function EventReport(props) {
         <div className="bg-white rounded-[4px] shadow-sm p-4">
           <div className="flex items-center justify-between mb-3">
             <h2 className="text-[14px] font-bold text-[#333333]">事件描述</h2>
-            <button onMouseDown={handleVoicePressStart} onMouseUp={handleVoicePressEnd} onMouseLeave={handleVoicePressEnd} onTouchStart={handleVoicePressStart} onTouchEnd={handleVoicePressEnd} className={`flex items-center space-x-2 px-4 py-2 rounded-[4px] text-[14px] font-medium transition-all select-none touch-manipulation ${isRecording ? 'bg-[#D92121] text-white animate-pulse' : 'bg-[#0A2463] text-white hover:bg-[#0D2E7A]'}`}>
+            <button onMouseDown={handleVoicePressStart} onMouseUp={handleVoicePressEnd} onMouseLeave={handleVoicePressEnd} onTouchStart={handleVoicePressStart} onTouchEnd={handleVoicePressEnd} className={`flex items-center space-x-2 px-4 py-2 rounded-[4px] text-[14px] font-medium transition-all select-none touch-manipulation ${isRecording ? 'bg-[#EF4444] text-white animate-pulse' : 'bg-[#3B82F6] text-white hover:bg-[#2563EB]'}`}>
               <Mic className="w-5 h-5" />
               <span>{isRecording ? '松开停止' : '按住语音输入'}</span>
             </button>
           </div>
-          <textarea value={description} onChange={e => setDescription(e.target.value)} placeholder="请详细描述事件情况..." className="w-full h-32 px-4 py-3 border border-[#E8E8E8] rounded-[4px] text-[14px] focus:outline-none focus:ring-2 focus:ring-[#0A2463] focus:border-transparent resize-none" />
+          <textarea value={description} onChange={e => setDescription(e.target.value)} placeholder="请详细描述事件情况..." className="w-full h-32 px-4 py-3 border border-[#E2E8F0] rounded-[4px] text-[14px] focus:outline-none focus:ring-2 focus:ring-[#3B82F6] focus:border-transparent resize-none" />
           <p className="text-[12px] text-[#999999] mt-2">支持语音输入自动转文字</p>
         </div>
 
@@ -397,16 +397,16 @@ export default function EventReport(props) {
             <div className="grid grid-cols-2 gap-3">
               <label className="cursor-pointer">
                 <input type="file" accept="image/*" multiple onChange={handleFileUpload} className="hidden" />
-                <div className="p-4 border-2 border-dashed border-[#E8E8E8] rounded-[4px] hover:border-[#0A2463] hover:bg-[#F5F7FA] transition-all text-center">
-                  <Camera className="w-8 h-8 mx-auto mb-2 text-[#BFBFBF]" />
-                  <p className="text-[12px] font-medium text-[#333333]">拍照</p>
+                <div className="p-4 border-2 border-dashed border-[#E2E8F0] rounded-[4px] hover:border-[#3B82F6] hover:bg-[#DBEAFE] transition-all text-center">
+                  <Camera className="w-8 h-8 mx-auto mb-2 text-[#9CA3AF]" />
+                  <p className="text-[12px] font-medium text-[#1E293B]">拍照</p>
                 </div>
               </label>
               <label className="cursor-pointer">
                 <input type="file" accept="video/*" multiple onChange={handleFileUpload} className="hidden" />
-                <div className="p-4 border-2 border-dashed border-[#E8E8E8] rounded-[4px] hover:border-[#0A2463] hover:bg-[#F5F7FA] transition-all text-center">
-                  <Video className="w-8 h-8 mx-auto mb-2 text-[#BFBFBF]" />
-                  <p className="text-[12px] font-medium text-[#333333]">录像</p>
+                <div className="p-4 border-2 border-dashed border-[#E2E8F0] rounded-[4px] hover:border-[#3B82F6] hover:bg-[#DBEAFE] transition-all text-center">
+                  <Video className="w-8 h-8 mx-auto mb-2 text-[#9CA3AF]" />
+                  <p className="text-[12px] font-medium text-[#1E293B]">录像</p>
                 </div>
               </label>
             </div>
@@ -433,21 +433,21 @@ export default function EventReport(props) {
         {/* 位置信息 */}
         <div className="bg-white rounded-[4px] shadow-sm p-4">
           <div className="flex items-center space-x-3">
-            <div className="w-10 h-10 bg-[#E8F5E9] rounded-full flex items-center justify-center">
-              <MapPin className="w-5 h-5 text-[#3D5A3D]" />
+            <div className="w-10 h-10 bg-[#D1FAE5] rounded-full flex items-center justify-center">
+              <MapPin className="w-5 h-5 text-[#047857]" />
             </div>
             <div className="flex-1">
-              <p className="text-[12px] text-[#999999] mb-1">当前位置</p>
-              <p className="text-[14px] font-medium text-[#333333] truncate">{address || '获取中...'}</p>
+              <p className="text-[12px] text-[#64748B] mb-1">当前位置</p>
+              <p className="text-[14px] font-medium text-[#1E293B] truncate">{address || '获取中...'}</p>
             </div>
-            <button onClick={getCurrentLocation} className="px-3 py-1.5 bg-[#F5F7FA] text-[#0A2463] text-[12px] font-medium rounded-[4px] hover:bg-[#E8E8E8] transition-colors">
+            <button onClick={getCurrentLocation} className="px-3 py-1.5 bg-[#F1F5F9] text-[#3B82F6] text-[12px] font-medium rounded-[4px] hover:bg-[#E2E8F0] transition-colors">
               重新定位
             </button>
           </div>
         </div>
 
-        {/* 提交按钮 - 红色 */}
-        <button onClick={handleSubmit} disabled={submitting} className={`w-full py-4 rounded-[4px] font-semibold text-white shadow-sm transition-all ${submitting ? 'bg-[#BFBFBF] cursor-not-allowed' : 'bg-[#D92121] hover:bg-[#B91C1C]'}`}>
+        {/* 提交按钮 - 明亮红色 */}
+        <button onClick={handleSubmit} disabled={submitting} className={`w-full py-4 rounded-[4px] font-semibold text-white shadow-sm transition-all ${submitting ? 'bg-[#9CA3AF] cursor-not-allowed' : 'bg-[#EF4444] hover:bg-[#DC2626]'}`}>
           {submitting ? <div className="flex items-center justify-center space-x-2">
               <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-white"></div>
               <span>提交中...</span>

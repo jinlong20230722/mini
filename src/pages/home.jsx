@@ -229,16 +229,18 @@ export default function Home(props) {
     id: 'leave',
     name: '请销假',
     icon: Calendar,
-    color: '#8B5CF6',
+    color: '#FFFFFF',
+    textColor: '#1E293B',
     description: '班长/队长及以上人员',
-    isPrimary: true
+    isPrimary: false
   }, {
     id: 'feedback',
     name: '意见反馈',
     icon: MessageSquare,
-    color: '#06B6D4',
+    color: '#FFFFFF',
+    textColor: '#1E293B',
     description: '现场/公司管理建议',
-    isPrimary: true
+    isPrimary: false
   }];
   if (loading) {
     return <div className="min-h-screen bg-[#F8FAFC] flex items-center justify-center">
@@ -276,18 +278,24 @@ export default function Home(props) {
         <div className="grid grid-cols-2 gap-4">
           {functionModules.map((module, index) => {
           const Icon = module.icon;
+          const isPrimary = module.isPrimary;
 
           // 统一卡片尺寸：160px × 160px
           const cardSize = 'w-[160px] h-[160px]';
+          const bgColor = isPrimary ? module.color : module.color;
+          const textColor = isPrimary ? 'text-white' : 'text-[#1E293B]';
+          const iconBg = isPrimary ? 'bg-white/20' : 'bg-[#E2E8F0]';
+          const iconColor = isPrimary ? 'text-white' : 'text-[#1E293B]';
+          const descColor = isPrimary ? 'text-white/90' : 'text-[#64748B]';
           return <button key={module.id} onClick={() => handleFunctionClick(module.id)} className={`${cardSize} shadow-md rounded-lg p-5 flex flex-col items-center justify-center transition-all hover:shadow-lg`} style={{
-            backgroundColor: module.color
+            backgroundColor: bgColor
           }}>
 
-              <div className="bg-white/20 w-14 h-14 rounded-lg flex items-center justify-center mb-3">
-                <Icon className="w-7 h-7 text-white" />
+              <div className={`${iconBg} w-14 h-14 rounded-lg flex items-center justify-center mb-3`}>
+                <Icon className={`w-7 h-7 ${iconColor}`} />
               </div>
-              <h3 className="font-bold text-[16px] mb-2 text-white">{module.name}</h3>
-              <p className="text-[12px] text-center leading-relaxed text-white/90">{module.description}</p>
+              <h3 className={`font-bold text-[16px] mb-2 ${textColor}`}>{module.name}</h3>
+              <p className={`text-[12px] text-center leading-relaxed ${descColor}`}>{module.description}</p>
 
 
             </button>;

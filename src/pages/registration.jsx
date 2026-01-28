@@ -329,16 +329,16 @@ export default function RegistrationPage(props) {
     }
   };
   if (loading) {
-    return <div className="min-h-screen bg-[#F5F7FA] flex items-center justify-center">
+    return <div className="min-h-screen bg-[#F8FAFC] flex items-center justify-center">
         <div className="text-center">
-          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-[#0A2463] mx-auto mb-4"></div>
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-[#3B82F6] mx-auto mb-4"></div>
           <p className="text-[#999999]">加载中...</p>
         </div>
       </div>;
   }
-  return <div className="min-h-screen bg-[#F5F7FA] pb-24">
+  return <div className="min-h-screen bg-[#F8FAFC] pb-24">
       {/* 顶部导航栏 */}
-      <div className="bg-[#0A2463] text-white px-4 py-4 sticky top-0 z-10 shadow-sm">
+      <div className="bg-[#3B82F6] text-white px-4 py-4 sticky top-0 z-10 shadow-sm">
         <div className="flex items-center justify-between">
           <button onClick={() => props.$w.utils.navigateTo({
           pageId: 'home',
@@ -354,7 +354,7 @@ export default function RegistrationPage(props) {
 
       <div className="px-4 py-6 max-w-lg mx-auto">
         {/* 状态卡片 */}
-        <div className={`rounded-[4px] p-4 mb-6 flex items-center gap-3 shadow-sm ${isRegistered ? 'bg-[#3D5A3D] text-white' : 'bg-[#0A2463] text-white'}`}>
+        <div className={`rounded-[4px] p-4 mb-6 flex items-center gap-3 shadow-sm ${isRegistered ? 'bg-[#10B981] text-white' : 'bg-[#3B82F6] text-white'}`}>
           {isRegistered ? <CheckCircle2 className="w-8 h-8 flex-shrink-0" /> : <AlertCircle className="w-8 h-8 flex-shrink-0" />}
           <div>
             <p className="font-semibold text-lg">
@@ -371,8 +371,8 @@ export default function RegistrationPage(props) {
           <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
             {/* 基本信息 */}
             <div className="bg-white rounded-[4px] p-4 shadow-sm">
-              <h2 className="text-lg font-semibold text-[#333333] mb-4 flex items-center gap-2">
-                <User className="w-5 h-5 text-[#0A2463]" />
+              <h2 className="text-lg font-semibold text-[#1E293B] mb-4 flex items-center gap-2">
+                <User className="w-5 h-5 text-[#3B82F6]" />
                 基本信息
               </h2>
               
@@ -380,9 +380,9 @@ export default function RegistrationPage(props) {
                 <FormField control={form.control} name="name" render={({
                 field
               }) => <FormItem>
-                      <FormLabel className="text-[#333333]">姓名 *</FormLabel>
+                      <FormLabel className="text-[#1E293B]">姓名 *</FormLabel>
                       <FormControl>
-                        <Input placeholder="请输入姓名" {...field} className="border-[#E8E8E8] focus:border-[#0A2463]" />
+                        <Input placeholder="请输入姓名" {...field} className="border-[#E2E8F0] focus:border-[#3B82F6]" />
                       </FormControl>
                       <FormMessage />
                     </FormItem>} />
@@ -390,9 +390,9 @@ export default function RegistrationPage(props) {
                 <FormField control={form.control} name="phone" render={({
                 field
               }) => <FormItem>
-                      <FormLabel className="text-[#333333]">手机号 *</FormLabel>
+                      <FormLabel className="text-[#1E293B]">手机号 *</FormLabel>
                       <FormControl>
-                        <Input placeholder="请输入手机号" type="tel" {...field} className="border-[#E8E8E8] focus:border-[#0A2463]" />
+                        <Input placeholder="请输入手机号" type="tel" {...field} className="border-[#E2E8F0] focus:border-[#3B82F6]" />
                       </FormControl>
                       <FormMessage />
                     </FormItem>} />
@@ -400,10 +400,10 @@ export default function RegistrationPage(props) {
                 <FormField control={form.control} name="department" render={({
                 field
               }) => <FormItem>
-                      <FormLabel className="text-[#333333]">部门 *</FormLabel>
+                      <FormLabel className="text-[#1E293B]">部门 *</FormLabel>
                       <Select onValueChange={field.onChange} value={field.value}>
                         <FormControl>
-                          <SelectTrigger className="border-[#E8E8E8] focus:border-[#0A2463]">
+                          <SelectTrigger className="border-[#E2E8F0] focus:border-[#3B82F6]">
                             <SelectValue placeholder="请选择部门" />
                           </SelectTrigger>
                         </FormControl>
@@ -430,10 +430,10 @@ export default function RegistrationPage(props) {
                 <FormField control={form.control} name="position" render={({
                 field
               }) => <FormItem>
-                      <FormLabel className="text-[#333333]">职务 *</FormLabel>
+                      <FormLabel className="text-[#1E293B]">职务 *</FormLabel>
                       <Select onValueChange={field.onChange} value={field.value}>
                         <FormControl>
-                          <SelectTrigger className="border-[#E8E8E8] focus:border-[#0A2463]">
+                          <SelectTrigger className="border-[#E2E8F0] focus:border-[#3B82F6]">
                             <SelectValue placeholder="请选择职务" />
                           </SelectTrigger>
                         </FormControl>
@@ -451,9 +451,9 @@ export default function RegistrationPage(props) {
                 <FormField control={form.control} name="joinDate" render={({
                 field
               }) => <FormItem>
-                      <FormLabel className="text-[#333333]">入职时间 *</FormLabel>
+                      <FormLabel className="text-[#1E293B]">入职时间 *</FormLabel>
                       <FormControl>
-                        <Input type="date" {...field} className="border-[#E8E8E8] focus:border-[#0A2463]" />
+                        <Input type="date" {...field} className="border-[#E2E8F0] focus:border-[#3B82F6]" />
                       </FormControl>
                       <FormMessage />
                     </FormItem>} />
@@ -462,8 +462,8 @@ export default function RegistrationPage(props) {
 
             {/* 身份证信息 */}
             <div className="bg-white rounded-[4px] p-4 shadow-sm">
-              <h2 className="text-lg font-semibold text-[#333333] mb-4 flex items-center gap-2">
-                <IdCard className="w-5 h-5 text-[#0A2463]" />
+              <h2 className="text-lg font-semibold text-[#1E293B] mb-4 flex items-center gap-2">
+                <IdCard className="w-5 h-5 text-[#3B82F6]" />
                 身份证信息
               </h2>
 
@@ -471,28 +471,28 @@ export default function RegistrationPage(props) {
                 {/* 身份证上传 - 左右居中摆放 */}
                 <div className="grid grid-cols-2 gap-4">
                   <div>
-                    <label className="block text-sm font-medium text-[#333333] mb-2 text-center">
+                    <label className="block text-sm font-medium text-[#1E293B] mb-2 text-center">
                       身份证正面 *
                     </label>
-                    <div className="border-2 border-dashed border-[#E8E8E8] rounded-[4px] p-4 hover:border-[#0A2463] transition-colors">
+                    <div className="border-2 border-dashed border-[#E2E8F0] rounded-[4px] p-4 hover:border-[#3B82F6] transition-colors">
                       {idCardFront ? <div className="relative">
                           <img src={idCardFront} alt="身份证正面" className="w-full h-40 object-cover rounded-[4px]" />
                           <button type="button" onClick={() => removeDocument(null, 'front')} className="absolute top-2 right-2 bg-red-500 text-white rounded-full p-1 hover:bg-red-600 transition-colors">
                             <X className="w-4 h-4" />
                           </button>
                         </div> : <label className="flex flex-col items-center justify-center cursor-pointer">
-                          <Upload className="w-8 h-8 text-[#BFBFBF] mb-2" />
-                          <span className="text-sm text-[#666666]">点击上传身份证正面</span>
+                          <Upload className="w-8 h-8 text-[#9CA3AF] mb-2" />
+                          <span className="text-sm text-[#64748B]">点击上传身份证正面</span>
                           <input type="file" accept="image/*" onChange={handleIdCardFrontUpload} className="hidden" />
                         </label>}
                     </div>
                   </div>
 
                   <div>
-                    <label className="block text-sm font-medium text-[#333333] mb-2 text-center">
+                    <label className="block text-sm font-medium text-[#1E293B] mb-2 text-center">
                       身份证背面 *
                     </label>
-                    <div className="border-2 border-dashed border-[#E8E8E8] rounded-[4px] p-4 hover:border-[#0A2463] transition-colors">
+                    <div className="border-2 border-dashed border-[#E2E8F0] rounded-[4px] p-4 hover:border-[#3B82F6] transition-colors">
                       {idCardBack ? <div className="relative">
                           <img src={idCardBack} alt="身份证背面" className="w-full h-40 object-cover rounded-[4px]" />
                           <button type="button" onClick={() => removeDocument(null, 'back')} className="absolute top-2 right-2 bg-red-500 text-white rounded-full p-1 hover:bg-red-600 transition-colors">

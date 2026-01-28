@@ -281,15 +281,15 @@ export default function Profile(props) {
     }
   };
   if (loading) {
-    return <div className="min-h-screen bg-gray-100 flex items-center justify-center">
+    return <div className="min-h-screen bg-[#F8FAFC] flex items-center justify-center">
         <div className="text-gray-600">加载中...</div>
       </div>;
   }
   const joinDuration = calculateJoinDuration(personnelInfo?.joinDate);
   const workDuration = calculateWorkDuration(personnelInfo?.joinDate, personnelInfo?.status);
-  return <div className="min-h-screen bg-[#F5F7FA] pb-20">
+  return <div className="min-h-screen bg-[#F8FAFC] pb-20">
       {/* 顶部个人信息卡片 */}
-      <div className="bg-[#0A2463] text-white p-6 pb-16 shadow-lg">
+      <div className="bg-[#3B82F6] text-white p-6 pb-16 shadow-lg">
         <div className="max-w-lg mx-auto">
           <div className="flex items-center gap-4">
             <div className="w-20 h-20 bg-white rounded-full flex items-center justify-center text-slate-800 text-3xl font-bold font-['Space_Grotesk'] shadow-lg">
@@ -371,7 +371,7 @@ export default function Profile(props) {
         </div>
 
         {/* 个人信息列表 - 装饰边框 */}
-        <div className="bg-white rounded-xl shadow-card overflow-hidden mb-4 border-l-4 border-slate-700 animate-fade-in-up hover-lift" style={{
+        <div className="bg-white rounded-xl shadow-card overflow-hidden mb-4 border-l-4 border-[#3B82F6] animate-fade-in-up hover-lift" style={{
         animationDelay: '0.3s'
       }}>
 
