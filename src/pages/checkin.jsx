@@ -36,93 +36,111 @@ export default function CheckIn(props) {
 
   // 逆地理编码：将经纬度转换为详细地址
   const reverseGeocode = async (latitude, longitude) => {
-    try {
-      // 使用腾讯地图逆地理编码 API
-      const controller = new AbortController();
-      const timeoutId = setTimeout(() => controller.abort(), 10000); // 10秒超时
-
-      // 腾讯地图 API Key
-      const API_KEY = 'J5BBZ-YPECN-XOBFC-STPG6-YSTRV-3FBCK';
-
-      // 腾讯地图 API 参数格式：location=纬度,经度
-      // 浏览器定位返回的是 WGS84 坐标，需要添加 coord_type=1 参数
-      const url = `https://apis.map.qq.com/ws/geocoder/v1/?location=${latitude},${longitude}&key=${API_KEY}&get_poi=1&coord_type=1`;
-      console.log('开始逆地理编码:', {
-        latitude,
-        longitude,
-        url
-      });
-      const response = await fetch(url, {
-        method: 'GET',
-        headers: {
-          'Accept': 'application/json',
-          'Content-Type': 'application/json'
-        },
-        signal: controller.signal
-      });
-      clearTimeout(timeoutId);
-      console.log('API 响应状态:', response.status, response.statusText);
-      if (!response.ok) {
-        const errorText = await response.text();
-        console.error('HTTP 错误:', response.status, errorText);
-        throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+    // 尝试多个地图 API，提高成功率
+    const providers = [{
+      name: '腾讯地图',
+      url: `https://apis.map.qq.com/ws/geocoder/v1/?location=${latitude},${longitude}&key=J5BBZ-YPECN-XOBFC-STPG6-YSTRV-3FBCK&get_poi=1&coord_type=1`,
+      parse: data => {
+        if (data.status === 0 && data.result) {
+          const addr = data.result.address_component || {};
+          return {
+            formatted: data.result.address || '',
+            province: addr.province || '',
+            city: addr.city || '',
+            district: addr.district || '',
+            township: addr.township || '',
+            street: addr.street || '',
+            streetNumber: addr.street_number || ''
+          };
+        }
+        return null;
       }
-      const data = await response.json();
-      console.log('API 返回数据:', data);
-      if (data.status === 0 && data.result) {
-        const result = data.result;
-        const addr = result.address_component || {};
+    }, {
+      name: '高德地图',
+      url: `https://restapi.amap.com/v3/geocode/regeo?output=json&location=${longitude},${latitude}&key=YOUR_AMAP_KEY&radius=1000&extensions=base`,
+      parse: data => {
+        if (data.status === '1' && data.regeocode) {
+          const addr = data.regeocode.addressComponent || {};
+          return {
+            formatted: data.regeocode.formatted_address || '',
+            province: addr.province || '',
+            city: addr.city || '',
+            district: addr.district || '',
+            township: addr.township || '',
+            street: addr.street || '',
+            streetNumber: addr.streetNumber || ''
+          };
+        }
+        return null;
+      }
+    }];
 
-        // 腾讯地图返回的地址信息
-        const formattedAddress = result.address || '';
-        const province = addr.province || '';
-        const city = addr.city || '';
-        const district = addr.district || '';
-        const township = addr.township || '';
-        const street = addr.street || '';
-        const streetNumber = addr.street_number || '';
-        console.log('解析成功:', {
-          formattedAddress,
-          province,
-          city,
-          district
+    // 依次尝试各个地图 API
+    for (const provider of providers) {
+      try {
+        console.log(`尝试使用 ${provider.name} 进行逆地理编码...`);
+        const controller = new AbortController();
+        const timeoutId = setTimeout(() => controller.abort(), 8000); // 8秒超时
+
+        const response = await fetch(provider.url, {
+          method: 'GET',
+          headers: {
+            'Accept': 'application/json'
+          },
+          signal: controller.signal
         });
+        clearTimeout(timeoutId);
+        console.log(`${provider.name} API 响应状态:`, response.status, response.statusText);
+        if (!response.ok) {
+          const errorText = await response.text();
+          console.error(`${provider.name} HTTP 错误:`, response.status, errorText);
+          continue; // 尝试下一个 provider
+        }
+        const data = await response.json();
+        console.log(`${provider.name} API 返回数据:`, data);
+        const result = provider.parse(data);
+        if (result) {
+          console.log(`${provider.name} 解析成功:`, result);
 
-        // 组合详细地址
-        let detailAddress = '';
-        if (province) detailAddress += province;
-        if (city && city !== province) detailAddress += city;
-        if (district) detailAddress += district;
-        if (township) detailAddress += township;
-        if (street) detailAddress += street;
-        if (streetNumber) detailAddress += streetNumber;
-        return {
-          formatted: formattedAddress,
-          detail: detailAddress,
-          province,
-          city,
-          district,
-          township,
-          street,
-          streetNumber
-        };
-      } else {
-        console.error('API 返回错误:', data);
-        throw new Error(data.message || `地址解析失败 (status: ${data.status})`);
+          // 组合详细地址
+          let detailAddress = '';
+          if (result.province) detailAddress += result.province;
+          if (result.city && result.city !== result.province) detailAddress += result.city;
+          if (result.district) detailAddress += result.district;
+          if (result.township) detailAddress += result.township;
+          if (result.street) detailAddress += result.street;
+          if (result.streetNumber) detailAddress += result.streetNumber;
+          return {
+            formatted: result.formatted,
+            detail: detailAddress,
+            province: result.province,
+            city: result.city,
+            district: result.district,
+            township: result.township,
+            street: result.street,
+            streetNumber: result.streetNumber
+          };
+        } else {
+          console.error(`${provider.name} API 返回错误:`, data);
+        }
+      } catch (error) {
+        console.error(`${provider.name} 逆地理编码失败:`, error);
+        continue; // 尝试下一个 provider
       }
-    } catch (error) {
-      console.error('逆地理编码失败:', error);
-      return {
-        formatted: '地址解析失败',
-        detail: `无法获取详细地址信息: ${error.message}`,
-        province: '',
-        city: '',
-        district: '',
-        township: '',
-        street: '',
-        streetNumber: ''
-      };
     }
+
+    // 所有 API 都失败了
+    console.error('所有地图 API 都失败了');
+    return {
+      formatted: '地址解析失败',
+      detail: '所有地图服务都无法获取地址信息，请检查网络连接或稍后重试',
+      province: '',
+      city: '',
+      district: '',
+      township: '',
+      street: '',
+      streetNumber: ''
+    };
   };
 
   // 获取当前位置
