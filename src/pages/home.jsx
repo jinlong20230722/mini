@@ -8,24 +8,24 @@ import { useToast } from '@/components/ui';
 import { TabBar } from '@/components/TabBar';
 export default function Home(props) {
   const {
-    toast
-  } = useToast();
+    toast } =
+  useToast();
   const [activeTab, setActiveTab] = useState('home');
   const [pageLoaded, setPageLoaded] = useState(false);
-  const handleTabChange = tabId => {
+  const handleTabChange = (tabId) => {
     setActiveTab(tabId);
     const pageMap = {
       'home': 'home',
       'duty': 'duty',
       'announcement': 'announcement',
-      'profile': 'profile'
-    };
+      'profile': 'profile' };
+
     const targetPage = pageMap[tabId];
     if (targetPage) {
       props.$w.utils.navigateTo({
         pageId: targetPage,
-        params: {}
-      });
+        params: {} });
+
     }
   };
   const [loading, setLoading] = useState(true);
@@ -35,14 +35,14 @@ export default function Home(props) {
     todayCount: 0,
     monthCount: 0,
     lastTime: '-',
-    lastStatus: '-'
-  });
+    lastStatus: '-' });
+
   const [eventStats, setEventStats] = useState({
     todayCount: 0,
     monthCount: 0,
     lastTime: '-',
-    lastType: '-'
-  });
+    lastType: '-' });
+
   useEffect(() => {
     checkLoginAndLoadData();
     setTimeout(() => setPageLoaded(true), 100);
@@ -50,8 +50,8 @@ export default function Home(props) {
   const checkLoginAndLoadData = async () => {
     setUser(props.$w.auth.currentUser || {
       name: '访客',
-      userId: 'guest'
-    });
+      userId: 'guest' });
+
     await checkRegistrationStatus();
     await loadRealTimeData();
   };
@@ -66,16 +66,16 @@ export default function Home(props) {
           filter: {
             where: {
               _openid: {
-                $eq: userId
-              }
-            }
-          },
+                $eq: userId } } },
+
+
+
           select: {
-            $master: true
-          },
-          getCount: true
-        }
-      });
+            $master: true },
+
+          getCount: true } });
+
+
       setHasRegistered(result.total > 0);
       setLoading(false);
     } catch (error) {
@@ -96,20 +96,20 @@ export default function Home(props) {
           filter: {
             where: {
               _openid: {
-                $eq: userId
-              }
-            }
-          },
+                $eq: userId } } },
+
+
+
           select: {
-            $master: true
-          },
-          getCount: true
-        }
-      });
+            $master: true },
+
+          getCount: true } });
+
+
       if (attendanceResult.records && attendanceResult.records.length > 0) {
         const records = attendanceResult.records;
-        const todayRecords = records.filter(r => r.checkInTime >= todayStart);
-        const monthRecords = records.filter(r => r.checkInTime >= monthStart);
+        const todayRecords = records.filter((r) => r.checkInTime >= todayStart);
+        const monthRecords = records.filter((r) => r.checkInTime >= monthStart);
         const sortedRecords = records.sort((a, b) => b.checkInTime - a.checkInTime);
         const lastRecord = sortedRecords[0];
         setAttendanceStats({
@@ -119,10 +119,10 @@ export default function Home(props) {
             month: '2-digit',
             day: '2-digit',
             hour: '2-digit',
-            minute: '2-digit'
-          }) : '-',
-          lastStatus: lastRecord.status || '-'
-        });
+            minute: '2-digit' }) :
+          '-',
+          lastStatus: lastRecord.status || '-' });
+
       }
       const eventResult = await props.$w.cloud.callDataSource({
         dataSourceName: 'event_report',
@@ -131,20 +131,20 @@ export default function Home(props) {
           filter: {
             where: {
               _openid: {
-                $eq: userId
-              }
-            }
-          },
+                $eq: userId } } },
+
+
+
           select: {
-            $master: true
-          },
-          getCount: true
-        }
-      });
+            $master: true },
+
+          getCount: true } });
+
+
       if (eventResult.records && eventResult.records.length > 0) {
         const records = eventResult.records;
-        const todayRecords = records.filter(r => r.reportTime >= todayStart);
-        const monthRecords = records.filter(r => r.reportTime >= monthStart);
+        const todayRecords = records.filter((r) => r.reportTime >= todayStart);
+        const monthRecords = records.filter((r) => r.reportTime >= monthStart);
         const sortedRecords = records.sort((a, b) => b.reportTime - a.reportTime);
         const lastRecord = sortedRecords[0];
         setEventStats({
@@ -154,62 +154,62 @@ export default function Home(props) {
             month: '2-digit',
             day: '2-digit',
             hour: '2-digit',
-            minute: '2-digit'
-          }) : '-',
-          lastType: lastRecord.eventType || '-'
-        });
+            minute: '2-digit' }) :
+          '-',
+          lastType: lastRecord.eventType || '-' });
+
       }
     } catch (error) {
       console.error('加载实时数据失败:', error);
     }
   };
-  const handleFunctionClick = functionName => {
+  const handleFunctionClick = (functionName) => {
     switch (functionName) {
       case 'register':
         props.$w.utils.navigateTo({
           pageId: 'registration',
-          params: {}
-        });
+          params: {} });
+
         break;
       case 'checkIn':
         props.$w.utils.navigateTo({
           pageId: 'checkin',
-          params: {}
-        });
+          params: {} });
+
         break;
       case 'leave':
         props.$w.utils.navigateTo({
           pageId: 'leave',
-          params: {}
-        });
+          params: {} });
+
         break;
       case 'event':
         props.$w.utils.navigateTo({
           pageId: 'event',
-          params: {}
-        });
+          params: {} });
+
         break;
       case 'feedback':
         props.$w.utils.navigateTo({
           pageId: 'feedback',
-          params: {}
-        });
+          params: {} });
+
         break;
       case 'announcement':
         props.$w.utils.navigateTo({
           pageId: 'announcement',
-          params: {}
-        });
+          params: {} });
+
         break;
       default:
-        break;
-    }
+        break;}
+
   };
   const handleTopRightAction = () => {
     props.$w.utils.navigateTo({
       pageId: 'registration',
-      params: {}
-    });
+      params: {} });
+
   };
   const functionModules = [{
     id: 'checkIn',
@@ -217,31 +217,31 @@ export default function Home(props) {
     icon: MapPin,
     color: '#007A5A',
     description: '位置打卡',
-    isPrimary: true
-  }, {
+    isPrimary: true },
+  {
     id: 'event',
     name: '事件上报',
     icon: AlertTriangle,
     color: '#D92121',
     description: '异常事件',
-    isPrimary: true
-  }, {
+    isPrimary: true },
+  {
     id: 'leave',
     name: '请销假',
     icon: Calendar,
     color: '#F5F7FA',
     textColor: '#333333',
     description: '班长/队长及以上人员',
-    isPrimary: false
-  }, {
+    isPrimary: false },
+  {
     id: 'feedback',
     name: '意见反馈',
     icon: MessageSquare,
     color: '#F5F7FA',
     textColor: '#333333',
     description: '现场/公司管理建议',
-    isPrimary: false
-  }];
+    isPrimary: false }];
+
   if (loading) {
     return <div className="min-h-screen bg-[#F5F7FA] flex items-center justify-center">
         <div className="text-[#999999]">加载中...</div>
@@ -267,8 +267,8 @@ export default function Home(props) {
       <div className={`px-4 py-6 transition-all duration-300 ease-out ${pageLoaded ? 'translate-y-0 opacity-100' : 'translate-y-8 opacity-0'}`}>
         {/* 欢迎卡片 */}
         <div className="bg-white rounded-[8px] shadow-md p-5 mb-6 animate-fade-in-up" style={{
-        animationDelay: '0.1s'
-      }}>
+        animationDelay: '0.1s' }}>
+
           <h2 className="text-[18px] font-bold text-[#333333] mb-2">工作概览</h2>
           <p className="text-[14px] text-[#999999]">
             {hasRegistered ? '您已完成入职登记，可正常使用各项功能' : '请先完成入职登记，以便使用全部功能'}
@@ -296,17 +296,17 @@ export default function Home(props) {
           return <button key={module.id} onClick={() => handleFunctionClick(module.id)} className={`${cardWidth} ${cardHeight} ${shadowClass} rounded-[8px] p-4 flex flex-col items-center justify-center button-press button-hover transition-all duration-300 hover:shadow-lg animate-fade-in-up`} style={{
             backgroundColor: bgColor,
             boxShadow: isPrimary ? '0 4px 12px rgba(0,0,0,0.08)' : '0 2px 8px rgba(0,0,0,0.04)',
-            animationDelay: `${0.2 + index * 0.1}s`
-          }}>
+            animationDelay: `${0.2 + index * 0.1}s` }}>
+
               <div className={`${iconBg} w-12 h-12 rounded-[8px] flex items-center justify-center mb-2`}>
                 <Icon className={`w-6 h-6 ${iconColor}`} />
               </div>
               <h3 className={`font-bold text-[16px] mb-1 ${textColor}`}>{module.name}</h3>
               <p className={`text-[12px] text-center leading-relaxed ${descColor}`}>{module.description}</p>
-              {isPrimary && <div className="mt-2 flex items-center text-[12px] text-white/80">
-                  <span className="w-1.5 h-1.5 bg-white rounded-full mr-1 animate-pulse"></span>
-                  {isCheckIn ? '每日必做' : '紧急上报'}
-                </div>}
+              {isPrimary}
+
+
+
             </button>;
         })}
         </div>
@@ -317,8 +317,8 @@ export default function Home(props) {
           
           {/* 打卡签到统计 */}
           <div className="bg-white rounded-[8px] shadow-md p-5 animate-fade-in-up" style={{
-          animationDelay: '0.6s'
-        }}>
+          animationDelay: '0.6s' }}>
+
             <div className="flex items-center justify-between mb-4">
               <div className="flex items-center space-x-2">
                 <div className="bg-[#007A5A] p-2 rounded-[8px]">
@@ -354,8 +354,8 @@ export default function Home(props) {
 
           {/* 事件上报统计 */}
           <div className="bg-white rounded-[8px] shadow-md p-5 animate-fade-in-up" style={{
-          animationDelay: '0.7s'
-        }}>
+          animationDelay: '0.7s' }}>
+
             <div className="flex items-center justify-between mb-4">
               <div className="flex items-center space-x-2">
                 <div className="bg-[#D92121] p-2 rounded-[8px]">
