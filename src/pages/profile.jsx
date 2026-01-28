@@ -8,8 +8,8 @@ import { useToast } from '@/components/ui';
 import { TabBar } from '@/components/TabBar';
 export default function Profile(props) {
   const {
-    toast
-  } = useToast();
+    toast } =
+  useToast();
   const [activeTab, setActiveTab] = useState('profile');
   const [loading, setLoading] = useState(true);
   const [personnelInfo, setPersonnelInfo] = useState(null);
@@ -20,8 +20,8 @@ export default function Profile(props) {
   useEffect(() => {
     setUser(props.$w.auth.currentUser || {
       name: '访客',
-      userId: 'guest'
-    });
+      userId: 'guest' });
+
     loadProfileData();
   }, []);
   const loadProfileData = async () => {
@@ -36,17 +36,17 @@ export default function Profile(props) {
             where: {
               $and: [{
                 _id: {
-                  $eq: userId
-                }
-              }]
-            }
-          },
+                  $eq: userId } }] } },
+
+
+
+
           select: {
-            $master: true
-          },
-          pageSize: 1
-        }
-      });
+            $master: true },
+
+          pageSize: 1 } });
+
+
       if (result.records && result.records.length > 0) {
         setPersonnelInfo(result.records[0]);
       }
@@ -55,20 +55,20 @@ export default function Profile(props) {
       toast({
         title: '加载个人信息失败',
         description: error.message || '请稍后重试',
-        variant: 'destructive'
-      });
+        variant: 'destructive' });
+
     } finally {
       setLoading(false);
     }
   };
 
   // 计算入职时长（年月日）
-  const calculateJoinDuration = joinDate => {
+  const calculateJoinDuration = (joinDate) => {
     if (!joinDate) return {
       years: 0,
       months: 0,
-      days: 0
-    };
+      days: 0 };
+
     const join = new Date(joinDate);
     const now = new Date();
     let years = now.getFullYear() - join.getFullYear();
@@ -86,8 +86,8 @@ export default function Profile(props) {
     return {
       years,
       months,
-      days
-    };
+      days };
+
   };
 
   // 计算在职时长（年月日）
@@ -95,8 +95,8 @@ export default function Profile(props) {
     if (status !== '在职' || !joinDate) return {
       years: 0,
       months: 0,
-      days: 0
-    };
+      days: 0 };
+
     return calculateJoinDuration(joinDate);
   };
   const handleLogout = async () => {
@@ -105,41 +105,41 @@ export default function Profile(props) {
       await tcb.auth().signOut();
       await tcb.auth().signInAnonymously();
       await props.$w.auth.getUserInfo({
-        force: true
-      });
+        force: true });
+
       toast({
         title: '退出成功',
-        description: '您已成功退出登录'
-      });
+        description: '您已成功退出登录' });
+
       props.$w.utils.navigateTo({
         pageId: 'home',
-        params: {}
-      });
+        params: {} });
+
     } catch (error) {
       console.error('退出登录失败:', error);
       toast({
         title: '退出失败',
         description: error.message || '请稍后重试',
-        variant: 'destructive'
-      });
+        variant: 'destructive' });
+
     }
   };
-  const handleTabChange = tabId => {
+  const handleTabChange = (tabId) => {
     setActiveTab(tabId);
     const pageMap = {
       home: 'home',
       duty: 'duty',
       announcement: 'announcement',
-      profile: 'profile'
-    };
+      profile: 'profile' };
+
     props.$w.utils.navigateTo({
       pageId: pageMap[tabId],
-      params: {}
-    });
+      params: {} });
+
   };
 
   // 打开证件上传/替换弹窗
-  const handleDocumentClick = index => {
+  const handleDocumentClick = (index) => {
     setSelectedDocumentIndex(index);
     setShowDocumentModal(true);
   };
@@ -151,7 +151,7 @@ export default function Profile(props) {
   };
 
   // 上传证件
-  const handleDocumentUpload = async event => {
+  const handleDocumentUpload = async (event) => {
     const file = event.target.files[0];
     if (!file) return;
 
@@ -160,8 +160,8 @@ export default function Profile(props) {
       toast({
         title: '文件类型错误',
         description: '请上传图片文件',
-        variant: 'destructive'
-      });
+        variant: 'destructive' });
+
       return;
     }
 
@@ -170,8 +170,8 @@ export default function Profile(props) {
       toast({
         title: '文件过大',
         description: '文件大小不能超过 10MB',
-        variant: 'destructive'
-      });
+        variant: 'destructive' });
+
       return;
     }
     try {
@@ -181,13 +181,13 @@ export default function Profile(props) {
       const tcb = await props.$w.cloud.getCloudInstance();
       const uploadResult = await tcb.uploadFile({
         cloudPath: `documents/${Date.now()}_${file.name}`,
-        filePath: file
-      });
+        filePath: file });
+
 
       // 获取文件 URL
       const fileUrl = await tcb.getTempFileURL({
-        fileList: [uploadResult.fileID]
-      });
+        fileList: [uploadResult.fileID] });
+
 
       // 更新证件列表
       const updatedDocuments = [...(personnelInfo.documents || [])];
@@ -208,41 +208,41 @@ export default function Profile(props) {
             where: {
               $and: [{
                 _id: {
-                  $eq: personnelInfo._id
-                }
-              }]
-            }
-          },
+                  $eq: personnelInfo._id } }] } },
+
+
+
+
           data: {
-            documents: updatedDocuments
-          }
-        }
-      });
+            documents: updatedDocuments } } });
+
+
+
 
       // 更新本地状态
       setPersonnelInfo({
         ...personnelInfo,
-        documents: updatedDocuments
-      });
+        documents: updatedDocuments });
+
       toast({
         title: '上传成功',
-        description: '证件信息已更新'
-      });
+        description: '证件信息已更新' });
+
       handleCloseDocumentModal();
     } catch (error) {
       console.error('上传证件失败:', error);
       toast({
         title: '上传失败',
         description: error.message || '请稍后重试',
-        variant: 'destructive'
-      });
+        variant: 'destructive' });
+
     } finally {
       setUploading(false);
     }
   };
 
   // 删除证件
-  const handleDocumentDelete = async index => {
+  const handleDocumentDelete = async (index) => {
     try {
       const updatedDocuments = personnelInfo.documents.filter((_, i) => i !== index);
       await props.$w.cloud.callDataSource({
@@ -253,31 +253,31 @@ export default function Profile(props) {
             where: {
               $and: [{
                 _id: {
-                  $eq: personnelInfo._id
-                }
-              }]
-            }
-          },
+                  $eq: personnelInfo._id } }] } },
+
+
+
+
           data: {
-            documents: updatedDocuments
-          }
-        }
-      });
+            documents: updatedDocuments } } });
+
+
+
       setPersonnelInfo({
         ...personnelInfo,
-        documents: updatedDocuments
-      });
+        documents: updatedDocuments });
+
       toast({
         title: '删除成功',
-        description: '证件已删除'
-      });
+        description: '证件已删除' });
+
     } catch (error) {
       console.error('删除证件失败:', error);
       toast({
         title: '删除失败',
         description: error.message || '请稍后重试',
-        variant: 'destructive'
-      });
+        variant: 'destructive' });
+
     }
   };
   if (loading) {
@@ -309,31 +309,31 @@ export default function Profile(props) {
       <div className="max-w-lg mx-auto px-4 -mt-8">
         {/* 统计卡片 - 装饰边框 */}
         <div className="bg-white rounded-xl shadow-card p-4 mb-4 border-l-4 border-slate-700 animate-fade-in-up hover-lift" style={{
-        animationDelay: '0.1s'
-      }}>
-          <div className="grid grid-cols-2 gap-4">
-            <div className="text-center p-3 bg-gradient-to-br from-slate-50 to-slate-100 rounded-lg">
-              <div className="flex items-center justify-center gap-2 mb-2">
-                <div className="bg-gradient-to-br from-slate-700 to-slate-800 p-1.5 rounded-lg">
-                  <Calendar className="text-white" size={18} />
-                </div>
-                <span className="text-sm text-slate-600 font-['JetBrains_Mono']">入职时长</span>
-              </div>
-              <div className="text-xl font-bold text-slate-800 font-['Space_Grotesk']">
-                {joinDuration.years > 0 && `${joinDuration.years}年`}
-                {joinDuration.months > 0 && `${joinDuration.months}月`}
-                {joinDuration.days > 0 && `${joinDuration.days}天`}
-                {joinDuration.years === 0 && joinDuration.months === 0 && joinDuration.days === 0 && '0天'}
-              </div>
-            </div>
+        animationDelay: '0.1s' }}>
 
-          </div>
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
         </div>
 
         {/* 证件信息 */}
         <div className="bg-white rounded-xl shadow-card overflow-hidden mb-4 animate-fade-in-up hover-lift" style={{
-        animationDelay: '0.2s'
-      }}>
+        animationDelay: '0.2s' }}>
+
           <div className="p-4 border-b border-slate-100 flex items-center justify-between">
             <h2 className="text-lg font-semibold text-slate-800 font-['Space_Grotesk']">证件信息</h2>
             <button onClick={() => handleDocumentClick(null)} className="flex items-center gap-2 text-slate-700 text-sm hover:text-slate-900 transition-all duration-300 button-press">
@@ -352,7 +352,7 @@ export default function Profile(props) {
                       <Camera className="text-white opacity-0 group-hover:opacity-100 transition-opacity" size={24} />
                     </div>
                   </div>
-                  <button onClick={e => {
+                  <button onClick={(e) => {
               e.stopPropagation();
               handleDocumentDelete(index);
             }} className="absolute -top-2 -right-2 w-6 h-6 bg-red-500 text-white rounded-full flex items-center justify-center hover:bg-red-600 transition-all duration-300 button-press shadow-md">
@@ -371,8 +371,8 @@ export default function Profile(props) {
 
         {/* 个人信息列表 - 装饰边框 */}
         <div className="bg-white rounded-xl shadow-card overflow-hidden mb-4 border-l-4 border-slate-700 animate-fade-in-up hover-lift" style={{
-        animationDelay: '0.3s'
-      }}>
+        animationDelay: '0.3s' }}>
+
           <div className="p-4 border-b border-slate-100">
             <h2 className="text-lg font-semibold text-slate-800 font-['Space_Grotesk']">个人信息</h2>
           </div>
@@ -422,8 +422,8 @@ export default function Profile(props) {
 
         {/* 功能菜单 */}
         <div className="bg-white rounded-xl shadow-card overflow-hidden mb-4 animate-fade-in-up hover-lift" style={{
-        animationDelay: '0.4s'
-      }}>
+        animationDelay: '0.4s' }}>
+
           <div className="p-4 border-b border-slate-100">
             <h2 className="text-lg font-semibold text-slate-800 font-['Space_Grotesk']">功能设置</h2>
           </div>
@@ -448,8 +448,8 @@ export default function Profile(props) {
             </button>
             <button onClick={() => props.$w.utils.navigateTo({
             pageId: 'feedback',
-            params: {}
-          })} className="w-full flex items-center justify-between p-4 hover:bg-slate-50 transition-all duration-300 button-press">
+            params: {} })}
+          className="w-full flex items-center justify-between p-4 hover:bg-slate-50 transition-all duration-300 button-press">
               <div className="flex items-center gap-3">
                 <div className="bg-gradient-to-br from-slate-700 to-slate-800 p-2 rounded-lg">
                   <Mail className="text-white" size={20} />
@@ -463,8 +463,8 @@ export default function Profile(props) {
 
         {/* 退出登录按钮 */}
         <button onClick={handleLogout} className="w-full bg-white rounded-xl shadow-card p-4 flex items-center justify-center gap-2 text-red-600 hover:bg-red-50 transition-all duration-300 button-press animate-fade-in-up hover-lift" style={{
-        animationDelay: '0.5s'
-      }}>
+        animationDelay: '0.5s' }}>
+
           <div className="bg-red-100 p-2 rounded-lg">
             <LogOut size={20} className="text-red-600" />
           </div>
