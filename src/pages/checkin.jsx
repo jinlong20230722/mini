@@ -45,7 +45,8 @@ export default function CheckIn(props) {
       const API_KEY = 'J5BBZ-YPECN-XOBFC-STPG6-YSTRV-3FBCK';
 
       // 腾讯地图 API 参数格式：location=纬度,经度
-      const url = `https://apis.map.qq.com/ws/geocoder/v1/?location=${latitude},${longitude}&key=${API_KEY}&get_poi=1`;
+      // 浏览器定位返回的是 WGS84 坐标，需要添加 coord_type=1 参数
+      const url = `https://apis.map.qq.com/ws/geocoder/v1/?location=${latitude},${longitude}&key=${API_KEY}&get_poi=1&coord_type=1`;
       const response = await fetch(url, {
         headers: {
           'Accept': 'application/json'
