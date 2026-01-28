@@ -1,0 +1,50 @@
+{
+  "name": "attendance",
+  "title": "打卡签到记录",
+  "schemas": [
+    {
+      "name": "personnelName",
+      "title": "人员姓名",
+      "type": "String"
+    },
+    {
+      "name": "personnelId",
+      "title": "人员ID",
+      "type": "String"
+    },
+    {
+      "name": "checkInTime",
+      "title": "打卡时间",
+      "type": "DateTime",
+      "format": "timestamp-ms"
+    },
+    {
+      "name": "address",
+      "title": "打卡地址",
+      "type": "String"
+    },
+    {
+      "name": "latitude",
+      "title": "纬度",
+      "type": "Number"
+    },
+    {
+      "name": "longitude",
+      "title": "经度",
+      "type": "Number"
+    },
+    {
+      "name": "status",
+      "title": "签到状态",
+      "type": "String"
+    },
+    {
+      "name": "attachments",
+      "title": "附件",
+      "type": "Array",
+      "items": {
+        "type": "Media"
+      }
+    }
+  ]
+}

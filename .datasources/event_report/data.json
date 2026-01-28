@@ -1,0 +1,125 @@
+[
+  {
+    "_id": "1",
+    "eventType": "安全隐患",
+    "description": "办公区域消防通道被杂物堵塞，存在安全隐患，需要及时清理。",
+    "voiceToText": "",
+    "reporterName": "张三",
+    "reporterId": "1",
+    "reportTime": 1737936600000,
+    "address": "北京市朝阳区建国路88号办公区3楼",
+    "attachments": [
+      "https://example.com/event1_1.jpg"
+    ],
+    "createdAt": 1737936600000,
+    "updatedAt": 1737936600000
+  },
+  {
+    "_id": "2",
+    "eventType": "设备故障",
+    "description": "会议室投影仪无法正常启动，影响会议进行，需要维修。",
+    "voiceToText": "会议室投影仪坏了，无法使用，请尽快安排维修。",
+    "reporterName": "李四",
+    "reporterId": "2",
+    "reportTime": 1738023000000,
+    "address": "北京市海淀区中关村大街1号会议室A",
+    "attachments": [
+      "https://example.com/event2_1.jpg",
+      "https://example.com/event2_2.jpg"
+    ],
+    "createdAt": 1738023000000,
+    "updatedAt": 1738023000000
+  },
+  {
+    "_id": "3",
+    "eventType": "人员违规",
+    "description": "发现员工在工作时间玩游戏，违反公司规定。",
+    "voiceToText": "",
+    "reporterName": "王五",
+    "reporterId": "3",
+    "reportTime": 1738109400000,
+    "address": "北京市西城区金融街35号办公区5楼",
+    "attachments": [
+      "https://example.com/event3_1.jpg"
+    ],
+    "createdAt": 1738109400000,
+    "updatedAt": 1738109400000
+  },
+  {
+    "_id": "4",
+    "eventType": "安全隐患",
+    "description": "电梯运行异常，有异响，需要检修。",
+    "voiceToText": "电梯有异响，运行不正常，请尽快检查。",
+    "reporterName": "孙七",
+    "reporterId": "5",
+    "reportTime": 1738195800000,
+    "address": "北京市朝阳区望京SOHO电梯B",
+    "attachments": [
+      "https://example.com/event4_1.mp4"
+    ],
+    "createdAt": 1738195800000,
+    "updatedAt": 1738195800000
+  },
+  {
+    "_id": "5",
+    "eventType": "其他",
+    "description": "办公区域空调漏水，需要紧急处理。",
+    "voiceToText": "",
+    "reporterName": "张三",
+    "reporterId": "1",
+    "reportTime": 1738282200000,
+    "address": "北京市朝阳区建国路88号办公区2楼",
+    "attachments": [
+      "https://example.com/event5_1.jpg",
+      "https://example.com/event5_2.jpg"
+    ],
+    "createdAt": 1738282200000,
+    "updatedAt": 1738282200000
+  },
+  {
+    "_id": "6",
+    "eventType": "设备故障",
+    "description": "打印机卡纸无法正常工作，需要技术支持。",
+    "voiceToText": "打印机卡纸了，修不好，需要帮忙。",
+    "reporterName": "李四",
+    "reporterId": "2",
+    "reportTime": 1738368600000,
+    "address": "北京市海淀区中关村大街1号办公区4楼",
+    "attachments": [
+      "https://example.com/event6_1.jpg"
+    ],
+    "createdAt": 1738368600000,
+    "updatedAt": 1738368600000
+  },
+  {
+    "_id": "7",
+    "eventType": "安全隐患",
+    "description": "配电箱门未关闭，存在触电风险，需要立即处理。",
+    "voiceToText": "配电箱门没关，很危险，请马上处理。",
+    "reporterName": "王五",
+    "reporterId": "3",
+    "reportTime": 1738455000000,
+    "address": "北京市西城区金融街35号地下室",
+    "attachments": [
+      "https://example.com/event7_1.jpg",
+      "https://example.com/event7_2.jpg"
+    ],
+    "createdAt": 1738455000000,
+    "updatedAt": 1738455000000
+  },
+  {
+    "_id": "8",
+    "eventType": "其他",
+    "description": "办公区域发现不明液体，需要清洁处理。",
+    "voiceToText": "",
+    "reporterName": "孙七",
+    "reporterId": "5",
+    "reportTime": 1738541400000,
+    "address": "北京市朝阳区望京SOHO办公区6楼",
+    "attachments": [
+      "https://example.com/event8_1.jpg"
+    ],
+    "createdAt": 1738541400000,
+    "updatedAt": 1738541400000
+  }
+]

@@ -1,0 +1,99 @@
+[
+  {
+    "_id": "1",
+    "name": "张三",
+    "phone": "13800138001",
+    "department": "技术部",
+    "position": "软件工程师",
+    "idCard": "110101199001011234",
+    "registeredResidence": "北京市东城区",
+    "emergencyContact": "李四",
+    "emergencyPhone": "13900139001",
+    "joinDate": "2024-01-15",
+    "status": "在职",
+    "documents": [
+      "https://example.com/idcard1.jpg",
+      "https://example.com/diploma1.jpg"
+    ],
+    "createdAt": 1737936000000,
+    "updatedAt": 1737936000000
+  },
+  {
+    "_id": "2",
+    "name": "李四",
+    "phone": "13800138002",
+    "department": "市场部",
+    "position": "市场经理",
+    "idCard": "110101199002025678",
+    "registeredResidence": "北京市西城区",
+    "emergencyContact": "王五",
+    "emergencyPhone": "13900139002",
+    "joinDate": "2024-02-20",
+    "status": "在职",
+    "documents": [
+      "https://example.com/idcard2.jpg",
+      "https://example.com/diploma2.jpg",
+      "https://example.com/certificate2.jpg"
+    ],
+    "createdAt": 1738022400000,
+    "updatedAt": 1738022400000
+  },
+  {
+    "_id": "3",
+    "name": "王五",
+    "phone": "13800138003",
+    "department": "人力资源部",
+    "position": "人事专员",
+    "idCard": "110101199003039012",
+    "registeredResidence": "北京市朝阳区",
+    "emergencyContact": "赵六",
+    "emergencyPhone": "13900139003",
+    "joinDate": "2024-03-10",
+    "status": "试用期",
+    "documents": [
+      "https://example.com/idcard3.jpg",
+      "https://example.com/diploma3.jpg"
+    ],
+    "createdAt": 1738108800000,
+    "updatedAt": 1738108800000
+  },
+  {
+    "_id": "4",
+    "name": "赵六",
+    "phone": "13800138004",
+    "department": "财务部",
+    "position": "会计",
+    "idCard": "110101199004043456",
+    "registeredResidence": "北京市海淀区",
+    "emergencyContact": "孙七",
+    "emergencyPhone": "13900139004",
+    "joinDate": "2023-06-01",
+    "status": "离职",
+    "documents": [
+      "https://example.com/idcard4.jpg",
+      "https://example.com/diploma4.jpg",
+      "https://example.com/certificate4.jpg"
+    ],
+    "createdAt": 1738195200000,
+    "updatedAt": 1738195200000
+  },
+  {
+    "_id": "5",
+    "name": "孙七",
+    "phone": "13800138005",
+    "department": "技术部",
+    "position": "前端开发工程师",
+    "idCard": "110101199005057890",
+    "registeredResidence": "北京市丰台区",
+    "emergencyContact": "张三",
+    "emergencyPhone": "13900139005",
+    "joinDate": "2024-04-05",
+    "status": "在职",
+    "documents": [
+      "https://example.com/idcard5.jpg",
+      "https://example.com/diploma5.jpg"
+    ],
+    "createdAt": 1738281600000,
+    "updatedAt": 1738281600000
+  }
+]

@@ -1,0 +1,32 @@
+{
+  "name": "announcement",
+  "title": "公告信息",
+  "schemas": [
+    {
+      "name": "title",
+      "title": "公告标题",
+      "type": "String"
+    },
+    {
+      "name": "content",
+      "title": "公告内容",
+      "type": "MultiLineString"
+    },
+    {
+      "name": "announcementType",
+      "title": "公告类型",
+      "type": "String"
+    },
+    {
+      "name": "publishTime",
+      "title": "发布时间",
+      "type": "DateTime",
+      "format": "timestamp-ms"
+    },
+    {
+      "name": "publisher",
+      "title": "发布人",
+      "type": "String"
+    }
+  ]
+}

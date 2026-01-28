@@ -1,0 +1,50 @@
+{
+  "name": "event_report",
+  "title": "事件上报",
+  "schemas": [
+    {
+      "name": "eventType",
+      "title": "事件类型",
+      "type": "String"
+    },
+    {
+      "name": "description",
+      "title": "事件描述",
+      "type": "MultiLineString"
+    },
+    {
+      "name": "voiceToText",
+      "title": "语音转文字内容",
+      "type": "MultiLineString"
+    },
+    {
+      "name": "reporterName",
+      "title": "上报人员",
+      "type": "String"
+    },
+    {
+      "name": "reporterId",
+      "title": "上报人员ID",
+      "type": "String"
+    },
+    {
+      "name": "reportTime",
+      "title": "上报时间",
+      "type": "DateTime",
+      "format": "timestamp-ms"
+    },
+    {
+      "name": "address",
+      "title": "事件地址",
+      "type": "String"
+    },
+    {
+      "name": "attachments",
+      "title": "附件",
+      "type": "Array",
+      "items": {
+        "type": "Media"
+      }
+    }
+  ]
+}

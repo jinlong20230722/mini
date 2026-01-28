@@ -1,0 +1,152 @@
+[
+  {
+    "_id": "1",
+    "personnelName": "张三",
+    "personnelId": "1",
+    "checkInTime": 1737936600000,
+    "address": "北京市朝阳区建国路88号",
+    "latitude": 39.908722,
+    "longitude": 116.397499,
+    "status": "正常",
+    "attachments": [
+      "https://example.com/attendance1_1.jpg"
+    ],
+    "createdAt": 1737936600000,
+    "updatedAt": 1737936600000
+  },
+  {
+    "_id": "2",
+    "personnelName": "张三",
+    "personnelId": "1",
+    "checkInTime": 1738023000000,
+    "address": "北京市朝阳区建国路88号",
+    "latitude": 39.908722,
+    "longitude": 116.397499,
+    "status": "正常",
+    "attachments": [
+      "https://example.com/attendance1_2.jpg"
+    ],
+    "createdAt": 1738023000000,
+    "updatedAt": 1738023000000
+  },
+  {
+    "_id": "3",
+    "personnelName": "张三",
+    "personnelId": "1",
+    "checkInTime": 1738109400000,
+    "address": "北京市朝阳区建国路88号",
+    "latitude": 39.908722,
+    "longitude": 116.397499,
+    "status": "异常",
+    "attachments": [
+      "https://example.com/attendance1_3.jpg"
+    ],
+    "createdAt": 1738109400000,
+    "updatedAt": 1738109400000
+  },
+  {
+    "_id": "4",
+    "personnelName": "李四",
+    "personnelId": "2",
+    "checkInTime": 1738023000000,
+    "address": "北京市海淀区中关村大街1号",
+    "latitude": 39.982234,
+    "longitude": 116.309876,
+    "status": "正常",
+    "attachments": [
+      "https://example.com/attendance2_1.jpg"
+    ],
+    "createdAt": 1738023000000,
+    "updatedAt": 1738023000000
+  },
+  {
+    "_id": "5",
+    "personnelName": "李四",
+    "personnelId": "2",
+    "checkInTime": 1738109400000,
+    "address": "北京市海淀区中关村大街1号",
+    "latitude": 39.982234,
+    "longitude": 116.309876,
+    "status": "正常",
+    "attachments": [
+      "https://example.com/attendance2_2.jpg"
+    ],
+    "createdAt": 1738109400000,
+    "updatedAt": 1738109400000
+  },
+  {
+    "_id": "6",
+    "personnelName": "王五",
+    "personnelId": "3",
+    "checkInTime": 1738109400000,
+    "address": "北京市西城区金融街35号",
+    "latitude": 39.915678,
+    "longitude": 116.365432,
+    "status": "正常",
+    "attachments": [
+      "https://example.com/attendance3_1.jpg"
+    ],
+    "createdAt": 1738109400000,
+    "updatedAt": 1738109400000
+  },
+  {
+    "_id": "7",
+    "personnelName": "王五",
+    "personnelId": "3",
+    "checkInTime": 1738195800000,
+    "address": "北京市西城区金融街35号",
+    "latitude": 39.915678,
+    "longitude": 116.365432,
+    "status": "异常",
+    "attachments": [
+      "https://example.com/attendance3_2.jpg"
+    ],
+    "createdAt": 1738195800000,
+    "updatedAt": 1738195800000
+  },
+  {
+    "_id": "8",
+    "personnelName": "孙七",
+    "personnelId": "5",
+    "checkInTime": 1738282200000,
+    "address": "北京市朝阳区望京SOHO",
+    "latitude": 39.998765,
+    "longitude": 116.481234,
+    "status": "正常",
+    "attachments": [
+      "https://example.com/attendance5_1.jpg"
+    ],
+    "createdAt": 1738282200000,
+    "updatedAt": 1738282200000
+  },
+  {
+    "_id": "9",
+    "personnelName": "孙七",
+    "personnelId": "5",
+    "checkInTime": 1738368600000,
+    "address": "北京市朝阳区望京SOHO",
+    "latitude": 39.998765,
+    "longitude": 116.481234,
+    "status": "正常",
+    "attachments": [
+      "https://example.com/attendance5_2.jpg"
+    ],
+    "createdAt": 1738368600000,
+    "updatedAt": 1738368600000
+  },
+  {
+    "_id": "10",
+    "personnelName": "孙七",
+    "personnelId": "5",
+    "checkInTime": 1738455000000,
+    "address": "北京市朝阳区望京SOHO",
+    "latitude": 39.998765,
+    "longitude": 116.481234,
+    "status": "正常",
+    "attachments": [
+      "https://example.com/attendance5_3.jpg"
+    ],
+    "createdAt": 1738455000000,
+    "updatedAt": 1738455000000
+  }
+]

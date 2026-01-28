@@ -1,0 +1,65 @@
+{
+  "name": "personnel",
+  "title": "人员信息",
+  "schemas": [
+    {
+      "name": "name",
+      "title": "姓名",
+      "type": "String"
+    },
+    {
+      "name": "phone",
+      "title": "手机号",
+      "type": "String"
+    },
+    {
+      "name": "department",
+      "title": "部门",
+      "type": "String"
+    },
+    {
+      "name": "position",
+      "title": "职务",
+      "type": "String"
+    },
+    {
+      "name": "idCard",
+      "title": "身份证号码",
+      "type": "String"
+    },
+    {
+      "name": "registeredResidence",
+      "title": "户籍所在地",
+      "type": "String"
+    },
+    {
+      "name": "emergencyContact",
+      "title": "紧急联系人",
+      "type": "String"
+    },
+    {
+      "name": "emergencyPhone",
+      "title": "紧急联系电话",
+      "type": "String"
+    },
+    {
+      "name": "joinDate",
+      "title": "入职时间",
+      "type": "Date",
+      "format": "date"
+    },
+    {
+      "name": "status",
+      "title": "在职状态",
+      "type": "String"
+    },
+    {
+      "name": "documents",
+      "title": "证件信息",
+      "type": "Array",
+      "items": {
+        "type": "Image"
+      }
+    }
+  ]
+}

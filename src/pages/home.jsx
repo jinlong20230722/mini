@@ -1,0 +1,397 @@
+// @ts-ignore;
+import React, { useState, useEffect } from 'react';
+// @ts-ignore;
+import { UserCheck, MapPin, Calendar, AlertTriangle, MessageSquare, Settings, Bell } from 'lucide-react';
+// @ts-ignore;
+import { useToast } from '@/components/ui';
+
+import { TabBar } from '@/components/TabBar';
+export default function Home(props) {
+  const {
+    toast
+  } = useToast();
+  const [activeTab, setActiveTab] = useState('home');
+  const [pageLoaded, setPageLoaded] = useState(false);
+  const handleTabChange = tabId => {
+    setActiveTab(tabId);
+    const pageMap = {
+      'home': 'home',
+      'duty': 'duty',
+      'announcement': 'announcement',
+      'profile': 'profile'
+    };
+    const targetPage = pageMap[tabId];
+    if (targetPage) {
+      props.$w.utils.navigateTo({
+        pageId: targetPage,
+        params: {}
+      });
+    }
+  };
+  const [loading, setLoading] = useState(true);
+  const [user, setUser] = useState(null);
+  const [hasRegistered, setHasRegistered] = useState(false);
+  const [attendanceStats, setAttendanceStats] = useState({
+    todayCount: 0,
+    monthCount: 0,
+    lastTime: '-',
+    lastStatus: '-'
+  });
+  const [eventStats, setEventStats] = useState({
+    todayCount: 0,
+    monthCount: 0,
+    lastTime: '-',
+    lastType: '-'
+  });
+  useEffect(() => {
+    checkLoginAndLoadData();
+    setTimeout(() => setPageLoaded(true), 100);
+  }, []);
+  const checkLoginAndLoadData = async () => {
+    setUser(props.$w.auth.currentUser || {
+      name: '访客',
+      userId: 'guest'
+    });
+    await checkRegistrationStatus();
+    await loadRealTimeData();
+  };
+  const checkRegistrationStatus = async () => {
+    try {
+      setLoading(true);
+      const userId = props.$w.auth.currentUser?.userId || 'guest';
+      const result = await props.$w.cloud.callDataSource({
+        dataSourceName: 'personnel',
+        methodName: 'wedaGetRecordsV2',
+        params: {
+          filter: {
+            where: {
+              _openid: {
+                $eq: userId
+              }
+            }
+          },
+          select: {
+            $master: true
+          },
+          getCount: true
+        }
+      });
+      setHasRegistered(result.total > 0);
+      setLoading(false);
+    } catch (error) {
+      console.error('检查登记状态失败:', error);
+      setLoading(false);
+    }
+  };
+  const loadRealTimeData = async () => {
+    try {
+      const userId = props.$w.auth.currentUser?.userId || 'guest';
+      const today = new Date();
+      const todayStart = new Date(today.getFullYear(), today.getMonth(), today.getDate()).getTime();
+      const monthStart = new Date(today.getFullYear(), today.getMonth(), 1).getTime();
+      const attendanceResult = await props.$w.cloud.callDataSource({
+        dataSourceName: 'attendance',
+        methodName: 'wedaGetRecordsV2',
+        params: {
+          filter: {
+            where: {
+              _openid: {
+                $eq: userId
+              }
+            }
+          },
+          select: {
+            $master: true
+          },
+          getCount: true
+        }
+      });
+      if (attendanceResult.records && attendanceResult.records.length > 0) {
+        const records = attendanceResult.records;
+        const todayRecords = records.filter(r => r.checkInTime >= todayStart);
+        const monthRecords = records.filter(r => r.checkInTime >= monthStart);
+        const sortedRecords = records.sort((a, b) => b.checkInTime - a.checkInTime);
+        const lastRecord = sortedRecords[0];
+        setAttendanceStats({
+          todayCount: todayRecords.length,
+          monthCount: monthRecords.length,
+          lastTime: lastRecord.checkInTime ? new Date(lastRecord.checkInTime).toLocaleString('zh-CN', {
+            month: '2-digit',
+            day: '2-digit',
+            hour: '2-digit',
+            minute: '2-digit'
+          }) : '-',
+          lastStatus: lastRecord.status || '-'
+        });
+      }
+      const eventResult = await props.$w.cloud.callDataSource({
+        dataSourceName: 'event_report',
+        methodName: 'wedaGetRecordsV2',
+        params: {
+          filter: {
+            where: {
+              _openid: {
+                $eq: userId
+              }
+            }
+          },
+          select: {
+            $master: true
+          },
+          getCount: true
+        }
+      });
+      if (eventResult.records && eventResult.records.length > 0) {
+        const records = eventResult.records;
+        const todayRecords = records.filter(r => r.reportTime >= todayStart);
+        const monthRecords = records.filter(r => r.reportTime >= monthStart);
+        const sortedRecords = records.sort((a, b) => b.reportTime - a.reportTime);
+        const lastRecord = sortedRecords[0];
+        setEventStats({
+          todayCount: todayRecords.length,
+          monthCount: monthRecords.length,
+          lastTime: lastRecord.reportTime ? new Date(lastRecord.reportTime).toLocaleString('zh-CN', {
+            month: '2-digit',
+            day: '2-digit',
+            hour: '2-digit',
+            minute: '2-digit'
+          }) : '-',
+          lastType: lastRecord.eventType || '-'
+        });
+      }
+    } catch (error) {
+      console.error('加载实时数据失败:', error);
+    }
+  };
+  const handleFunctionClick = functionName => {
+    switch (functionName) {
+      case 'register':
+        props.$w.utils.navigateTo({
+          pageId: 'registration',
+          params: {}
+        });
+        break;
+      case 'checkIn':
+        props.$w.utils.navigateTo({
+          pageId: 'checkin',
+          params: {}
+        });
+        break;
+      case 'leave':
+        props.$w.utils.navigateTo({
+          pageId: 'leave',
+          params: {}
+        });
+        break;
+      case 'event':
+        props.$w.utils.navigateTo({
+          pageId: 'event',
+          params: {}
+        });
+        break;
+      case 'feedback':
+        props.$w.utils.navigateTo({
+          pageId: 'feedback',
+          params: {}
+        });
+        break;
+      case 'announcement':
+        props.$w.utils.navigateTo({
+          pageId: 'announcement',
+          params: {}
+        });
+        break;
+      default:
+        break;
+    }
+  };
+  const handleTopRightAction = () => {
+    props.$w.utils.navigateTo({
+      pageId: 'registration',
+      params: {}
+    });
+  };
+  const functionModules = [{
+    id: 'checkIn',
+    name: '打卡签到',
+    icon: MapPin,
+    color: '#007A5A',
+    description: '位置打卡',
+    isPrimary: true
+  }, {
+    id: 'event',
+    name: '事件上报',
+    icon: AlertTriangle,
+    color: '#D92121',
+    description: '异常事件',
+    isPrimary: true
+  }, {
+    id: 'leave',
+    name: '请销假',
+    icon: Calendar,
+    color: '#F5F7FA',
+    textColor: '#333333',
+    description: '班长/队长及以上人员',
+    isPrimary: false
+  }, {
+    id: 'feedback',
+    name: '意见反馈',
+    icon: MessageSquare,
+    color: '#F5F7FA',
+    textColor: '#333333',
+    description: '现场/公司管理建议',
+    isPrimary: false
+  }];
+  if (loading) {
+    return <div className="min-h-screen bg-[#F5F7FA] flex items-center justify-center">
+        <div className="text-[#999999]">加载中...</div>
+      </div>;
+  }
+  return <div className="min-h-screen bg-[#F5F7FA] pb-20">
+      {/* 顶部导航栏 - 深蓝色背景 */}
+      <div className="bg-[#003366] text-white px-4 py-4 shadow-lg">
+        <div className="flex items-center justify-between">
+          <div>
+            <h1 className="font-bold text-[24px]">天顺保安</h1>
+          </div>
+          <div className="flex items-center space-x-3">
+            <button onClick={handleTopRightAction} className="flex items-center space-x-1 text-[14px] text-[#003366] bg-white rounded-[8px] px-3 py-2 button-press button-hover transition-all duration-300">
+              <UserCheck className="w-4 h-4" />
+              <span className="font-medium">入职登记</span>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      {/* 主内容区域 */}
+      <div className={`px-4 py-6 transition-all duration-300 ease-out ${pageLoaded ? 'translate-y-0 opacity-100' : 'translate-y-8 opacity-0'}`}>
+        {/* 欢迎卡片 */}
+        <div className="bg-white rounded-[8px] shadow-md p-5 mb-6 animate-fade-in-up" style={{
+        animationDelay: '0.1s'
+      }}>
+          <h2 className="text-[18px] font-bold text-[#333333] mb-2">工作概览</h2>
+          <p className="text-[14px] text-[#999999]">
+            {hasRegistered ? '您已完成入职登记，可正常使用各项功能' : '请先完成入职登记，以便使用全部功能'}
+          </p>
+        </div>
+
+        {/* 功能模块网格 - 调整间距 */}
+        <div className="grid grid-cols-2 gap-x-5 gap-y-4">
+          {functionModules.map((module, index) => {
+          const Icon = module.icon;
+          const isPrimary = module.isPrimary;
+          const isCheckIn = module.id === 'checkIn';
+          const isEvent = module.id === 'event';
+
+          // 核心功能卡片尺寸：160px × 180px
+          // 次要功能卡片尺寸：140px × 150px
+          const cardWidth = isPrimary ? 'w-[160px]' : 'w-[140px]';
+          const cardHeight = isPrimary ? 'h-[180px]' : 'h-[150px]';
+          const shadowClass = isPrimary ? 'shadow-[0_4px_12px_rgba(0,0,0,0.08)]' : 'shadow-[0_2px_8px_rgba(0,0,0,0.04)]';
+          const bgColor = isPrimary ? module.color : module.color;
+          const textColor = isPrimary ? 'text-white' : 'text-[#333333]';
+          const iconBg = isPrimary ? 'bg-white/20' : 'bg-[#E8E8E8]';
+          const iconColor = isPrimary ? 'text-white' : 'text-[#333333]';
+          const descColor = isPrimary ? 'text-white/90' : 'text-[#999999]';
+          return <button key={module.id} onClick={() => handleFunctionClick(module.id)} className={`${cardWidth} ${cardHeight} ${shadowClass} rounded-[8px] p-4 flex flex-col items-center justify-center button-press button-hover transition-all duration-300 hover:shadow-lg animate-fade-in-up`} style={{
+            backgroundColor: bgColor,
+            boxShadow: isPrimary ? '0 4px 12px rgba(0,0,0,0.08)' : '0 2px 8px rgba(0,0,0,0.04)',
+            animationDelay: `${0.2 + index * 0.1}s`
+          }}>
+              <div className={`${iconBg} w-12 h-12 rounded-[8px] flex items-center justify-center mb-2`}>
+                <Icon className={`w-6 h-6 ${iconColor}`} />
+              </div>
+              <h3 className={`font-bold text-[16px] mb-1 ${textColor}`}>{module.name}</h3>
+              <p className={`text-[12px] text-center leading-relaxed ${descColor}`}>{module.description}</p>
+              {isPrimary && <div className="mt-2 flex items-center text-[12px] text-white/80">
+                  <span className="w-1.5 h-1.5 bg-white rounded-full mr-1 animate-pulse"></span>
+                  {isCheckIn ? '每日必做' : '紧急上报'}
+                </div>}
+            </button>;
+        })}
+        </div>
+
+        {/* 实时数据统计 */}
+        <div className="mt-6 space-y-4">
+          <h3 className="text-[18px] font-bold text-[#333333] mb-4">实时数据</h3>
+          
+          {/* 打卡签到统计 */}
+          <div className="bg-white rounded-[8px] shadow-md p-5 animate-fade-in-up" style={{
+          animationDelay: '0.6s'
+        }}>
+            <div className="flex items-center justify-between mb-4">
+              <div className="flex items-center space-x-2">
+                <div className="bg-[#007A5A] p-2 rounded-[8px]">
+                  <MapPin className="w-5 h-5 text-white" />
+                </div>
+                <h4 className="font-semibold text-[#333333]">打卡签到</h4>
+              </div>
+              <span className="text-[12px] text-[#999999] bg-[#F5F7FA] px-2 py-1 rounded-full">实时更新</span>
+            </div>
+            <div className="grid grid-cols-3 gap-4">
+              <div className="text-center">
+                <div className="text-[24px] font-bold text-[#007A5A] transition-all duration-300 hover:scale-110">{attendanceStats.todayCount}</div>
+                <div className="text-[12px] text-[#999999] mt-1">今日打卡</div>
+              </div>
+              <div className="text-center">
+                <div className="text-[24px] font-bold text-[#003366] transition-all duration-300 hover:scale-110">{attendanceStats.monthCount}</div>
+                <div className="text-[12px] text-[#999999] mt-1">本月打卡</div>
+              </div>
+              <div className="text-center">
+                <div className={`text-[14px] font-semibold transition-all duration-300 hover:scale-110 ${attendanceStats.lastStatus === '正常' ? 'text-[#52C41A]' : 'text-[#FA8C16]'}`}>
+                  {attendanceStats.lastStatus}
+                </div>
+                <div className="text-[12px] text-[#999999] mt-1">最近状态</div>
+              </div>
+            </div>
+            <div className="mt-3 pt-3 border-t border-[#E8E8E8]">
+              <div className="flex items-center justify-between text-[12px] text-[#999999]">
+                <span>最近打卡时间</span>
+                <span className="font-medium text-[#333333]">{attendanceStats.lastTime}</span>
+              </div>
+            </div>
+          </div>
+
+          {/* 事件上报统计 */}
+          <div className="bg-white rounded-[8px] shadow-md p-5 animate-fade-in-up" style={{
+          animationDelay: '0.7s'
+        }}>
+            <div className="flex items-center justify-between mb-4">
+              <div className="flex items-center space-x-2">
+                <div className="bg-[#D92121] p-2 rounded-[8px]">
+                  <AlertTriangle className="w-5 h-5 text-white" />
+                </div>
+                <h4 className="font-semibold text-[#333333]">事件上报</h4>
+              </div>
+              <span className="text-[12px] text-[#999999] bg-[#F5F7FA] px-2 py-1 rounded-full">实时更新</span>
+            </div>
+            <div className="grid grid-cols-3 gap-4">
+              <div className="text-center">
+                <div className="text-[24px] font-bold text-[#D92121] transition-all duration-300 hover:scale-110">{eventStats.todayCount}</div>
+                <div className="text-[12px] text-[#999999] mt-1">今日上报</div>
+              </div>
+              <div className="text-center">
+                <div className="text-[24px] font-bold text-[#003366] transition-all duration-300 hover:scale-110">{eventStats.monthCount}</div>
+                <div className="text-[12px] text-[#999999] mt-1">本月上报</div>
+              </div>
+              <div className="text-center">
+                <div className="text-[14px] font-semibold text-[#333333] truncate px-1 transition-all duration-300 hover:scale-110">
+                  {eventStats.lastType}
+                </div>
+                <div className="text-[12px] text-[#999999] mt-1">最近类型</div>
+              </div>
+            </div>
+            <div className="mt-3 pt-3 border-t border-[#E8E8E8]">
+              <div className="flex items-center justify-between text-[12px] text-[#999999]">
+                <span>最近上报时间</span>
+                <span className="font-medium text-[#333333]">{eventStats.lastTime}</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* 底部导航栏 */}
+      <TabBar activeTab={activeTab} onTabChange={handleTabChange} />
+    </div>;
+}

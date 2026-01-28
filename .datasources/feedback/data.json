@@ -1,0 +1,112 @@
+[
+  {
+    "_id": "1",
+    "feedbackType": "管理建议",
+    "content": "建议增加团队建设活动，提高团队凝聚力和协作效率。可以每季度组织一次团建活动，增进同事之间的了解和信任。",
+    "submitterName": "张三",
+    "submitterId": "1",
+    "submitTime": 1737936600000,
+    "processStatus": "已处理",
+    "createdAt": 1737936600000,
+    "updatedAt": 1737936600000
+  },
+  {
+    "_id": "2",
+    "feedbackType": "工作环境",
+    "content": "办公区域的空调温度过低，建议调整到适宜的温度，提高员工的工作舒适度。",
+    "submitterName": "李四",
+    "submitterId": "2",
+    "submitTime": 1738023000000,
+    "processStatus": "处理中",
+    "createdAt": 1738023000000,
+    "updatedAt": 1738023000000
+  },
+  {
+    "_id": "3",
+    "feedbackType": "福利待遇",
+    "content": "建议增加员工培训机会，提供更多的专业技能培训课程，帮助员工提升职业能力。",
+    "submitterName": "王五",
+    "submitterId": "3",
+    "submitTime": 1738109400000,
+    "processStatus": "待处理",
+    "createdAt": 1738109400000,
+    "updatedAt": 1738109400000
+  },
+  {
+    "_id": "4",
+    "feedbackType": "管理建议",
+    "content": "建议优化会议流程，减少不必要的会议时间，提高工作效率。可以采用更高效的会议管理工具。",
+    "submitterName": "孙七",
+    "submitterId": "5",
+    "submitTime": 1738195800000,
+    "processStatus": "已处理",
+    "createdAt": 1738195800000,
+    "updatedAt": 1738195800000
+  },
+  {
+    "_id": "5",
+    "feedbackType": "工作环境",
+    "content": "办公区域的照明不够明亮，建议增加照明设备，保护员工的视力健康。",
+    "submitterName": "张三",
+    "submitterId": "1",
+    "submitTime": 1738282200000,
+    "processStatus": "处理中",
+    "createdAt": 1738282200000,
+    "updatedAt": 1738282200000
+  },
+  {
+    "_id": "6",
+    "feedbackType": "其他",
+    "content": "建议在公司内部建立知识分享平台，鼓励员工分享工作经验和专业知识，促进团队学习和成长。",
+    "submitterName": "李四",
+    "submitterId": "2",
+    "submitTime": 1738368600000,
+    "processStatus": "待处理",
+    "createdAt": 1738368600000,
+    "updatedAt": 1738368600000
+  },
+  {
+    "_id": "7",
+    "feedbackType": "福利待遇",
+    "content": "建议增加弹性工作时间，让员工能够更好地平衡工作和生活，提高工作满意度和效率。",
+    "submitterName": "王五",
+    "submitterId": "3",
+    "submitTime": 1738455000000,
+    "processStatus": "已处理",
+    "createdAt": 1738455000000,
+    "updatedAt": 1738455000000
+  },
+  {
+    "_id": "8",
+    "feedbackType": "管理建议",
+    "content": "建议建立员工激励机制，对表现优秀的员工给予表彰和奖励，激发员工的工作积极性和创造力。",
+    "submitterName": "孙七",
+    "submitterId": "5",
+    "submitTime": 1738541400000,
+    "processStatus": "处理中",
+    "createdAt": 1738541400000,
+    "updatedAt": 1738541400000
+  },
+  {
+    "_id": "9",
+    "feedbackType": "工作环境",
+    "content": "建议改善办公区域的隔音效果，减少噪音干扰，提高员工的工作专注度。",
+    "submitterName": "张三",
+    "submitterId": "1",
+    "submitTime": 1738627800000,
+    "processStatus": "待处理",
+    "createdAt": 1738627800000,
+    "updatedAt": 1738627800000
+  },
+  {
+    "_id": "10",
+    "feedbackType": "其他",
+    "content": "建议优化公司的内部沟通渠道，建立更高效的信息传递机制，确保重要信息能够及时传达给所有员工。",
+    "submitterName": "李四",
+    "submitterId": "2",
+    "submitTime": 1738714200000,
+    "processStatus": "已关闭",
+    "createdAt": 1738714200000,
+    "updatedAt": 1738714200000
+  }
+]
