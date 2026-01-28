@@ -215,14 +215,14 @@ export default function Home(props) {
     id: 'checkIn',
     name: '打卡签到',
     icon: MapPin,
-    color: '#10B981',
+    color: '#22C55E',
     description: '位置打卡',
     isPrimary: true
   }, {
     id: 'event',
     name: '事件上报',
     icon: AlertTriangle,
-    color: '#F59E0B',
+    color: '#F97316',
     description: '异常事件',
     isPrimary: true
   }, {
@@ -230,7 +230,7 @@ export default function Home(props) {
     name: '请销假',
     icon: Calendar,
     color: '#FFFFFF',
-    textColor: '#1E293B',
+    textColor: '#0F172A',
     description: '班长/队长及以上人员',
     isPrimary: false
   }, {
@@ -238,7 +238,7 @@ export default function Home(props) {
     name: '意见反馈',
     icon: MessageSquare,
     color: '#FFFFFF',
-    textColor: '#1E293B',
+    textColor: '#0F172A',
     description: '现场/公司管理建议',
     isPrimary: false
   }];
@@ -248,14 +248,14 @@ export default function Home(props) {
       </div>;
   }
   return <div className="min-h-screen bg-[#F8FAFC] pb-20">
-      {/* 顶部导航栏 - 明亮蓝色背景 */}
-      <div className="bg-[#3B82F6] text-white px-4 py-4 shadow-lg">
+      {/* 顶部导航栏 - 明亮靛蓝色背景 */}
+      <div className="bg-[#6366F1] text-white px-4 py-4 shadow-lg">
         <div className="flex items-center justify-between">
           <div>
             <h1 className="font-bold text-[24px]">天顺保安</h1>
           </div>
           <div className="flex items-center space-x-3">
-            <button onClick={handleTopRightAction} className="flex items-center space-x-1 text-[14px] text-[#3B82F6] bg-white rounded-[4px] px-3 py-2">
+            <button onClick={handleTopRightAction} className="flex items-center space-x-1 text-[14px] text-[#6366F1] bg-white rounded-[4px] px-3 py-2">
               <UserCheck className="w-4 h-4" />
               <span className="font-medium">入职登记</span>
             </button>
@@ -268,8 +268,8 @@ export default function Home(props) {
         {/* 欢迎卡片 */}
         <div className="bg-white rounded-[4px] shadow-sm p-5 mb-6">
 
-          <h2 className="text-[18px] font-bold text-[#1E293B] mb-2">工作概览</h2>
-          <p className="text-[14px] text-[#64748B]">
+          <h2 className="text-[18px] font-bold text-[#0F172A] mb-2">工作概览</h2>
+          <p className="text-[14px] text-[#475569]">
             {hasRegistered ? '您已完成入职登记，可正常使用各项功能' : '请先完成入职登记，以便使用全部功能'}
           </p>
         </div>
@@ -283,10 +283,10 @@ export default function Home(props) {
           // 统一卡片尺寸：160px × 160px
           const cardSize = 'w-[160px] h-[160px]';
           const bgColor = isPrimary ? module.color : module.color;
-          const textColor = isPrimary ? 'text-white' : 'text-[#1E293B]';
+          const textColor = isPrimary ? 'text-white' : 'text-[#0F172A]';
           const iconBg = isPrimary ? 'bg-white/20' : 'bg-[#E2E8F0]';
-          const iconColor = isPrimary ? 'text-white' : 'text-[#1E293B]';
-          const descColor = isPrimary ? 'text-white/90' : 'text-[#64748B]';
+          const iconColor = isPrimary ? 'text-white' : 'text-[#0F172A]';
+          const descColor = isPrimary ? 'text-white/90' : 'text-[#475569]';
           return <button key={module.id} onClick={() => handleFunctionClick(module.id)} className={`${cardSize} shadow-md rounded-lg p-5 flex flex-col items-center justify-center transition-all hover:shadow-lg`} style={{
             backgroundColor: bgColor
           }}>
@@ -304,40 +304,40 @@ export default function Home(props) {
 
         {/* 实时数据统计 */}
         <div className="mt-6 space-y-4">
-          <h3 className="text-[18px] font-bold text-[#1E293B] mb-4">实时数据</h3>
+          <h3 className="text-[18px] font-bold text-[#0F172A] mb-4">实时数据</h3>
           
           {/* 打卡签到统计 */}
           <div className="bg-white rounded-[4px] shadow-sm p-5">
 
             <div className="flex items-center justify-between mb-4">
               <div className="flex items-center space-x-2">
-                <div className="bg-[#10B981] p-2 rounded-[8px]">
+                <div className="bg-[#22C55E] p-2 rounded-[8px]">
                   <MapPin className="w-5 h-5 text-white" />
                 </div>
-                <h4 className="font-semibold text-[#1E293B]">打卡签到</h4>
+                <h4 className="font-semibold text-[#0F172A]">打卡签到</h4>
               </div>
-              <span className="text-[12px] text-[#64748B] bg-[#F1F5F9] px-2 py-1 rounded-full">实时更新</span>
+              <span className="text-[12px] text-[#475569] bg-[#F1F5F9] px-2 py-1 rounded-full">实时更新</span>
             </div>
             <div className="grid grid-cols-3 gap-4">
               <div className="text-center">
-                <div className="text-[24px] font-bold text-[#10B981]">{attendanceStats.todayCount}</div>
-                <div className="text-[12px] text-[#64748B] mt-1">今日打卡</div>
+                <div className="text-[24px] font-bold text-[#22C55E]">{attendanceStats.todayCount}</div>
+                <div className="text-[12px] text-[#475569] mt-1">今日打卡</div>
               </div>
               <div className="text-center">
-                <div className="text-[24px] font-bold text-[#10B981]">{attendanceStats.monthCount}</div>
-                <div className="text-[12px] text-[#64748B] mt-1">本月打卡</div>
+                <div className="text-[24px] font-bold text-[#22C55E]">{attendanceStats.monthCount}</div>
+                <div className="text-[12px] text-[#475569] mt-1">本月打卡</div>
               </div>
               <div className="text-center">
-                <div className={`text-[14px] font-semibold ${attendanceStats.lastStatus === '正常' ? 'text-[#10B981]' : 'text-[#F59E0B]'}`}>
+                <div className={`text-[14px] font-semibold ${attendanceStats.lastStatus === '正常' ? 'text-[#22C55E]' : 'text-[#F97316]'}`}>
                   {attendanceStats.lastStatus}
                 </div>
-                <div className="text-[12px] text-[#64748B] mt-1">最近状态</div>
+                <div className="text-[12px] text-[#475569] mt-1">最近状态</div>
               </div>
             </div>
             <div className="mt-3 pt-3 border-t border-[#E2E8F0]">
-              <div className="flex items-center justify-between text-[12px] text-[#64748B]">
+              <div className="flex items-center justify-between text-[12px] text-[#475569]">
                 <span>最近打卡时间</span>
-                <span className="font-medium text-[#1E293B]">{attendanceStats.lastTime}</span>
+                <span className="font-medium text-[#0F172A]">{attendanceStats.lastTime}</span>
               </div>
             </div>
           </div>
@@ -347,33 +347,33 @@ export default function Home(props) {
 
             <div className="flex items-center justify-between mb-4">
               <div className="flex items-center space-x-2">
-                <div className="bg-[#F59E0B] p-2 rounded-[8px]">
+                <div className="bg-[#F97316] p-2 rounded-[8px]">
                   <AlertTriangle className="w-5 h-5 text-white" />
                 </div>
-                <h4 className="font-semibold text-[#1E293B]">事件上报</h4>
+                <h4 className="font-semibold text-[#0F172A]">事件上报</h4>
               </div>
-              <span className="text-[12px] text-[#64748B] bg-[#F1F5F9] px-2 py-1 rounded-full">实时更新</span>
+              <span className="text-[12px] text-[#475569] bg-[#F1F5F9] px-2 py-1 rounded-full">实时更新</span>
             </div>
             <div className="grid grid-cols-3 gap-4">
               <div className="text-center">
-                <div className="text-[24px] font-bold text-[#F59E0B]">{eventStats.todayCount}</div>
-                <div className="text-[12px] text-[#64748B] mt-1">今日上报</div>
+                <div className="text-[24px] font-bold text-[#F97316]">{eventStats.todayCount}</div>
+                <div className="text-[12px] text-[#475569] mt-1">今日上报</div>
               </div>
               <div className="text-center">
-                <div className="text-[24px] font-bold text-[#F59E0B]">{eventStats.monthCount}</div>
-                <div className="text-[12px] text-[#64748B] mt-1">本月上报</div>
+                <div className="text-[24px] font-bold text-[#F97316]">{eventStats.monthCount}</div>
+                <div className="text-[12px] text-[#475569] mt-1">本月上报</div>
               </div>
               <div className="text-center">
-                <div className="text-[14px] font-semibold text-[#1E293B] truncate px-1">
+                <div className="text-[14px] font-semibold text-[#0F172A] truncate px-1">
                   {eventStats.lastType}
                 </div>
-                <div className="text-[12px] text-[#64748B] mt-1">最近类型</div>
+                <div className="text-[12px] text-[#475569] mt-1">最近类型</div>
               </div>
             </div>
             <div className="mt-3 pt-3 border-t border-[#E2E8F0]">
-              <div className="flex items-center justify-between text-[12px] text-[#64748B]">
+              <div className="flex items-center justify-between text-[12px] text-[#475569]">
                 <span>最近上报时间</span>
-                <span className="font-medium text-[#1E293B]">{eventStats.lastTime}</span>
+                <span className="font-medium text-[#0F172A]">{eventStats.lastTime}</span>
               </div>
             </div>
           </div>
