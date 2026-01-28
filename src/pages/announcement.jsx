@@ -138,13 +138,13 @@ export default function Announcement(props) {
   const getTypeColor = type => {
     switch (type) {
       case '表彰公告':
-        return 'bg-[#FFF7E6] text-[#FA8C16] border-[#FFD591]';
+        return 'bg-[#FFEDD5] text-[#EA580C] border-[#FDBA74]';
       case '公司通知':
-        return 'bg-[#E6F7FF] text-[#0A2463] border-[#91D5FF]';
+        return 'bg-[#DBEAFE] text-[#1D4ED8] border-[#93C5FD]';
       case '活动通知':
-        return 'bg-[#E8F0E8] text-[#3D5A3D] border-[#8FB891]';
+        return 'bg-[#DCFCE7] text-[#16A34A] border-[#86EFAC]';
       default:
-        return 'bg-[#F5F7FA] text-[#333333] border-[#E8E8E8]';
+        return 'bg-[#F8FAFC] text-[#0F172A] border-[#E2E8F0]';
     }
   };
   const getTypeIcon = type => {
@@ -173,13 +173,13 @@ export default function Announcement(props) {
     props.$w.utils.navigateBack();
   };
   if (loading) {
-    return <div className="min-h-screen bg-[#F5F7FA] flex items-center justify-center">
+    return <div className="min-h-screen bg-[#F8FAFC] flex items-center justify-center">
         <div className="text-slate-600">加载中...</div>
       </div>;
   }
-  return <div className="min-h-screen bg-[#F5F7FA]">
+  return <div className="min-h-screen bg-[#F8FAFC]">
       {/* 顶部导航栏 */}
-      <div className="bg-[#0A2463] text-white px-4 py-4 shadow-sm sticky top-0 z-10">
+      <div className="bg-[#6366F1] text-white px-4 py-4 shadow-sm sticky top-0 z-10">
         <div className="flex items-center justify-between">
           <div className="flex items-center">
             <button onClick={handleBack} className="p-2 hover:bg-white/10 rounded-full mr-2">
@@ -196,14 +196,14 @@ export default function Announcement(props) {
       {/* 主内容区域 */}
       <div className="px-4 py-6 pb-8">
         {/* 页面说明 - 装饰边框 */}
-        <div className="bg-[#F5F7FA] rounded-[4px] p-4 mb-6 border-l-4 border-[#0A2463]">
+        <div className="bg-[#F8FAFC] rounded-[4px] p-4 mb-6 border-l-4 border-[#6366F1]">
           <div className="flex items-start">
-            <div className="bg-[#0A2463] rounded-full p-2 mr-3">
+            <div className="bg-[#6366F1] rounded-full p-2 mr-3">
               <Megaphone className="w-4 h-4 text-white" />
             </div>
             <div className="flex-1">
-              <h4 className="text-sm font-semibold text-[#333333] mb-1 font-['Space_Grotesk']">信息宣发</h4>
-              <p className="text-xs text-[#666666] leading-relaxed font-['JetBrains_Mono']">
+              <h4 className="text-sm font-semibold text-[#0F172A] mb-1 font-['Space_Grotesk']">信息宣发</h4>
+              <p className="text-xs text-[#475569] leading-relaxed font-['JetBrains_Mono']">
                 及时了解公司政策、好人好事表彰及重要通知，共同营造积极向上的工作氛围。
               </p>
             </div>
@@ -211,11 +211,11 @@ export default function Announcement(props) {
         </div>
 
         {/* 公告列表 */}
-        {announcements.length === 0 ? <div className="bg-white rounded-[4px] shadow-sm p-8 text-center border border-[#E8E8E8]">
-            <Megaphone className="w-12 h-12 text-[#BFBFBF] mx-auto mb-3" />
-            <p className="text-[#999999] text-sm font-['JetBrains_Mono']">暂无公告信息</p>
+        {announcements.length === 0 ? <div className="bg-white rounded-[4px] shadow-sm p-8 text-center border border-[#E2E8F0]">
+            <Megaphone className="w-12 h-12 text-[#CBD5E1] mx-auto mb-3" />
+            <p className="text-[#94A3B8] text-sm font-['JetBrains_Mono']">暂无公告信息</p>
           </div> : <div className="space-y-4">
-            {announcements.map((item, index) => <div key={item._id} className="bg-white rounded-[4px] shadow-sm overflow-hidden border border-[#E8E8E8]">
+            {announcements.map((item, index) => <div key={item._id} className="bg-white rounded-[4px] shadow-sm overflow-hidden border border-[#E2E8F0]">
                 {/* 公告头部 */}
                 <div className="p-4 cursor-pointer" onClick={() => toggleExpand(item._id)}>
                   <div className="flex items-start justify-between mb-3">
@@ -225,17 +225,17 @@ export default function Announcement(props) {
                           {getTypeIcon(item.announcementType)} {item.announcementType}
                         </span>
                       </div>
-                      <h3 className="text-base font-semibold text-[#333333] leading-snug font-['Space_Grotesk']">
+                      <h3 className="text-base font-semibold text-[#0F172A] leading-snug font-['Space_Grotesk']">
                         {item.title}
                       </h3>
                     </div>
                     <div className="ml-2 flex-shrink-0">
-                      {expandedItems[item._id] ? <ChevronUp className="w-5 h-5 text-[#999999]" /> : <ChevronDown className="w-5 h-5 text-[#999999]" />}
+                      {expandedItems[item._id] ? <ChevronUp className="w-5 h-5 text-[#94A3B8]" /> : <ChevronDown className="w-5 h-5 text-[#94A3B8]" />}
                     </div>
                   </div>
 
                   {/* 发布信息 */}
-                  <div className="flex items-center text-xs text-[#999999] space-x-4 font-['JetBrains_Mono']">
+                  <div className="flex items-center text-xs text-[#94A3B8] space-x-4 font-['JetBrains_Mono']">
                     <div className="flex items-center">
                       <Calendar className="w-3.5 h-3.5 mr-1" />
                       <span>{formatDate(item.publishTime)}</span>
@@ -249,8 +249,8 @@ export default function Announcement(props) {
 
                 {/* 公告内容（展开时显示） */}
                 {expandedItems[item._id] && <div className="px-4 pb-4 pt-0">
-                    <div className="border-t border-[#E8E8E8] pt-3">
-                      <p className="text-sm text-[#666666] leading-relaxed whitespace-pre-wrap font-['JetBrains_Mono']">
+                    <div className="border-t border-[#E2E8F0] pt-3">
+                      <p className="text-sm text-[#475569] leading-relaxed whitespace-pre-wrap font-['JetBrains_Mono']">
                         {item.content}
                       </p>
                     </div>
@@ -260,7 +260,7 @@ export default function Announcement(props) {
 
         {/* 底部提示 */}
         <div className="mt-6 text-center">
-          <p className="text-xs text-[#999999] font-['JetBrains_Mono']">
+          <p className="text-xs text-[#94A3B8] font-['JetBrains_Mono']">
             共 {announcements.length} 条公告信息
           </p>
         </div>
