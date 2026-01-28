@@ -36,6 +36,25 @@ export default function CheckIn(props) {
 
   // 逆地理编码：将经纬度转换为详细地址
   const reverseGeocode = async (latitude, longitude) => {
+    // 诊断信息
+    const diagnosticInfo = {
+      timestamp: new Date().toISOString(),
+      coordinates: {
+        latitude,
+        longitude
+      },
+      userAgent: navigator.userAgent,
+      providers: []
+    };
+    console.log('='.repeat(60));
+    console.log('🔍 开始逆地理编码诊断');
+    console.log('📍 坐标信息:', {
+      latitude,
+      longitude
+    });
+    console.log('🌐 User Agent:', navigator.userAgent);
+    console.log('='.repeat(60));
+
     // 尝试多个地图 API，提高成功率
     const providers = [{
       name: '腾讯地图',
@@ -77,30 +96,60 @@ export default function CheckIn(props) {
 
     // 依次尝试各个地图 API
     for (const provider of providers) {
+      const providerInfo = {
+        name: provider.name,
+        url: provider.url,
+        success: false,
+        error: null,
+        responseTime: 0,
+        httpStatus: null,
+        apiStatus: null,
+        apiMessage: null
+      };
       try {
-        console.log(`尝试使用 ${provider.name} 进行逆地理编码...`);
+        console.log(`\n🔄 [${provider.name}] 开始请求...`);
+        console.log(`📡 请求 URL:`, provider.url);
+        const startTime = Date.now();
         const controller = new AbortController();
         const timeoutId = setTimeout(() => controller.abort(), 8000); // 8秒超时
 
         const response = await fetch(provider.url, {
           method: 'GET',
           headers: {
-            'Accept': 'application/json'
+            'Accept': 'application/json',
+            'Cache-Control': 'no-cache'
           },
           signal: controller.signal
         });
         clearTimeout(timeoutId);
-        console.log(`${provider.name} API 响应状态:`, response.status, response.statusText);
+        const responseTime = Date.now() - startTime;
+        providerInfo.responseTime = responseTime;
+        providerInfo.httpStatus = response.status;
+        console.log(`⏱️ 响应时间: ${responseTime}ms`);
+        console.log(`📊 HTTP 状态: ${response.status} ${response.statusText}`);
         if (!response.ok) {
           const errorText = await response.text();
-          console.error(`${provider.name} HTTP 错误:`, response.status, errorText);
+          providerInfo.error = `HTTP ${response.status}: ${errorText}`;
+          console.error(`❌ [${provider.name}] HTTP 错误:`, response.status, errorText);
+          console.error(`📄 错误响应:`, errorText);
+          diagnosticInfo.providers.push(providerInfo);
           continue; // 尝试下一个 provider
         }
         const data = await response.json();
-        console.log(`${provider.name} API 返回数据:`, data);
+        console.log(`📦 [${provider.name}] API 返回数据:`, JSON.stringify(data, null, 2));
+
+        // 检查 API 状态
+        if (data.status !== undefined) {
+          providerInfo.apiStatus = data.status;
+          providerInfo.apiMessage = data.message || data.info || '';
+          console.log(`🔍 API 状态码:`, data.status);
+          console.log(`📝 API 消息:`, data.message || data.info || '');
+        }
         const result = provider.parse(data);
         if (result) {
-          console.log(`${provider.name} 解析成功:`, result);
+          providerInfo.success = true;
+          console.log(`✅ [${provider.name}] 解析成功!`);
+          console.log(`📍 解析结果:`, result);
 
           // 组合详细地址
           let detailAddress = '';
@@ -110,6 +159,10 @@ export default function CheckIn(props) {
           if (result.township) detailAddress += result.township;
           if (result.street) detailAddress += result.street;
           if (result.streetNumber) detailAddress += result.streetNumber;
+          console.log(`🏠 完整地址:`, detailAddress);
+          console.log('='.repeat(60));
+          diagnosticInfo.providers.push(providerInfo);
+          console.log('📊 诊断信息汇总:', JSON.stringify(diagnosticInfo, null, 2));
           return {
             formatted: result.formatted,
             detail: detailAddress,
@@ -121,19 +174,35 @@ export default function CheckIn(props) {
             streetNumber: result.streetNumber
           };
         } else {
-          console.error(`${provider.name} API 返回错误:`, data);
+          providerInfo.error = `API 返回状态: ${data.status}, 消息: ${data.message || data.info || '未知错误'}`;
+          console.error(`❌ [${provider.name}] API 返回错误:`, data);
+          console.error(`🔍 错误详情:`, {
+            status: data.status,
+            message: data.message,
+            info: data.info
+          });
         }
       } catch (error) {
-        console.error(`${provider.name} 逆地理编码失败:`, error);
-        continue; // 尝试下一个 provider
+        providerInfo.error = error.message || error.toString();
+        console.error(`❌ [${provider.name}] 逆地理编码失败:`, error);
+        console.error(`🔍 错误类型:`, error.name);
+        console.error(`🔍 错误消息:`, error.message);
+        console.error(`🔍 错误堆栈:`, error.stack);
       }
+      diagnosticInfo.providers.push(providerInfo);
     }
 
     // 所有 API 都失败了
-    console.error('所有地图 API 都失败了');
+    console.error('\n' + '='.repeat(60));
+    console.error('❌ 所有地图 API 都失败了');
+    console.error('📊 诊断信息汇总:', JSON.stringify(diagnosticInfo, null, 2));
+    console.error('='.repeat(60));
+
+    // 显示友好的错误提示
+    const errorDetails = diagnosticInfo.providers.map(p => `${p.name}: ${p.error || '未知错误'} (HTTP ${p.httpStatus || 'N/A'}, API ${p.apiStatus || 'N/A'})`).join('; ');
     return {
       formatted: '地址解析失败',
-      detail: '所有地图服务都无法获取地址信息，请检查网络连接或稍后重试',
+      detail: `所有地图服务都无法获取地址信息。\n\n诊断信息:\n${errorDetails}\n\n请检查:\n1. 网络连接是否正常\n2. 腾讯地图 API Key 配置是否正确\n3. 是否在微信小程序环境中运行`,
       province: '',
       city: '',
       district: '',
