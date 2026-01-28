@@ -196,114 +196,50 @@ export default function CheckIn(props) {
 
   // 获取当前位置
   const getCurrentLocation = () => {
-    console.log('='.repeat(60));
-    console.log('🚀 [定位] 开始获取当前位置');
-    console.log('🌐 User Agent:', navigator.userAgent);
-    console.log('🔍 检查 navigator.geolocation 是否存在...');
     if (navigator.geolocation) {
-      console.log('✅ [定位] navigator.geolocation 存在');
-      console.log('📍 [定位] 开始调用 getCurrentPosition...');
-      navigator.geolocation.getCurrentPosition(async position => {
-        console.log('✅ [定位] 成功获取位置信息');
-        console.log('📍 [定位] 位置数据:', {
-          latitude: position.coords.latitude,
-          longitude: position.coords.longitude,
-          accuracy: position.coords.accuracy,
-          altitude: position.coords.altitude,
-          altitudeAccuracy: position.coords.altitudeAccuracy,
-          heading: position.coords.heading,
-          speed: position.coords.speed,
-          timestamp: new Date(position.timestamp).toISOString()
-        });
+      navigator.geolocation.getCurrentPosition(position => {
         const {
           latitude,
           longitude
         } = position.coords;
-
-        // 先显示经纬度
         setLocation({
           latitude,
           longitude,
-          address: '正在获取详细地址...'
-        });
-        console.log('🔄 [定位] 开始调用逆地理编码函数');
-        // 进行逆地理编码
-        const addressInfo = await reverseGeocode(latitude, longitude);
-
-        // 更新地址信息
-        setLocation({
-          latitude,
-          longitude,
-          address: addressInfo.formatted || addressInfo.detail,
-          detail: addressInfo.detail,
-          province: addressInfo.province,
-          city: addressInfo.city,
-          district: addressInfo.district,
-          township: addressInfo.township,
-          street: addressInfo.street,
-          streetNumber: addressInfo.streetNumber
+          address: `纬度: ${latitude.toFixed(6)}, 经度: ${longitude.toFixed(6)}`
         });
         toast({
           title: '位置获取成功',
-          description: addressInfo.formatted || addressInfo.detail,
+          description: `纬度: ${latitude.toFixed(6)}, 经度: ${longitude.toFixed(6)}`,
           variant: 'default'
         });
       }, error => {
-        console.error('❌ [定位] 获取位置失败');
-        console.error('🔍 [定位] 错误对象:', error);
-        console.error('🔍 [定位] 错误代码:', error.code);
-        console.error('🔍 [定位] 错误消息:', error.message);
-        console.error('🔍 [定位] 错误堆栈:', error.stack);
-        let errorMsg = '位置获取失败';
-        let errorDetail = '';
-        if (error.code === 1) {
-          errorMsg = '定位权限被拒绝';
-          errorDetail = '请在浏览器设置中开启定位权限，或允许网站访问您的位置信息。\n\n操作步骤：\n1. 点击浏览器地址栏左侧的锁图标\n2. 找到"位置"权限\n3. 选择"允许"';
-        } else if (error.code === 2) {
-          errorMsg = '无法获取位置信息';
-          errorDetail = '请检查网络连接，或确保您的设备支持 GPS 定位。\n\n可能的原因：\n1. 网络连接不稳定\n2. GPS 信号弱\n3. 浏览器不支持定位';
-        } else if (error.code === 3) {
-          errorMsg = '定位超时';
-          errorDetail = '获取位置信息超时，请重试。\n\n建议：\n1. 检查网络连接\n2. 移动到开阔区域\n3. 关闭其他占用 GPS 的应用';
-        } else {
-          errorMsg = '未知错误';
-          errorDetail = `错误代码: ${error.code}\n错误消息: ${error.message}`;
-        }
-        console.error('❌ [定位] 最终错误提示:', errorMsg);
-        console.error('📝 [定位] 错误详情:', errorDetail);
+        console.error('获取位置失败:', error);
         toast({
-          title: errorMsg,
-          description: errorDetail,
+          title: '位置获取失败',
+          description: '请检查定位权限设置',
           variant: 'destructive'
         });
         setLocation({
           latitude: null,
           longitude: null,
-          address: errorMsg
+          address: '位置获取失败'
         });
       }, {
-        enableHighAccuracy: false,
-        timeout: 10000,
-        maximumAge: 0
+        enableHighAccuracy: true,
+        timeout: 10000
       });
     } else {
-      console.error('❌ [定位] navigator.geolocation 不存在');
-      console.error('🔍 [定位] 当前环境不支持地理定位');
-      console.error('🌐 [定位] User Agent:', navigator.userAgent);
-      const errorMsg = '您的浏览器不支持地理定位';
-      const errorDetail = '请使用现代浏览器（如 Chrome、Firefox、Safari）访问此页面。\n\n如果您在微信小程序中，请使用微信内置浏览器。';
       toast({
-        title: errorMsg,
-        description: errorDetail,
+        title: '定位不支持',
+        description: '您的浏览器不支持定位功能',
         variant: 'destructive'
       });
       setLocation({
         latitude: null,
         longitude: null,
-        address: errorMsg
+        address: '定位不支持'
       });
     }
-    console.log('='.repeat(60));
   };
 
   // 更新当前时间
