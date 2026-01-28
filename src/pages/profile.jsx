@@ -307,28 +307,40 @@ export default function Profile(props) {
       </div>
 
       <div className="max-w-lg mx-auto px-4 -mt-8">
-        {/* 统计卡片 - 装饰边框 */}
-        
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+        {/* 统计卡片 */}
+        <div className="bg-white rounded-xl shadow-card overflow-hidden mb-4 animate-fade-in-up hover-lift" style={{
+        animationDelay: '0.1s'
+      }}>
+          <div className="p-4 border-b border-slate-100">
+            <h2 className="text-lg font-semibold text-slate-800 font-['Space_Grotesk']">工作统计</h2>
+          </div>
+          <div className="p-4 grid grid-cols-2 gap-4">
+            <div className="bg-gradient-to-br from-indigo-50 to-indigo-100 rounded-lg p-4">
+              <div className="flex items-center gap-2 mb-2">
+                <Calendar className="text-indigo-600" size={18} />
+                <span className="text-sm text-slate-600 font-['JetBrains_Mono']">入职时长</span>
+              </div>
+              <div className="text-2xl font-bold text-indigo-700 font-['Space_Grotesk']">
+                {joinDuration.years > 0 && `${joinDuration.years}年`}
+                {joinDuration.months > 0 && `${joinDuration.months}月`}
+                {joinDuration.days > 0 && `${joinDuration.days}天`}
+                {joinDuration.years === 0 && joinDuration.months === 0 && joinDuration.days === 0 && '0天'}
+              </div>
+            </div>
+            <div className="bg-gradient-to-br from-emerald-50 to-emerald-100 rounded-lg p-4">
+              <div className="flex items-center gap-2 mb-2">
+                <Clock className="text-emerald-600" size={18} />
+                <span className="text-sm text-slate-600 font-['JetBrains_Mono']">在职时长</span>
+              </div>
+              <div className="text-2xl font-bold text-emerald-700 font-['Space_Grotesk']">
+                {workDuration.years > 0 && `${workDuration.years}年`}
+                {workDuration.months > 0 && `${workDuration.months}月`}
+                {workDuration.days > 0 && `${workDuration.days}天`}
+                {workDuration.years === 0 && workDuration.months === 0 && workDuration.days === 0 && '0天'}
+              </div>
+            </div>
+          </div>
+        </div>
 
         {/* 证件信息 */}
         <div className="bg-white rounded-xl shadow-card overflow-hidden mb-4 animate-fade-in-up hover-lift" style={{
