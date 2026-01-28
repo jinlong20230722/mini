@@ -21,11 +21,76 @@ export default function CheckIn(props) {
   const [location, setLocation] = useState({
     latitude: null,
     longitude: null,
-    address: '正在获取位置...'
+    address: '正在获取位置...',
+    detail: '',
+    province: '',
+    city: '',
+    district: '',
+    township: '',
+    street: '',
+    streetNumber: ''
   });
   const [status, setStatus] = useState('normal'); // normal: 正常, abnormal: 异常
   const [attachments, setAttachments] = useState([]);
   const [previewUrl, setPreviewUrl] = useState(null);
+
+  // 逆地理编码：将经纬度转换为详细地址
+  const reverseGeocode = async (latitude, longitude) => {
+    try {
+      // 使用高德地图逆地理编码 API
+      // 注意：实际项目中需要替换为您自己的高德地图 API Key
+      const AMAP_API_KEY = 'YOUR_AMAP_API_KEY'; // 请替换为真实的高德地图 API Key
+      const url = `https://restapi.amap.com/v3/geocode/regeo?key=${AMAP_API_KEY}&location=${longitude},${latitude}&poitype=&radius=1000&extensions=base&batch=false&roadlevel=0`;
+      const response = await fetch(url);
+      const data = await response.json();
+      if (data.status === '1' && data.regeocode) {
+        const addressComponent = data.regeocode.addressComponent || {};
+        const formattedAddress = data.regeocode.formatted_address || '';
+
+        // 构建标准地址格式
+        const province = addressComponent.province || '';
+        const city = addressComponent.city || addressComponent.province || '';
+        const district = addressComponent.district || '';
+        const township = addressComponent.township || '';
+        const street = addressComponent.street || '';
+        const streetNumber = addressComponent.streetNumber || '';
+
+        // 组合详细地址
+        let detailAddress = '';
+        if (province) detailAddress += province;
+        if (city && city !== province) detailAddress += city;
+        if (district) detailAddress += district;
+        if (township) detailAddress += township;
+        if (street) detailAddress += street;
+        if (streetNumber) detailAddress += streetNumber;
+        return {
+          formatted: formattedAddress,
+          detail: detailAddress,
+          province,
+          city,
+          district,
+          township,
+          street,
+          streetNumber
+        };
+      } else {
+        throw new Error(data.info || '逆地理编码失败');
+      }
+    } catch (error) {
+      console.error('逆地理编码失败:', error);
+      // 如果高德 API 失败，使用备用方案
+      return {
+        formatted: `${latitude.toFixed(6)}, ${longitude.toFixed(6)}`,
+        detail: `纬度: ${latitude.toFixed(6)}, 经度: ${longitude.toFixed(6)}`,
+        province: '',
+        city: '',
+        district: '',
+        township: '',
+        street: '',
+        streetNumber: ''
+      };
+    }
+  };
 
   // 获取当前位置
   const getCurrentLocation = () => {
@@ -36,29 +101,53 @@ export default function CheckIn(props) {
           longitude
         } = position.coords;
 
-        // 模拟逆地理编码（实际项目中可以使用高德、百度等地图 API）
-        const mockAddress = `经度: ${longitude.toFixed(6)}, 纬度: ${latitude.toFixed(6)}`;
+        // 先显示经纬度
         setLocation({
           latitude,
           longitude,
-          address: mockAddress
+          address: '正在获取详细地址...'
+        });
+
+        // 进行逆地理编码
+        const addressInfo = await reverseGeocode(latitude, longitude);
+
+        // 更新地址信息
+        setLocation({
+          latitude,
+          longitude,
+          address: addressInfo.formatted || addressInfo.detail,
+          detail: addressInfo.detail,
+          province: addressInfo.province,
+          city: addressInfo.city,
+          district: addressInfo.district,
+          township: addressInfo.township,
+          street: addressInfo.street,
+          streetNumber: addressInfo.streetNumber
         });
         toast({
           title: '位置获取成功',
-          description: mockAddress,
+          description: addressInfo.formatted || addressInfo.detail,
           variant: 'default'
         });
       }, error => {
         console.error('获取位置失败:', error);
+        let errorMsg = '位置获取失败';
+        if (error.code === 1) {
+          errorMsg = '定位权限被拒绝，请在浏览器设置中开启定位权限';
+        } else if (error.code === 2) {
+          errorMsg = '无法获取位置信息，请检查网络连接';
+        } else if (error.code === 3) {
+          errorMsg = '定位超时，请重试';
+        }
         toast({
           title: '位置获取失败',
-          description: '请检查定位权限设置',
+          description: errorMsg,
           variant: 'destructive'
         });
         setLocation({
           latitude: null,
           longitude: null,
-          address: '位置获取失败'
+          address: errorMsg
         });
       }, {
         enableHighAccuracy: true,
@@ -284,20 +373,50 @@ export default function CheckIn(props) {
                 打卡位置
               </CardTitle>
             </CardHeader>
-            <CardContent className="space-y-1.5 pt-0 px-3 pb-3">
+            <CardContent className="space-y-2 pt-0 px-3 pb-3">
+              {/* 详细地址 */}
               <div className="flex items-start space-x-1">
                 <Navigation className="w-3 h-3 mt-0.5 text-[#999999] flex-shrink-0" />
                 <div className="flex-1">
                   <p className="text-[12px] text-[#999999] mb-0.5">详细地址</p>
-                  <p className="text-[12px] font-medium text-[#333333] line-clamp-2">{location.address}</p>
+                  <p className="text-[12px] font-medium text-[#333333] line-clamp-2 leading-relaxed">{location.address}</p>
                 </div>
               </div>
+              
+              {/* 行政区划信息 */}
+              {location.province && <div className="flex items-start space-x-1">
+                  <div className="w-3 h-3 rounded-full bg-[#BFBFBF] flex-shrink-0 mt-0.5"></div>
+                  <div className="flex-1">
+                    <p className="text-[12px] text-[#999999] mb-0.5">行政区划</p>
+                    <p className="text-[12px] text-[#666666] leading-relaxed">
+                      {location.province}
+                      {location.city && location.city !== location.province && ` ${location.city}`}
+                      {location.district && ` ${location.district}`}
+                    </p>
+                  </div>
+                </div>}
+              
+              {/* 街道信息 */}
+              {location.street && <div className="flex items-start space-x-1">
+                  <div className="w-3 h-3 rounded-full bg-[#BFBFBF] flex-shrink-0 mt-0.5"></div>
+                  <div className="flex-1">
+                    <p className="text-[12px] text-[#999999] mb-0.5">街道信息</p>
+                    <p className="text-[12px] text-[#666666] leading-relaxed">
+                      {location.street}
+                      {location.streetNumber && ` ${location.streetNumber}`}
+                    </p>
+                  </div>
+                </div>}
+              
+              {/* 经纬度坐标 */}
               <div className="flex items-center space-x-1">
                 <div className="w-3 h-3 rounded-full bg-[#BFBFBF] flex-shrink-0"></div>
                 <p className="text-[12px] text-[#999999]">
-                  {location.longitude?.toFixed(4) || '--'}, {location.latitude?.toFixed(4) || '--'}
+                  坐标: {location.longitude?.toFixed(6) || '--'}, {location.latitude?.toFixed(6) || '--'}
                 </p>
               </div>
+              
+              {/* 重新定位按钮 */}
               <Button onClick={getCurrentLocation} variant="outline" size="sm" className="w-full mt-1 h-7 text-[12px] rounded-[4px] border-[#3B82F6] text-[#3B82F6] hover:bg-[#DBEAFE]">
                 <Navigation className="w-3 h-3 mr-1" />
                 重新定位
