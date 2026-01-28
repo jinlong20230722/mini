@@ -1,7 +1,7 @@
 // @ts-ignore;
-import React, { useState } from 'react';
+import React, { useState, useMemo } from 'react';
 // @ts-ignore;
-import { Shield, ChevronDown, ChevronUp, MapPin, Eye, Droplets, Car, UserCheck, AlertTriangle } from 'lucide-react';
+import { Shield, ChevronDown, ChevronUp, MapPin, Eye, Droplets, Car, UserCheck, AlertTriangle, Search, ChevronRight, ChevronLeft } from 'lucide-react';
 
 import { TabBar } from '@/components/TabBar';
 export default function Duty(props) {
@@ -14,12 +14,45 @@ export default function Duty(props) {
     parking: false,
     image: false
   });
+  const [searchQuery, setSearchQuery] = useState('');
+  const [selectedFilter, setSelectedFilter] = useState('all');
   const toggleSection = section => {
     setExpandedSections(prev => ({
       ...prev,
       [section]: !prev[section]
     }));
   };
+  const expandAll = () => {
+    setExpandedSections({
+      ethics: true,
+      gate: true,
+      patrol: true,
+      fire: true,
+      parking: true,
+      image: true
+    });
+  };
+  const collapseAll = () => {
+    setExpandedSections({
+      ethics: false,
+      gate: false,
+      patrol: false,
+      fire: false,
+      parking: false,
+      image: false
+    });
+  };
+  const filteredDutySections = useMemo(() => {
+    return dutySections.filter(section => {
+      const matchesFilter = selectedFilter === 'all' || section.id === selectedFilter;
+      const matchesSearch = searchQuery === '' || section.title.toLowerCase().includes(searchQuery.toLowerCase()) || section.duties.some(duty => duty.toLowerCase().includes(searchQuery.toLowerCase()));
+      return matchesFilter && matchesSearch;
+    });
+  }, [selectedFilter, searchQuery]);
+  const filteredEthicsItems = useMemo(() => {
+    if (searchQuery === '') return ethicsContent.items;
+    return ethicsContent.items.filter(item => item.title.toLowerCase().includes(searchQuery.toLowerCase()) || item.content.toLowerCase().includes(searchQuery.toLowerCase()));
+  }, [searchQuery]);
   const handleTabChange = tabId => {
     setActiveTab(tabId);
     const pageMap = {
@@ -127,82 +160,140 @@ export default function Duty(props) {
   };
   return <div className="min-h-screen bg-[#F8FAFC] pb-20">
       {/* 顶部导航栏 */}
-      <div className="bg-[#3B82F6] text-white px-4 py-4 shadow-lg">
-        <div className="flex items-center justify-between">
+      <div className="bg-[#6366F1] text-white px-4 py-4 shadow-lg">
+        <div className="flex items-center justify-between mb-3">
           <h1 className="text-[18px] font-bold">岗位职责</h1>
+          <div className="flex gap-2">
+            <button onClick={expandAll} className="text-xs bg-white/20 hover:bg-white/30 px-3 py-1.5 rounded-lg transition-all duration-200">
+              全部展开
+            </button>
+            <button onClick={collapseAll} className="text-xs bg-white/20 hover:bg-white/30 px-3 py-1.5 rounded-lg transition-all duration-200">
+              全部收起
+            </button>
+          </div>
+        </div>
+        {/* 搜索框 */}
+        <div className="relative">
+          <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-white/60" size={18} />
+          <input type="text" placeholder="搜索职责内容..." value={searchQuery} onChange={e => setSearchQuery(e.target.value)} className="w-full bg-white/20 text-white placeholder-white/60 rounded-xl pl-10 pr-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-white/40 transition-all duration-200" />
         </div>
       </div>
 
-      <div className="max-w-lg mx-auto p-4 space-y-4">
-        {/* 保安职业道德 - 装饰边框 */}
-        <div className="bg-white rounded-xl shadow-card overflow-hidden animate-fade-in-up hover-lift" style={{
+      {/* 快速筛选标签 */}
+      <div className="max-w-lg mx-auto px-4 py-3">
+        <div className="flex gap-2 overflow-x-auto pb-2 scrollbar-hide">
+          <button onClick={() => setSelectedFilter('all')} className={`px-4 py-2 rounded-full text-sm font-medium whitespace-nowrap transition-all duration-200 ${selectedFilter === 'all' ? 'bg-[#6366F1] text-white shadow-md' : 'bg-white text-[#64748B] hover:bg-gray-50'}`}>
+            全部
+          </button>
+          {dutySections.map(section => {
+          const colors = colorClasses[section.color];
+          return <button key={section.id} onClick={() => setSelectedFilter(section.id)} className={`px-4 py-2 rounded-full text-sm font-medium whitespace-nowrap transition-all duration-200 ${selectedFilter === section.id ? `${colors.bg} ${colors.text} shadow-md` : 'bg-white text-[#64748B] hover:bg-gray-50'}`}>
+                {section.title}
+              </button>;
+        })}
+        </div>
+      </div>
+
+      <div className="max-w-lg mx-auto px-4 pb-4 space-y-3">
+        {/* 保安职业道德 */}
+        {(selectedFilter === 'all' || selectedFilter === 'ethics') && <div className="bg-white rounded-2xl shadow-sm overflow-hidden animate-fade-in-up hover:shadow-md transition-shadow duration-300" style={{
         animationDelay: '0.1s'
       }}>
-
-          <div className={`p-4 cursor-pointer flex items-center justify-between transition-all duration-300 ease-in-out ${expandedSections.ethics ? 'bg-[#3B82F6] text-white' : 'bg-gray-50 hover:bg-gray-100'}`} onClick={() => toggleSection('ethics')}>
-            <div className="flex items-center gap-3">
-              <div className={`p-2 rounded-lg ${expandedSections.ethics ? 'bg-white/20' : 'bg-[#F5F7FA]'}`}>
-                <Shield size={24} className={expandedSections.ethics ? 'text-white' : 'text-[#333333]'} />
+            <div className={`p-4 cursor-pointer flex items-center justify-between transition-all duration-300 ease-in-out ${expandedSections.ethics ? 'bg-gradient-to-r from-[#6366F1] to-[#818CF8] text-white' : 'bg-gray-50 hover:bg-gray-100'}`} onClick={() => toggleSection('ethics')}>
+              <div className="flex items-center gap-3">
+                <div className={`p-2.5 rounded-xl ${expandedSections.ethics ? 'bg-white/20' : 'bg-[#F8FAFC]'}`}>
+                  <Shield size={22} className={expandedSections.ethics ? 'text-white' : 'text-[#6366F1]'} />
+                </div>
+                <div className="flex-1">
+                  <h2 className="text-base font-semibold font-['Space_Grotesk']">职业道德</h2>
+                  <p className={`text-xs mt-0.5 ${expandedSections.ethics ? 'text-white/80' : 'text-[#94A3B8]'}`}>
+                    {filteredEthicsItems.length} 条规范
+                  </p>
+                </div>
               </div>
-              <h2 className="text-lg font-semibold font-['Space_Grotesk'] text-[rgb(255,255,255)]">职业道德</h2>
+              {expandedSections.ethics ? <ChevronUp size={20} className="transition-transform duration-300 ease-in-out" /> : <ChevronDown size={20} className="text-[#94A3B8] transition-transform duration-300 ease-in-out" />}
             </div>
-            {expandedSections.ethics ? <ChevronUp size={20} className="transition-transform duration-300 ease-in-out" /> : <ChevronDown size={20} className="transition-transform duration-300 ease-in-out" />}
-          </div>
-          
-          {expandedSections.ethics && <div className="p-4 space-y-4 transition-all duration-300 ease-in-out">
-              {ethicsContent.items.map((item, index) => <div key={index} className="p-4 bg-[#F8FAFC] rounded-lg border-l-4 border-[#3B82F6] transition-all duration-300 ease-in-out hover:shadow-md hover-lift">
-                  <h3 className="font-semibold text-[#1E293B] mb-2 font-['Space_Grotesk']">{item.title}</h3>
-                  <p className="text-[#64748B] text-sm leading-relaxed font-['JetBrains_Mono']">{item.content}</p>
-                </div>)}
-            </div>}
-        </div>
+            
+            {expandedSections.ethics && <div className="p-4 space-y-3 transition-all duration-300 ease-in-out">
+                {filteredEthicsItems.length > 0 ? filteredEthicsItems.map((item, index) => <div key={index} className="p-3.5 bg-gradient-to-r from-[#F8FAFC] to-white rounded-xl border-l-4 border-[#6366F1] transition-all duration-300 ease-in-out hover:shadow-md hover:translate-x-1">
+                      <h3 className="font-semibold text-[#0F172A] mb-1.5 font-['Space_Grotesk'] text-sm">{item.title}</h3>
+                      <p className="text-[#475569] text-xs leading-relaxed font-['JetBrains_Mono']">{item.content}</p>
+                    </div>) : <div className="text-center py-8 text-[#94A3B8] text-sm">
+                    未找到匹配的职业道德内容
+                  </div>}
+              </div>}
+          </div>}
 
         {/* 各岗位职责 */}
-        {dutySections.map((section, index) => {
+        {filteredDutySections.map((section, index) => {
         const Icon = section.icon;
         const colors = colorClasses[section.color];
         const isExpanded = expandedSections[section.id];
-        return <div key={section.id} className="bg-white rounded-xl shadow-card overflow-hidden animate-fade-in-up hover-lift" style={{
+        return <div key={section.id} className="bg-white rounded-2xl shadow-sm overflow-hidden animate-fade-in-up hover:shadow-md transition-shadow duration-300" style={{
           animationDelay: `${0.2 + index * 0.1}s`
         }}>
-
               <div className={`p-4 cursor-pointer flex items-center justify-between transition-all duration-300 ease-in-out ${isExpanded ? colors.bg : 'bg-gray-50 hover:bg-gray-100'}`} onClick={() => toggleSection(section.id)}>
                 <div className="flex items-center gap-3">
-                  <div className={`p-2 rounded-lg ${isExpanded ? colors.bg : 'bg-[#F5F7FA]'}`}>
-                    <Icon size={20} className={isExpanded ? colors.icon : 'text-[#333333]'} />
+                  <div className={`p-2.5 rounded-xl ${isExpanded ? 'bg-white/50' : 'bg-[#F8FAFC]'}`}>
+                    <Icon size={20} className={isExpanded ? colors.icon : 'text-[#64748B]'} />
                   </div>
-                  <h2 className={`text-lg font-semibold ${isExpanded ? colors.text : 'text-[#333333]'} font-['Space_Grotesk']`}>{section.title}</h2>
+                  <div className="flex-1">
+                    <h2 className={`text-base font-semibold ${isExpanded ? colors.text : 'text-[#0F172A]'} font-['Space_Grotesk']`}>{section.title}</h2>
+                    <p className={`text-xs mt-0.5 ${isExpanded ? colors.text.replace('text-', 'text-').replace('700', '500').replace('600', '400') : 'text-[#94A3B8]'}`}>
+                      {section.duties.length} 条职责
+                    </p>
+                  </div>
                 </div>
-                {isExpanded ? <ChevronUp size={20} className={`${colors.text} transition-transform duration-300 ease-in-out`} /> : <ChevronDown size={20} className="text-[#999999] transition-transform duration-300 ease-in-out" />}
+                {isExpanded ? <ChevronUp size={20} className={`${colors.text} transition-transform duration-300 ease-in-out`} /> : <ChevronDown size={20} className="text-[#94A3B8] transition-transform duration-300 ease-in-out" />}
               </div>
               
               {isExpanded && <div className={`p-4 ${colors.bg} transition-all duration-300 ease-in-out`}>
-                  <ul className="space-y-3">
+                  <ul className="space-y-2.5">
                     {section.duties.map((duty, index) => <li key={index} className="flex items-start gap-3 transition-all duration-300 ease-in-out hover:translate-x-1">
-                        <div className={`mt-1 w-2 h-2 rounded-full ${colors.icon.replace('text', 'bg')}`} />
-                        <span className={`text-sm ${colors.text} leading-relaxed font-['JetBrains_Mono']`}>{duty}</span>
+                        <div className={`mt-1.5 w-1.5 h-1.5 rounded-full ${colors.icon.replace('text', 'bg')}`} />
+                        <span className={`text-xs ${colors.text} leading-relaxed font-['JetBrains_Mono']`}>{duty}</span>
                       </li>)}
                   </ul>
                 </div>}
             </div>;
       })}
 
-        {/* 底部提示 - 装饰边框 */}
-        <div className="bg-[#F8FAFC] rounded-xl p-4 border-l-4 border-[#3B82F6] animate-fade-in-up hover-lift" style={{
+        {/* 空状态 */}
+        {filteredDutySections.length === 0 && selectedFilter !== 'all' && <div className="text-center py-12">
+            <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-[#F8FAFC] mb-4">
+              <Search className="text-[#94A3B8]" size={32} />
+            </div>
+            <p className="text-[#94A3B8] text-sm mb-2">未找到匹配的职责内容</p>
+            <button onClick={() => {
+          setSelectedFilter('all');
+          setSearchQuery('');
+        }} className="text-[#6366F1] text-sm font-medium hover:underline">
+              清除筛选条件
+            </button>
+          </div>}
+
+        {/* 底部提示 */}
+        <div className="bg-gradient-to-r from-[#F8FAFC] to-white rounded-2xl p-4 border-l-4 border-[#6366F1] animate-fade-in-up hover:shadow-md transition-shadow duration-300" style={{
         animationDelay: '0.8s'
       }}>
-
           <div className="flex items-start gap-3">
-            <div className="bg-[#3B82F6] p-2 rounded-lg">
+            <div className="bg-[#6366F1] p-2.5 rounded-xl">
               <AlertTriangle className="text-white flex-shrink-0" size={20} />
             </div>
-            <div>
-              <h3 className="font-semibold text-[#1E293B] mb-1 font-['Space_Grotesk']">温馨提示</h3>
-              <p className="text-sm text-[#64748B] leading-relaxed font-['JetBrains_Mono']">
+            <div className="flex-1">
+              <h3 className="font-semibold text-[#0F172A] mb-1.5 font-['Space_Grotesk'] text-sm">温馨提示</h3>
+              <p className="text-xs text-[#475569] leading-relaxed font-['JetBrains_Mono']">
                 请严格遵守保安职业道德和岗位规范，认真履行职责，确保安保工作质量。如有疑问，请及时向上级汇报。
               </p>
             </div>
           </div>
+        </div>
+
+        {/* 底部统计信息 */}
+        <div className="text-center py-3">
+          <p className="text-xs text-[#94A3B8]">
+            {selectedFilter === 'all' ? `共 ${dutySections.length} 个岗位，${dutySections.reduce((sum, s) => sum + s.duties.length, 0)} 条职责` : `当前显示 ${filteredDutySections.length} 个岗位`}
+          </p>
         </div>
       </div>
 
