@@ -42,17 +42,6 @@ export default function Duty(props) {
       image: false
     });
   };
-  const filteredDutySections = useMemo(() => {
-    return dutySections.filter(section => {
-      const matchesFilter = selectedFilter === 'all' || section.id === selectedFilter;
-      const matchesSearch = searchQuery === '' || section.title.toLowerCase().includes(searchQuery.toLowerCase()) || section.duties.some(duty => duty.toLowerCase().includes(searchQuery.toLowerCase()));
-      return matchesFilter && matchesSearch;
-    });
-  }, [selectedFilter, searchQuery]);
-  const filteredEthicsItems = useMemo(() => {
-    if (searchQuery === '') return ethicsContent.items;
-    return ethicsContent.items.filter(item => item.title.toLowerCase().includes(searchQuery.toLowerCase()) || item.content.toLowerCase().includes(searchQuery.toLowerCase()));
-  }, [searchQuery]);
   const handleTabChange = tabId => {
     setActiveTab(tabId);
     const pageMap = {
@@ -67,7 +56,6 @@ export default function Duty(props) {
     });
   };
 
-  // 保安职业道德内容
   // 保安职业道德内容
   const ethicsContent = {
     title: '保安职业道德',
@@ -93,7 +81,6 @@ export default function Duty(props) {
     }]
   };
 
-  // 各岗位职责内容
   // 各岗位职责内容
   const dutySections = [{
     id: 'gate',
@@ -126,6 +113,17 @@ export default function Duty(props) {
     color: 'orange',
     duties: ['保持仪容仪表整洁，着装规范，树立良好形象', '站姿端正，精神饱满，展现专业素养', '礼貌待人，热情服务，提供优质安保服务', '维护岗位区域秩序，确保环境整洁有序', '协助接待访客，提供必要的引导和帮助', '及时报告岗位区域异常情况，确保安全稳定', '遵守服务规范，提升服务质量和客户满意度', '配合其他岗位工作，共同完成安保任务']
   }];
+  const filteredDutySections = useMemo(() => {
+    return dutySections.filter(section => {
+      const matchesFilter = selectedFilter === 'all' || section.id === selectedFilter;
+      const matchesSearch = searchQuery === '' || section.title.toLowerCase().includes(searchQuery.toLowerCase()) || section.duties.some(duty => duty.toLowerCase().includes(searchQuery.toLowerCase()));
+      return matchesFilter && matchesSearch;
+    });
+  }, [selectedFilter, searchQuery]);
+  const filteredEthicsItems = useMemo(() => {
+    if (searchQuery === '') return ethicsContent.items;
+    return ethicsContent.items.filter(item => item.title.toLowerCase().includes(searchQuery.toLowerCase()) || item.content.toLowerCase().includes(searchQuery.toLowerCase()));
+  }, [searchQuery]);
   const colorClasses = {
     blue: {
       bg: 'bg-[#DBEAFE]',
