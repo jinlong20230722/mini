@@ -245,9 +245,9 @@ export default function CheckIn(props) {
   }
   return <div className="min-h-screen bg-[#F5F7FA] pb-24">
       {/* 顶部导航栏 - 深蓝色 */}
-      <div className="bg-[#0A2463] text-white px-4 py-3 shadow-lg">
+      <div className="bg-[#0A2463] text-white px-4 py-3 shadow-sm">
         <div className="flex items-center justify-between">
-          <button onClick={() => $w.utils.navigateBack()} className="flex items-center text-white hover:text-[#E8E8E8] transition-colors button-press">
+          <button onClick={() => $w.utils.navigateBack()} className="flex items-center text-white hover:text-[#E8E8E8] transition-colors">
             <svg className="w-5 h-5 mr-1.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
             </svg>
@@ -262,7 +262,7 @@ export default function CheckIn(props) {
         {/* 当前时间和位置信息 - 1x1 并排布局 */}
         <div className="grid grid-cols-2 gap-3">
           {/* 当前时间卡片 */}
-          <Card className="shadow-md border-l-4 border-l-[#0A2463] rounded-[8px]">
+          <Card className="shadow-sm border-l-4 border-l-[#0A2463] rounded-[4px]">
             <CardHeader className="pb-1.5 pt-3 px-3">
               <CardTitle className="text-[12px] flex items-center text-[#0A2463]">
                 <Clock className="w-3.5 h-3.5 mr-1" />
@@ -277,7 +277,7 @@ export default function CheckIn(props) {
           </Card>
 
           {/* 位置信息卡片 */}
-          <Card className="shadow-md border-l-4 border-l-[#0A2463] rounded-[8px]">
+          <Card className="shadow-sm border-l-4 border-l-[#0A2463] rounded-[4px]">
             <CardHeader className="pb-1.5 pt-3 px-3">
               <CardTitle className="text-[12px] flex items-center text-[#0A2463]">
                 <MapPin className="w-3.5 h-3.5 mr-1" />
@@ -298,7 +298,7 @@ export default function CheckIn(props) {
                   {location.longitude?.toFixed(4) || '--'}, {location.latitude?.toFixed(4) || '--'}
                 </p>
               </div>
-              <Button onClick={getCurrentLocation} variant="outline" size="sm" className="w-full mt-1 h-7 text-[12px] rounded-[8px] button-press button-hover">
+              <Button onClick={getCurrentLocation} variant="outline" size="sm" className="w-full mt-1 h-7 text-[12px] rounded-[4px]">
                 <Navigation className="w-3 h-3 mr-1" />
                 重新定位
               </Button>
@@ -307,18 +307,18 @@ export default function CheckIn(props) {
         </div>
 
         {/* 签到状态选择 */}
-        <Card className="shadow-md rounded-[8px]">
+        <Card className="shadow-sm rounded-[4px]">
           <CardHeader className="pb-2 pt-3 px-4">
             <CardTitle className="text-[14px] text-[#333333] font-bold">签到状态</CardTitle>
             <CardDescription className="text-[12px] text-[#999999]">请选择您的签到状态</CardDescription>
           </CardHeader>
           <CardContent className="pt-0 px-4 pb-3">
             <div className="grid grid-cols-2 gap-2">
-              <button onClick={() => setStatus('normal')} className={`p-3 rounded-[8px] border-2 transition-all button-press button-hover ${status === 'normal' ? 'border-[#3D5A3D] bg-[#E8F0E8]' : 'border-[#E8E8E8] bg-white hover:border-[#3D5A3D]'}`}>
+              <button onClick={() => setStatus('normal')} className={`p-3 rounded-[4px] border-2 ${status === 'normal' ? 'border-[#3D5A3D] bg-[#E8F0E8]' : 'border-[#E8E8E8] bg-white'}`}>
                 <CheckCircle className={`w-6 h-6 mx-auto mb-1 ${status === 'normal' ? 'text-[#3D5A3D]' : 'text-[#BFBFBF]'}`} />
                 <p className={`text-[14px] font-medium ${status === 'normal' ? 'text-[#3D5A3D]' : 'text-[#333333]'}`}>正常</p>
               </button>
-              <button onClick={() => setStatus('abnormal')} className={`p-3 rounded-[8px] border-2 transition-all button-press button-hover ${status === 'abnormal' ? 'border-[#FA8C16] bg-[#FFF7E6]' : 'border-[#E8E8E8] bg-white hover:border-[#FA8C16]'}`}>
+              <button onClick={() => setStatus('abnormal')} className={`p-3 rounded-[4px] border-2 ${status === 'abnormal' ? 'border-[#FA8C16] bg-[#FFF7E6]' : 'border-[#E8E8E8] bg-white'}`}>
                 <AlertCircle className={`w-6 h-6 mx-auto mb-1 ${status === 'abnormal' ? 'text-[#FA8C16]' : 'text-[#BFBFBF]'}`} />
                 <p className={`text-[14px] font-medium ${status === 'abnormal' ? 'text-[#FA8C16]' : 'text-[#333333]'}`}>异常</p>
               </button>
@@ -327,15 +327,15 @@ export default function CheckIn(props) {
         </Card>
 
         {/* 附件上传 */}
-        <Card className="shadow-md rounded-[8px]">
+        <Card className="shadow-sm rounded-[4px]">
           <CardHeader className="pb-2 pt-3 px-4">
             <CardTitle className="text-[14px] text-[#333333] font-bold">打卡凭证</CardTitle>
             <CardDescription className="text-[12px] text-[#999999]">请拍照或录制视频作为打卡凭证</CardDescription>
           </CardHeader>
           <CardContent className="space-y-3 pt-0 px-4 pb-3">
             {previewUrl ? <div className="relative">
-                {attachments[0]?.type.startsWith('image/') ? <img src={previewUrl} alt="预览" className="w-full h-36 object-cover rounded-[8px]" /> : <video src={previewUrl} controls className="w-full h-36 object-cover rounded-[8px]" />}
-                <button onClick={clearAttachment} className="absolute top-2 right-2 bg-[#D92121] text-white rounded-full p-1.5 shadow-lg hover:bg-[#B91C1C] transition-colors button-press">
+                {attachments[0]?.type.startsWith('image/') ? <img src={previewUrl} alt="预览" className="w-full h-36 object-cover rounded-[4px]" /> : <video src={previewUrl} controls className="w-full h-36 object-cover rounded-[4px]" />}
+                <button onClick={clearAttachment} className="absolute top-2 right-2 bg-[#D92121] text-white rounded-full p-1.5 shadow-lg hover:bg-[#B91C1C] transition-colors">
                   <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
                   </svg>
@@ -343,14 +343,14 @@ export default function CheckIn(props) {
               </div> : <div className="grid grid-cols-2 gap-2">
                 <label className="cursor-pointer">
                   <input type="file" accept="image/*" onChange={handleFileSelect} className="hidden" />
-                  <div className="p-3 border-2 border-dashed border-[#E8E8E8] rounded-[8px] hover:border-[#0A2463] hover:bg-[#F5F7FA] transition-all text-center button-press">
+                  <div className="p-3 border-2 border-dashed border-[#E8E8E8] rounded-[4px] hover:border-[#0A2463] hover:bg-[#F5F7FA] transition-all text-center">
                     <Camera className="w-6 h-6 mx-auto mb-1 text-[#BFBFBF]" />
                     <p className="text-[12px] font-medium text-[#333333]">拍照</p>
                   </div>
                 </label>
                 <label className="cursor-pointer">
                   <input type="file" accept="video/*" onChange={handleFileSelect} className="hidden" />
-                  <div className="p-3 border-2 border-dashed border-[#E8E8E8] rounded-[8px] hover:border-[#0A2463] hover:bg-[#F5F7FA] transition-all text-center button-press">
+                  <div className="p-3 border-2 border-dashed border-[#E8E8E8] rounded-[4px] hover:border-[#0A2463] hover:bg-[#F5F7FA] transition-all text-center">
                     <Video className="w-6 h-6 mx-auto mb-1 text-[#BFBFBF]" />
                     <p className="text-[12px] font-medium text-[#333333]">录像</p>
                   </div>
@@ -360,7 +360,7 @@ export default function CheckIn(props) {
         </Card>
 
         {/* 提交按钮 - 军绿色 */}
-        <Button onClick={handleSubmit} disabled={submitting} className="w-full h-11 text-[16px] font-bold bg-[#3D5A3D] hover:bg-[#2D4A2D] shadow-lg rounded-[8px] button-press button-hover">
+        <Button onClick={handleSubmit} disabled={submitting} className="w-full h-11 text-[16px] font-bold bg-[#3D5A3D] hover:bg-[#2D4A2D] shadow-sm rounded-[4px]">
           {submitting ? <>
               <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-white mr-2"></div>
               提交中...

@@ -338,7 +338,7 @@ export default function RegistrationPage(props) {
   }
   return <div className="min-h-screen bg-[#F5F7FA] pb-24">
       {/* 顶部导航栏 */}
-      <div className="bg-[#0A2463] text-white px-4 py-4 sticky top-0 z-10 shadow-lg">
+      <div className="bg-[#0A2463] text-white px-4 py-4 sticky top-0 z-10 shadow-sm">
         <div className="flex items-center justify-between">
           <button onClick={() => props.$w.utils.navigateTo({
           pageId: 'home',
@@ -354,7 +354,7 @@ export default function RegistrationPage(props) {
 
       <div className="px-4 py-6 max-w-lg mx-auto">
         {/* 状态卡片 */}
-        <div className={`rounded-xl p-4 mb-6 flex items-center gap-3 shadow-md ${isRegistered ? 'bg-[#3D5A3D] text-white' : 'bg-[#0A2463] text-white'}`}>
+        <div className={`rounded-[4px] p-4 mb-6 flex items-center gap-3 shadow-sm ${isRegistered ? 'bg-[#3D5A3D] text-white' : 'bg-[#0A2463] text-white'}`}>
           {isRegistered ? <CheckCircle2 className="w-8 h-8 flex-shrink-0" /> : <AlertCircle className="w-8 h-8 flex-shrink-0" />}
           <div>
             <p className="font-semibold text-lg">
@@ -370,7 +370,7 @@ export default function RegistrationPage(props) {
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
             {/* 基本信息 */}
-            <div className="bg-white rounded-xl p-4 shadow-sm">
+            <div className="bg-white rounded-[4px] p-4 shadow-sm">
               <h2 className="text-lg font-semibold text-[#333333] mb-4 flex items-center gap-2">
                 <User className="w-5 h-5 text-[#0A2463]" />
                 基本信息
@@ -461,7 +461,7 @@ export default function RegistrationPage(props) {
             </div>
 
             {/* 身份证信息 */}
-            <div className="bg-white rounded-xl p-4 shadow-sm">
+            <div className="bg-white rounded-[4px] p-4 shadow-sm">
               <h2 className="text-lg font-semibold text-[#333333] mb-4 flex items-center gap-2">
                 <IdCard className="w-5 h-5 text-[#0A2463]" />
                 身份证信息
@@ -474,9 +474,9 @@ export default function RegistrationPage(props) {
                     <label className="block text-sm font-medium text-[#333333] mb-2 text-center">
                       身份证正面 *
                     </label>
-                    <div className="border-2 border-dashed border-[#E8E8E8] rounded-lg p-4 hover:border-[#0A2463] transition-colors">
+                    <div className="border-2 border-dashed border-[#E8E8E8] rounded-[4px] p-4 hover:border-[#0A2463] transition-colors">
                       {idCardFront ? <div className="relative">
-                          <img src={idCardFront} alt="身份证正面" className="w-full h-40 object-cover rounded-lg" />
+                          <img src={idCardFront} alt="身份证正面" className="w-full h-40 object-cover rounded-[4px]" />
                           <button type="button" onClick={() => removeDocument(null, 'front')} className="absolute top-2 right-2 bg-red-500 text-white rounded-full p-1 hover:bg-red-600 transition-colors">
                             <X className="w-4 h-4" />
                           </button>
@@ -492,9 +492,9 @@ export default function RegistrationPage(props) {
                     <label className="block text-sm font-medium text-[#333333] mb-2 text-center">
                       身份证背面 *
                     </label>
-                    <div className="border-2 border-dashed border-[#E8E8E8] rounded-lg p-4 hover:border-[#0A2463] transition-colors">
+                    <div className="border-2 border-dashed border-[#E8E8E8] rounded-[4px] p-4 hover:border-[#0A2463] transition-colors">
                       {idCardBack ? <div className="relative">
-                          <img src={idCardBack} alt="身份证背面" className="w-full h-40 object-cover rounded-lg" />
+                          <img src={idCardBack} alt="身份证背面" className="w-full h-40 object-cover rounded-[4px]" />
                           <button type="button" onClick={() => removeDocument(null, 'back')} className="absolute top-2 right-2 bg-red-500 text-white rounded-full p-1 hover:bg-red-600 transition-colors">
                             <X className="w-4 h-4" />
                           </button>
@@ -536,7 +536,7 @@ export default function RegistrationPage(props) {
             </div>
 
             {/* 紧急联系人 */}
-            <div className="bg-white rounded-xl p-4 shadow-sm">
+            <div className="bg-white rounded-[4px] p-4 shadow-sm">
               <h2 className="text-lg font-semibold text-[#333333] mb-4 flex items-center gap-2">
                 <PhoneCall className="w-5 h-5 text-[#0A2463]" />
                 紧急联系人
@@ -566,13 +566,13 @@ export default function RegistrationPage(props) {
             </div>
 
             {/* 其他证件 */}
-            <div className="bg-white rounded-xl p-4 shadow-sm">
+            <div className="bg-white rounded-[4px] p-4 shadow-sm">
               <h2 className="text-lg font-semibold text-[#333333] mb-4 flex items-center gap-2">
                 <Briefcase className="w-5 h-5 text-[#0A2463]" />
                 其他证件
               </h2>
 
-              <div className="border-2 border-dashed border-[#E8E8E8] rounded-lg p-4 hover:border-[#0A2463] transition-colors">
+              <div className="border-2 border-dashed border-[#E8E8E8] rounded-[4px] p-4 hover:border-[#0A2463] transition-colors">
                 <label className="flex flex-col items-center justify-center cursor-pointer">
                   <Upload className="w-8 h-8 text-[#BFBFBF] mb-2" />
                   <span className="text-sm text-[#666666]">点击上传其他证件（可多选）</span>
@@ -583,7 +583,7 @@ export default function RegistrationPage(props) {
 
               {otherDocuments.length > 0 && <div className="mt-4 grid grid-cols-3 gap-3">
                   {otherDocuments.map((doc, index) => <div key={index} className="relative">
-                      <img src={doc} alt={`证件${index + 1}`} className="w-full h-24 object-cover rounded-lg" />
+                      <img src={doc} alt={`证件${index + 1}`} className="w-full h-24 object-cover rounded-[4px]" />
                       <button type="button" onClick={() => removeDocument(index, 'other')} className="absolute top-1 right-1 bg-red-500 text-white rounded-full p-1 hover:bg-red-600 transition-colors">
                         <X className="w-3 h-3" />
                       </button>
@@ -592,7 +592,7 @@ export default function RegistrationPage(props) {
             </div>
 
             {/* 提交按钮 */}
-            <Button type="submit" disabled={submitting} className="w-full bg-[#0A2463] hover:bg-[#0D2E7A] text-white font-semibold py-6 text-lg shadow-lg button-press button-hover rounded-[8px]">
+            <Button type="submit" disabled={submitting} className="w-full bg-[#0A2463] hover:bg-[#0D2E7A] text-white font-semibold py-6 text-lg shadow-sm rounded-[4px]">
               {submitting ? <span className="flex items-center gap-2">
                   <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-white"></div>
                   提交中...

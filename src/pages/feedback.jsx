@@ -97,9 +97,9 @@ export default function Feedback(props) {
   }
   return <div className="min-h-screen bg-[#F5F7FA]">
       {/* 顶部导航栏 - 深蓝色 */}
-      <div className="bg-[#0A2463] text-white px-4 py-3 shadow-lg">
+      <div className="bg-[#0A2463] text-white px-4 py-3 shadow-sm">
         <div className="flex items-center justify-between max-w-lg mx-auto">
-          <button onClick={handleBack} className="flex items-center space-x-2 hover:bg-[#0D2E7A] px-3 py-2 rounded-[8px] transition-colors button-press">
+          <button onClick={handleBack} className="flex items-center space-x-2 hover:bg-[#0D2E7A] px-3 py-2 rounded-[4px] transition-colors">
             <ArrowLeft className="w-4 h-4" />
             <span>返回</span>
           </button>
@@ -110,14 +110,14 @@ export default function Feedback(props) {
 
       <div className="max-w-lg mx-auto px-4 py-3">
         {/* 反馈类型选择 */}
-        <div className="bg-white rounded-[8px] shadow-md p-4 mb-3">
+        <div className="bg-white rounded-[4px] shadow-sm p-4 mb-3">
           <h2 className="text-[14px] font-bold text-[#333333] mb-3 flex items-center">
             <MessageSquare className="w-4 h-4 mr-2 text-[#0A2463]" />
             反馈类型
           </h2>
           <RadioGroup value={feedbackType} onValueChange={setFeedbackType}>
             <div className="space-y-2">
-              <div className={`flex items-center space-x-3 p-3 rounded-[8px] border-2 transition-all cursor-pointer button-press button-hover ${feedbackType === '建议' ? 'border-[#0A2463] bg-[#E6F7FF]' : 'border-[#E8E8E8] hover:border-[#0A2463]'}`} onClick={() => setFeedbackType('建议')}>
+              <div className={`flex items-center space-x-3 p-3 rounded-[4px] border-2 transition-all cursor-pointer ${feedbackType === '建议' ? 'border-[#0A2463] bg-[#E6F7FF]' : 'border-[#E8E8E8] hover:border-[#0A2463]'}`} onClick={() => setFeedbackType('建议')}>
                 <RadioGroupItem value="建议" id="suggestion" className="hidden" />
                 <Label htmlFor="suggestion" className="flex items-center space-x-3 cursor-pointer flex-1">
                   <div className={`w-8 h-8 rounded-full flex items-center justify-center ${feedbackType === '建议' ? 'bg-[#0A2463]' : 'bg-[#E8E8E8]'}`}>
@@ -131,7 +131,7 @@ export default function Feedback(props) {
                 {feedbackType === '建议' && <CheckCircle className="w-4 h-4 text-[#0A2463]" />}
               </div>
 
-              <div className={`flex items-center space-x-3 p-3 rounded-[8px] border-2 transition-all cursor-pointer button-press button-hover ${feedbackType === '投诉' ? 'border-[#FA8C16] bg-[#FFF7E6]' : 'border-[#E8E8E8] hover:border-[#FA8C16]'}`} onClick={() => setFeedbackType('投诉')}>
+              <div className={`flex items-center space-x-3 p-3 rounded-[4px] border-2 transition-all cursor-pointer ${feedbackType === '投诉' ? 'border-[#FA8C16] bg-[#FFF7E6]' : 'border-[#E8E8E8] hover:border-[#FA8C16]'}`} onClick={() => setFeedbackType('投诉')}>
                 <RadioGroupItem value="投诉" id="complaint" className="hidden" />
                 <Label htmlFor="complaint" className="flex items-center space-x-3 cursor-pointer flex-1">
                   <div className={`w-8 h-8 rounded-full flex items-center justify-center ${feedbackType === '投诉' ? 'bg-[#FA8C16]' : 'bg-[#E8E8E8]'}`}>
@@ -145,7 +145,7 @@ export default function Feedback(props) {
                 {feedbackType === '投诉' && <CheckCircle className="w-4 h-4 text-[#FA8C16]" />}
               </div>
 
-              <div className={`flex items-center space-x-3 p-3 rounded-[8px] border-2 transition-all cursor-pointer button-press button-hover ${feedbackType === '其他' ? 'border-[#0A2463] bg-[#E6F7FF]' : 'border-[#E8E8E8] hover:border-[#0A2463]'}`} onClick={() => setFeedbackType('其他')}>
+              <div className={`flex items-center space-x-3 p-3 rounded-[4px] border-2 transition-all cursor-pointer ${feedbackType === '其他' ? 'border-[#0A2463] bg-[#E6F7FF]' : 'border-[#E8E8E8] hover:border-[#0A2463]'}`} onClick={() => setFeedbackType('其他')}>
                 <RadioGroupItem value="其他" id="other" className="hidden" />
                 <Label htmlFor="other" className="flex items-center space-x-3 cursor-pointer flex-1">
                   <div className={`w-8 h-8 rounded-full flex items-center justify-center ${feedbackType === '其他' ? 'bg-[#0A2463]' : 'bg-[#E8E8E8]'}`}>
@@ -163,19 +163,19 @@ export default function Feedback(props) {
         </div>
 
         {/* 反馈内容输入 */}
-        <div className="bg-white rounded-[8px] shadow-md p-4 mb-3">
+        <div className="bg-white rounded-[4px] shadow-sm p-4 mb-3">
           <h2 className="text-[14px] font-bold text-[#333333] mb-3 flex items-center">
             <MessageSquare className="w-4 h-4 mr-2 text-[#0A2463]" />
             反馈内容
           </h2>
-          <Textarea placeholder="请详细描述您的反馈内容..." value={content} onChange={e => setContent(e.target.value)} className="min-h-[120px] resize-none border-[#E8E8E8] focus:border-[#0A2463] focus:ring-[#0A2463] rounded-[8px]" maxLength={500} />
+          <Textarea placeholder="请详细描述您的反馈内容..." value={content} onChange={e => setContent(e.target.value)} className="min-h-[120px] resize-none border-[#E8E8E8] focus:border-[#0A2463] focus:ring-[#0A2463] rounded-[4px]" maxLength={500} />
           <div className="text-right text-[12px] text-[#999999] mt-2">
             {content.length}/500
           </div>
         </div>
 
         {/* 提交按钮 - 深蓝色 */}
-        <Button onClick={handleSubmit} disabled={submitting || !content.trim()} className="w-full bg-[#0A2463] hover:bg-[#0D2E7A] text-white font-semibold py-4 text-[16px] shadow-lg rounded-[8px] button-press button-hover transition-all">
+        <Button onClick={handleSubmit} disabled={submitting || !content.trim()} className="w-full bg-[#0A2463] hover:bg-[#0D2E7A] text-white font-semibold py-4 text-[16px] shadow-sm rounded-[4px] transition-all">
           {submitting ? <>
               <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-white mr-2"></div>
               提交中...

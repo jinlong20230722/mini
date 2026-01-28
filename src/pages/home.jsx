@@ -255,7 +255,7 @@ export default function Home(props) {
             <h1 className="font-bold text-[24px]">天顺保安</h1>
           </div>
           <div className="flex items-center space-x-3">
-            <button onClick={handleTopRightAction} className="flex items-center space-x-1 text-[14px] text-[#0A2463] bg-white rounded-[8px] px-3 py-2 button-press button-hover transition-all duration-300">
+            <button onClick={handleTopRightAction} className="flex items-center space-x-1 text-[14px] text-[#0A2463] bg-white rounded-[4px] px-3 py-2">
               <UserCheck className="w-4 h-4" />
               <span className="font-medium">入职登记</span>
             </button>
@@ -264,11 +264,9 @@ export default function Home(props) {
       </div>
 
       {/* 主内容区域 */}
-      <div className={`px-4 py-6 transition-all duration-300 ease-out ${pageLoaded ? 'translate-y-0 opacity-100' : 'translate-y-8 opacity-0'}`}>
+      <div className={`px-4 py-6 ${pageLoaded ? 'opacity-100' : 'opacity-0'}`}>
         {/* 欢迎卡片 */}
-        <div className="bg-white rounded-[8px] shadow-md p-5 mb-6 animate-fade-in-up" style={{
-        animationDelay: '0.1s'
-      }}>
+        <div className="bg-white rounded-[4px] shadow-sm p-5 mb-6">
 
           <h2 className="text-[18px] font-bold text-[#2C3E50] mb-2">工作概览</h2>
           <p className="text-[14px] text-[#7F8C8D]">
@@ -288,16 +286,15 @@ export default function Home(props) {
           // 次要功能卡片尺寸：140px × 150px
           const cardWidth = isPrimary ? 'w-[160px]' : 'w-[140px]';
           const cardHeight = isPrimary ? 'h-[180px]' : 'h-[150px]';
-          const shadowClass = isPrimary ? 'shadow-[0_4px_12px_rgba(0,0,0,0.08)]' : 'shadow-[0_2px_8px_rgba(0,0,0,0.04)]';
+          const shadowClass = isPrimary ? 'shadow-[0_2px_6px_rgba(0,0,0,0.1)]' : 'shadow-[0_1px_3px_rgba(0,0,0,0.08)]';
           const bgColor = isPrimary ? module.color : module.color;
           const textColor = isPrimary ? 'text-white' : 'text-[#2C3E50]';
           const iconBg = isPrimary ? 'bg-white/20' : 'bg-[#D5D8DC]';
           const iconColor = isPrimary ? 'text-white' : 'text-[#2C3E50]';
           const descColor = isPrimary ? 'text-white/90' : 'text-[#7F8C8D]';
-          return <button key={module.id} onClick={() => handleFunctionClick(module.id)} className={`${cardWidth} ${cardHeight} ${shadowClass} rounded-[8px] p-4 flex flex-col items-center justify-center button-press button-hover transition-all duration-300 hover:shadow-lg animate-fade-in-up`} style={{
+          return <button key={module.id} onClick={() => handleFunctionClick(module.id)} className={`${cardWidth} ${cardHeight} ${shadowClass} rounded-[4px] p-4 flex flex-col items-center justify-center`} style={{
             backgroundColor: bgColor,
-            boxShadow: isPrimary ? '0 4px 12px rgba(0,0,0,0.08)' : '0 2px 8px rgba(0,0,0,0.04)',
-            animationDelay: `${0.2 + index * 0.1}s`
+            boxShadow: isPrimary ? '0 2px 6px rgba(0,0,0,0.1)' : '0 1px 3px rgba(0,0,0,0.08)'
           }}>
 
               <div className={`${iconBg} w-12 h-12 rounded-[8px] flex items-center justify-center mb-2`}>
@@ -318,9 +315,7 @@ export default function Home(props) {
           <h3 className="text-[18px] font-bold text-[#2C3E50] mb-4">实时数据</h3>
           
           {/* 打卡签到统计 */}
-          <div className="bg-white rounded-[8px] shadow-md p-5 animate-fade-in-up" style={{
-          animationDelay: '0.6s'
-        }}>
+          <div className="bg-white rounded-[4px] shadow-sm p-5">
 
             <div className="flex items-center justify-between mb-4">
               <div className="flex items-center space-x-2">
@@ -333,15 +328,15 @@ export default function Home(props) {
             </div>
             <div className="grid grid-cols-3 gap-4">
               <div className="text-center">
-                <div className="text-[24px] font-bold text-[#3D5A3D] transition-all duration-300 hover:scale-110">{attendanceStats.todayCount}</div>
+                <div className="text-[24px] font-bold text-[#3D5A3D]">{attendanceStats.todayCount}</div>
                 <div className="text-[12px] text-[#7F8C8D] mt-1">今日打卡</div>
               </div>
               <div className="text-center">
-                <div className="text-[24px] font-bold text-[#0A2463] transition-all duration-300 hover:scale-110">{attendanceStats.monthCount}</div>
+                <div className="text-[24px] font-bold text-[#0A2463]">{attendanceStats.monthCount}</div>
                 <div className="text-[12px] text-[#7F8C8D] mt-1">本月打卡</div>
               </div>
               <div className="text-center">
-                <div className={`text-[14px] font-semibold transition-all duration-300 hover:scale-110 ${attendanceStats.lastStatus === '正常' ? 'text-[#4A5D4A]' : 'text-[#B87033]'}`}>
+                <div className={`text-[14px] font-semibold ${attendanceStats.lastStatus === '正常' ? 'text-[#4A5D4A]' : 'text-[#B87033]'}`}>
                   {attendanceStats.lastStatus}
                 </div>
                 <div className="text-[12px] text-[#7F8C8D] mt-1">最近状态</div>
@@ -356,9 +351,7 @@ export default function Home(props) {
           </div>
 
           {/* 事件上报统计 */}
-          <div className="bg-white rounded-[8px] shadow-md p-5 animate-fade-in-up" style={{
-          animationDelay: '0.7s'
-        }}>
+          <div className="bg-white rounded-[4px] shadow-sm p-5">
 
             <div className="flex items-center justify-between mb-4">
               <div className="flex items-center space-x-2">
@@ -371,15 +364,15 @@ export default function Home(props) {
             </div>
             <div className="grid grid-cols-3 gap-4">
               <div className="text-center">
-                <div className="text-[24px] font-bold text-[#8B3A3A] transition-all duration-300 hover:scale-110">{eventStats.todayCount}</div>
+                <div className="text-[24px] font-bold text-[#8B3A3A]">{eventStats.todayCount}</div>
                 <div className="text-[12px] text-[#7F8C8D] mt-1">今日上报</div>
               </div>
               <div className="text-center">
-                <div className="text-[24px] font-bold text-[#0A2463] transition-all duration-300 hover:scale-110">{eventStats.monthCount}</div>
+                <div className="text-[24px] font-bold text-[#0A2463]">{eventStats.monthCount}</div>
                 <div className="text-[12px] text-[#7F8C8D] mt-1">本月上报</div>
               </div>
               <div className="text-center">
-                <div className="text-[14px] font-semibold text-[#2C3E50] truncate px-1 transition-all duration-300 hover:scale-110">
+                <div className="text-[14px] font-semibold text-[#2C3E50] truncate px-1">
                   {eventStats.lastType}
                 </div>
                 <div className="text-[12px] text-[#7F8C8D] mt-1">最近类型</div>

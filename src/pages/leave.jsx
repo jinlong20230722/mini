@@ -261,14 +261,14 @@ export default function LeavePage(props) {
   }
   if (!hasPermission) {
     return <div className="min-h-screen bg-[#F5F7FA] flex items-center justify-center p-4">
-        <div className="bg-white rounded-[8px] shadow-lg p-8 max-w-md w-full text-center">
+        <div className="bg-white rounded-[4px] shadow-sm p-8 max-w-md w-full text-center">
           <AlertCircle className="w-16 h-16 text-[#D92121] mx-auto mb-4" />
           <h2 className="text-[20px] font-bold text-[#333333] mb-2">权限不足</h2>
           <p className="text-[#999999] mb-6">仅班长、队长、部长、办公室人员、开发者可访问此页面</p>
           <Button onClick={() => $w.utils.navigateTo({
           pageId: 'home',
           params: {}
-        })} className="w-full bg-[#0A2463] hover:bg-[#0D2E7A] rounded-[8px] button-press button-hover">
+        })} className="w-full bg-[#0A2463] hover:bg-[#0D2E7A] rounded-[4px]">
             返回首页
           </Button>
         </div>
@@ -276,18 +276,18 @@ export default function LeavePage(props) {
   }
   return <div className="min-h-screen bg-[#F5F7FA] pb-20">
       {/* 顶部导航栏 - 深蓝色 */}
-      <div className="bg-[#0A2463] text-white px-4 py-4 sticky top-0 z-10 shadow-lg">
+      <div className="bg-[#0A2463] text-white px-4 py-4 sticky top-0 z-10 shadow-sm">
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-3">
             <Button variant="ghost" size="icon" onClick={() => $w.utils.navigateTo({
             pageId: 'home',
             params: {}
-          })} className="text-white hover:bg-[#0D2E7A] button-press">
+          })} className="text-white hover:bg-[#0D2E7A]">
               <ArrowLeft className="w-5 h-5" />
             </Button>
             <h1 className="text-[18px] font-bold">请销假管理</h1>
           </div>
-          <Button variant="ghost" size="icon" onClick={() => setRefreshKey(prev => prev + 1)} className="text-white hover:bg-[#0D2E7A] button-press">
+          <Button variant="ghost" size="icon" onClick={() => setRefreshKey(prev => prev + 1)} className="text-white hover:bg-[#0D2E7A]">
             <RefreshCw className="w-5 h-5" />
           </Button>
         </div>
@@ -295,7 +295,7 @@ export default function LeavePage(props) {
 
       <div className="p-4">
         {/* Tab 切换 */}
-        <div className="bg-white rounded-[8px] shadow-md p-1 mb-4 flex gap-1">
+        <div className="bg-white rounded-[4px] shadow-sm p-1 mb-4 flex gap-1">
           {[{
           id: 'apply',
           label: '请假申请',
@@ -314,7 +314,7 @@ export default function LeavePage(props) {
           icon: RefreshCw
         }].map(tab => {
           const Icon = tab.icon;
-          return <button key={tab.id} onClick={() => setActiveTab(tab.id)} className={`flex-1 flex items-center justify-center gap-2 py-3 px-4 rounded-[8px] text-[14px] font-medium transition-all button-press button-hover ${activeTab === tab.id ? 'bg-[#0A2463] text-white shadow-md' : 'text-[#333333] hover:bg-[#F5F7FA]'}`}>
+          return <button key={tab.id} onClick={() => setActiveTab(tab.id)} className={`flex-1 flex items-center justify-center gap-2 py-3 px-4 rounded-[4px] text-[14px] font-medium transition-all ${activeTab === tab.id ? 'bg-[#0A2463] text-white shadow-sm' : 'text-[#333333] hover:bg-[#F5F7FA]'}`}>
                 <Icon className="w-4 h-4" />
                 {tab.label}
               </button>;
@@ -380,7 +380,7 @@ export default function LeavePage(props) {
                       <FormMessage />
                     </FormItem>} />
 
-                <Button type="submit" disabled={submitting} className="w-full bg-[#0A2463] hover:bg-[#0D2E7A] rounded-[8px] button-press button-hover">
+                <Button type="submit" disabled={submitting} className="w-full bg-[#0A2463] hover:bg-[#0D2E7A] rounded-[4px]">
                   {submitting ? '提交中...' : '提交申请'}
                 </Button>
               </form>
@@ -389,10 +389,10 @@ export default function LeavePage(props) {
 
         {/* 我的请假记录 */}
         {activeTab === 'myLeave' && <div className="space-y-4">
-            {leaveRecords.length === 0 ? <div className="bg-white rounded-[8px] shadow-md p-8 text-center">
+            {leaveRecords.length === 0 ? <div className="bg-white rounded-[4px] shadow-sm p-8 text-center">
                 <FileText className="w-16 h-16 text-[#BFBFBF] mx-auto mb-4" />
                 <p className="text-[#999999]">暂无请假记录</p>
-              </div> : leaveRecords.map(record => <div key={record._id} className="bg-white rounded-[8px] shadow-md p-4 hover:shadow-lg transition-shadow">
+              </div> : leaveRecords.map(record => <div key={record._id} className="bg-white rounded-[4px] shadow-sm p-4 hover:shadow-md transition-shadow">
                   <div className="flex items-start justify-between mb-3">
                     <div className="flex-1">
                       <div className="flex items-center gap-2 mb-1">
@@ -425,10 +425,10 @@ export default function LeavePage(props) {
 
         {/* 审批记录 */}
         {activeTab === 'approval' && <div className="space-y-4">
-            {approvalRecords.length === 0 ? <div className="bg-white rounded-[8px] shadow-md p-8 text-center">
+            {approvalRecords.length === 0 ? <div className="bg-white rounded-[4px] shadow-sm p-8 text-center">
                 <CheckCircle className="w-16 h-16 text-[#BFBFBF] mx-auto mb-4" />
                 <p className="text-[#999999]">暂无待审批记录</p>
-              </div> : approvalRecords.map(record => <div key={record._id} className="bg-white rounded-[8px] shadow-md p-4 hover:shadow-lg transition-shadow">
+              </div> : approvalRecords.map(record => <div key={record._id} className="bg-white rounded-[4px] shadow-sm p-4 hover:shadow-md transition-shadow">
                   <div className="flex items-start justify-between mb-3">
                     <div className="flex-1">
                       <div className="flex items-center gap-2 mb-1">
@@ -448,10 +448,10 @@ export default function LeavePage(props) {
                     </div>
                   </div>
                   <div className="flex gap-2 mt-3">
-                    <Button size="sm" onClick={() => handleApprove(record, '已通过')} className="flex-1 bg-[#3D5A3D] hover:bg-[#2D4A2D] rounded-[8px] button-press button-hover">
+                    <Button size="sm" onClick={() => handleApprove(record, '已通过')} className="flex-1 bg-[#3D5A3D] hover:bg-[#2D4A2D] rounded-[4px]">
                       通过
                     </Button>
-                    <Button size="sm" variant="destructive" onClick={() => handleApprove(record, '已驳回')} className="flex-1 bg-[#D92121] hover:bg-[#B91C1C] rounded-[8px] button-press button-hover">
+                    <Button size="sm" variant="destructive" onClick={() => handleApprove(record, '已驳回')} className="flex-1 bg-[#D92121] hover:bg-[#B91C1C] rounded-[4px]">
                       驳回
                     </Button>
                   </div>
@@ -460,10 +460,10 @@ export default function LeavePage(props) {
 
         {/* 销假管理 */}
         {activeTab === 'return' && <div className="space-y-4">
-            {leaveRecords.length === 0 ? <div className="bg-white rounded-[8px] shadow-md p-8 text-center">
+            {leaveRecords.length === 0 ? <div className="bg-white rounded-[4px] shadow-sm p-8 text-center">
                 <RefreshCw className="w-16 h-16 text-[#BFBFBF] mx-auto mb-4" />
                 <p className="text-[#999999]">暂无请假记录</p>
-              </div> : leaveRecords.filter(record => record.approvalStatus === '已通过').map(record => <div key={record._id} className="bg-white rounded-[8px] shadow-md p-4 hover:shadow-lg transition-shadow">
+              </div> : leaveRecords.filter(record => record.approvalStatus === '已通过').map(record => <div key={record._id} className="bg-white rounded-[4px] shadow-sm p-4 hover:shadow-md transition-shadow">
                     <div className="flex items-start justify-between mb-3">
                       <div className="flex-1">
                         <div className="flex items-center gap-2 mb-1">
@@ -475,7 +475,7 @@ export default function LeavePage(props) {
                         </p>
                       </div>
                     </div>
-                    <Button size="sm" onClick={() => handleReturn(record)} className="w-full bg-[#0A2463] hover:bg-[#0D2E7A] rounded-[8px] button-press button-hover">
+                    <Button size="sm" onClick={() => handleReturn(record)} className="w-full bg-[#0A2463] hover:bg-[#0D2E7A] rounded-[4px]">
                       销假
                     </Button>
                   </div>)}

@@ -179,10 +179,10 @@ export default function Announcement(props) {
   }
   return <div className="min-h-screen bg-[#F5F7FA]">
       {/* 顶部导航栏 */}
-      <div className="bg-[#0A2463] text-white px-4 py-4 shadow-lg sticky top-0 z-10">
+      <div className="bg-[#0A2463] text-white px-4 py-4 shadow-sm sticky top-0 z-10">
         <div className="flex items-center justify-between">
           <div className="flex items-center">
-            <button onClick={handleBack} className="p-2 hover:bg-white/10 rounded-full transition-all duration-300 button-press mr-2">
+            <button onClick={handleBack} className="p-2 hover:bg-white/10 rounded-full mr-2">
               <ArrowLeft className="w-5 h-5" />
             </button>
             <h1 className="text-xl font-bold font-['Space_Grotesk']">公告信息</h1>
@@ -196,9 +196,7 @@ export default function Announcement(props) {
       {/* 主内容区域 */}
       <div className="px-4 py-6 pb-8">
         {/* 页面说明 - 装饰边框 */}
-        <div className="bg-[#F5F7FA] rounded-xl p-4 mb-6 border-l-4 border-[#0A2463] animate-fade-in-up hover-lift" style={{
-        animationDelay: '0.1s'
-      }}>
+        <div className="bg-[#F5F7FA] rounded-[4px] p-4 mb-6 border-l-4 border-[#0A2463]">
           <div className="flex items-start">
             <div className="bg-[#0A2463] rounded-full p-2 mr-3">
               <Megaphone className="w-4 h-4 text-white" />
@@ -213,15 +211,11 @@ export default function Announcement(props) {
         </div>
 
         {/* 公告列表 */}
-        {announcements.length === 0 ? <div className="bg-white rounded-xl shadow-card p-8 text-center border border-[#E8E8E8] animate-fade-in-up" style={{
-        animationDelay: '0.2s'
-      }}>
+        {announcements.length === 0 ? <div className="bg-white rounded-[4px] shadow-sm p-8 text-center border border-[#E8E8E8]">
             <Megaphone className="w-12 h-12 text-[#BFBFBF] mx-auto mb-3" />
             <p className="text-[#999999] text-sm font-['JetBrains_Mono']">暂无公告信息</p>
           </div> : <div className="space-y-4">
-            {announcements.map((item, index) => <div key={item._id} className="bg-white rounded-xl shadow-card overflow-hidden border border-[#E8E8E8] hover:shadow-card-hover transition-all duration-300 animate-fade-in-up hover-lift" style={{
-          animationDelay: `${0.2 + index * 0.1}s`
-        }}>
+            {announcements.map((item, index) => <div key={item._id} className="bg-white rounded-[4px] shadow-sm overflow-hidden border border-[#E8E8E8]">
                 {/* 公告头部 */}
                 <div className="p-4 cursor-pointer" onClick={() => toggleExpand(item._id)}>
                   <div className="flex items-start justify-between mb-3">
@@ -236,7 +230,7 @@ export default function Announcement(props) {
                       </h3>
                     </div>
                     <div className="ml-2 flex-shrink-0">
-                      {expandedItems[item._id] ? <ChevronUp className="w-5 h-5 text-[#999999] transition-transform duration-300" /> : <ChevronDown className="w-5 h-5 text-[#999999] transition-transform duration-300" />}
+                      {expandedItems[item._id] ? <ChevronUp className="w-5 h-5 text-[#999999]" /> : <ChevronDown className="w-5 h-5 text-[#999999]" />}
                     </div>
                   </div>
 
@@ -254,7 +248,7 @@ export default function Announcement(props) {
                 </div>
 
                 {/* 公告内容（展开时显示） */}
-                {expandedItems[item._id] && <div className="px-4 pb-4 pt-0 transition-all duration-300">
+                {expandedItems[item._id] && <div className="px-4 pb-4 pt-0">
                     <div className="border-t border-[#E8E8E8] pt-3">
                       <p className="text-sm text-[#666666] leading-relaxed whitespace-pre-wrap font-['JetBrains_Mono']">
                         {item.content}
@@ -265,9 +259,7 @@ export default function Announcement(props) {
           </div>}
 
         {/* 底部提示 */}
-        <div className="mt-6 text-center animate-fade-in-up" style={{
-        animationDelay: '0.8s'
-      }}>
+        <div className="mt-6 text-center">
           <p className="text-xs text-[#999999] font-['JetBrains_Mono']">
             共 {announcements.length} 条公告信息
           </p>
