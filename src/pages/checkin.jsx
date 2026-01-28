@@ -37,37 +37,7 @@ export default function CheckIn(props) {
   // 逆地理编码：将经纬度转换为详细地址
   const reverseGeocode = async (latitude, longitude) => {
     try {
-      // 方案1：尝试使用微信地理位置 API（如果在微信环境中）
-      if (typeof wx !== 'undefined' && wx.getLocation && wx.openLocation) {
-        return new Promise((resolve, reject) => {
-          wx.openLocation({
-            latitude,
-            longitude,
-            scale: 18,
-            name: '当前位置',
-            address: '',
-            success: res => {
-              // 微信返回的地址信息
-              resolve({
-                formatted: res.address || '当前位置',
-                detail: res.address || '',
-                province: '',
-                city: '',
-                district: '',
-                township: '',
-                street: '',
-                streetNumber: ''
-              });
-            },
-            fail: () => {
-              // 微信 API 失败，尝试其他方案
-              resolve(fallbackGeocode(latitude, longitude));
-            }
-          });
-        });
-      }
-
-      // 方案2：使用免费的 Nominatim API（OpenStreetMap）
+      // 使用免费的 Nominatim API（OpenStreetMap）
       return await fallbackGeocode(latitude, longitude);
     } catch (error) {
       console.error('逆地理编码失败:', error);
@@ -84,16 +54,25 @@ export default function CheckIn(props) {
     }
   };
 
-  // 备用逆地理编码方案：使用 Nominatim API
-  const fallbackGeocode = async (latitude, longitude) => {
+  // 逆地理编码方案：使用 Nominatim API
+  const fallbackGeocode = async (latitude, longitude, retryCount = 0) => {
     try {
       // 使用 OpenStreetMap 的 Nominatim API（免费，无需 API Key）
+      const controller = new AbortController();
+      const timeoutId = setTimeout(() => controller.abort(), 8000); // 8秒超时
+
       const url = `https://nominatim.openstreetmap.org/reverse?format=json&lat=${latitude}&lon=${longitude}&accept-language=zh-CN`;
       const response = await fetch(url, {
         headers: {
-          'User-Agent': 'CheckInApp/1.0'
-        }
+          'User-Agent': 'CheckInApp/1.0',
+          'Accept': 'application/json'
+        },
+        signal: controller.signal
       });
+      clearTimeout(timeoutId);
+      if (!response.ok) {
+        throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+      }
       const data = await response.json();
       if (data && data.address) {
         const addr = data.address;
@@ -129,7 +108,14 @@ export default function CheckIn(props) {
         throw new Error('无法解析地址');
       }
     } catch (error) {
-      console.error('备用逆地理编码失败:', error);
+      console.error('逆地理编码失败:', error);
+
+      // 如果是网络错误或超时，且重试次数小于2，则重试
+      if ((error.name === 'AbortError' || error.message.includes('fetch') || error.message.includes('network')) && retryCount < 2) {
+        console.log(`重试逆地理编码 (${retryCount + 1}/2)...`);
+        await new Promise(resolve => setTimeout(resolve, 1000)); // 等待1秒后重试
+        return fallbackGeocode(latitude, longitude, retryCount + 1);
+      }
       return {
         formatted: '地址解析失败',
         detail: '无法获取详细地址信息',
