@@ -274,36 +274,28 @@ export default function Home(props) {
           </p>
         </div>
 
-        {/* 功能模块网格 - 调整间距 */}
-        <div className="grid grid-cols-2 gap-x-5 gap-y-4">
+        {/* 功能模块网格 - 2x2 规范布局 */}
+        <div className="grid grid-cols-2 gap-4">
           {functionModules.map((module, index) => {
           const Icon = module.icon;
           const isPrimary = module.isPrimary;
-          const isCheckIn = module.id === 'checkIn';
-          const isEvent = module.id === 'event';
 
-          // 核心功能卡片尺寸：160px × 180px
-          // 次要功能卡片尺寸：140px × 150px
-          const cardWidth = isPrimary ? 'w-[160px]' : 'w-[140px]';
-          const cardHeight = isPrimary ? 'h-[180px]' : 'h-[150px]';
-          const shadowClass = isPrimary ? 'shadow-[0_2px_6px_rgba(0,0,0,0.1)]' : 'shadow-[0_1px_3px_rgba(0,0,0,0.08)]';
+          // 统一卡片尺寸：160px × 160px
+          const cardSize = 'w-[160px] h-[160px]';
           const bgColor = isPrimary ? module.color : module.color;
           const textColor = isPrimary ? 'text-white' : 'text-[#1E293B]';
           const iconBg = isPrimary ? 'bg-white/20' : 'bg-[#E2E8F0]';
           const iconColor = isPrimary ? 'text-white' : 'text-[#1E293B]';
           const descColor = isPrimary ? 'text-white/90' : 'text-[#64748B]';
-          return <button key={module.id} onClick={() => handleFunctionClick(module.id)} className={`${cardWidth} ${cardHeight} ${shadowClass} rounded-[4px] p-4 flex flex-col items-center justify-center`} style={{
-            backgroundColor: bgColor,
-            boxShadow: isPrimary ? '0 2px 6px rgba(0,0,0,0.1)' : '0 1px 3px rgba(0,0,0,0.08)'
+          return <button key={module.id} onClick={() => handleFunctionClick(module.id)} className={`${cardSize} shadow-md rounded-lg p-5 flex flex-col items-center justify-center transition-all hover:shadow-lg`} style={{
+            backgroundColor: bgColor
           }}>
 
-              <div className={`${iconBg} w-12 h-12 rounded-[8px] flex items-center justify-center mb-2`}>
-                <Icon className={`w-6 h-6 ${iconColor}`} />
+              <div className={`${iconBg} w-14 h-14 rounded-lg flex items-center justify-center mb-3`}>
+                <Icon className={`w-7 h-7 ${iconColor}`} />
               </div>
-              <h3 className={`font-bold text-[16px] mb-1 ${textColor}`}>{module.name}</h3>
+              <h3 className={`font-bold text-[16px] mb-2 ${textColor}`}>{module.name}</h3>
               <p className={`text-[12px] text-center leading-relaxed ${descColor}`}>{module.description}</p>
-              {isPrimary}
-
 
 
             </button>;
