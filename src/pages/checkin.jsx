@@ -214,24 +214,42 @@ export default function CheckIn(props) {
 
   // 获取当前位置
   const getCurrentLocation = () => {
+    console.log('🚀 [定位] 开始获取当前位置');
+    console.log('🔍 [定位] 检查 navigator.geolocation 是否存在:', !!navigator.geolocation);
+    console.log('🔍 [定位] User Agent:', navigator.userAgent);
     if (navigator.geolocation) {
+      console.log('✅ [定位] navigator.geolocation 存在，开始调用 getCurrentPosition');
       navigator.geolocation.getCurrentPosition(async position => {
+        console.log('✅ [定位] 成功获取位置信息');
+        console.log('📍 [定位] 位置数据:', position);
+        console.log('📍 [定位] 坐标:', {
+          latitude: position.coords.latitude,
+          longitude: position.coords.longitude,
+          accuracy: position.coords.accuracy,
+          altitude: position.coords.altitude,
+          altitudeAccuracy: position.coords.altitudeAccuracy,
+          heading: position.coords.heading,
+          speed: position.coords.speed
+        });
         const {
           latitude,
           longitude
         } = position.coords;
 
         // 先显示经纬度
+        console.log('🔄 [定位] 更新位置状态，显示经纬度');
         setLocation({
           latitude,
           longitude,
           address: '正在获取详细地址...'
         });
-
+        console.log('🔄 [定位] 开始调用逆地理编码函数');
         // 进行逆地理编码
         const addressInfo = await reverseGeocode(latitude, longitude);
+        console.log('✅ [定位] 逆地理编码完成，结果:', addressInfo);
 
         // 更新地址信息
+        console.log('🔄 [定位] 更新位置状态，显示详细地址');
         setLocation({
           latitude,
           longitude,
@@ -250,7 +268,10 @@ export default function CheckIn(props) {
           variant: 'default'
         });
       }, error => {
-        console.error('获取位置失败:', error);
+        console.error('❌ [定位] 获取位置失败');
+        console.error('🔍 [定位] 错误对象:', error);
+        console.error('🔍 [定位] 错误代码:', error.code);
+        console.error('🔍 [定位] 错误消息:', error.message);
         let errorMsg = '位置获取失败';
         if (error.code === 1) {
           errorMsg = '定位权限被拒绝，请在浏览器设置中开启定位权限';
@@ -259,6 +280,7 @@ export default function CheckIn(props) {
         } else if (error.code === 3) {
           errorMsg = '定位超时，请重试';
         }
+        console.error('🔍 [定位] 错误提示:', errorMsg);
         toast({
           title: '位置获取失败',
           description: errorMsg,
@@ -275,6 +297,9 @@ export default function CheckIn(props) {
         maximumAge: 0
       });
     } else {
+      console.error('❌ [定位] navigator.geolocation 不存在');
+      console.error('🔍 [定位] 当前环境不支持地理定位');
+      console.error('🔍 [定位] User Agent:', navigator.userAgent);
       toast({
         title: '不支持定位',
         description: '您的浏览器不支持地理定位',
