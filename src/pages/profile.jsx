@@ -289,18 +289,18 @@ export default function Profile(props) {
   const workDuration = calculateWorkDuration(personnelInfo?.joinDate, personnelInfo?.status);
   return <div className="min-h-screen bg-[#F8FAFC] pb-20">
       {/* 顶部个人信息卡片 */}
-      <div className="bg-[#3B82F6] text-white p-6 pb-16 shadow-lg">
+      <div className="bg-[#6366F1] text-white p-6 pb-16 shadow-lg">
         <div className="max-w-lg mx-auto">
           <div className="flex items-center gap-4">
-            <div className="w-20 h-20 bg-white rounded-full flex items-center justify-center text-slate-800 text-3xl font-bold font-['Space_Grotesk'] shadow-lg">
+            <div className="w-20 h-20 bg-white rounded-full flex items-center justify-center text-indigo-600 text-3xl font-bold font-['Space_Grotesk'] shadow-lg">
               {personnelInfo?.name?.charAt(0) || user?.nickName?.charAt(0) || '保'}
             </div>
             <div>
               <h1 className="text-2xl font-bold font-['Space_Grotesk']">
                 {personnelInfo?.name || user?.nickName || '安保人员'}
               </h1>
-              <p className="text-blue-100 text-sm mt-1 font-['JetBrains_Mono']">{personnelInfo?.position || '安保人员'}</p>
-              <p className="text-blue-200 text-xs mt-1 font-['JetBrains_Mono']">{personnelInfo?.department || '未设置部门'}</p>
+              <p className="text-indigo-100 text-sm mt-1 font-['JetBrains_Mono']">{personnelInfo?.position || '安保人员'}</p>
+              <p className="text-indigo-200 text-xs mt-1 font-['JetBrains_Mono']">{personnelInfo?.department || '未设置部门'}</p>
             </div>
           </div>
         </div>
@@ -337,8 +337,8 @@ export default function Profile(props) {
 
           <div className="p-4 border-b border-slate-100 flex items-center justify-between">
             <h2 className="text-lg font-semibold text-slate-800 font-['Space_Grotesk']">证件信息</h2>
-            <button onClick={() => handleDocumentClick(null)} className="flex items-center gap-2 text-slate-700 text-sm hover:text-slate-900 transition-all duration-300 button-press">
-              <div className="bg-gradient-to-br from-slate-700 to-slate-800 p-1.5 rounded-lg">
+            <button onClick={() => handleDocumentClick(null)} className="flex items-center gap-2 text-indigo-600 text-sm hover:text-indigo-800 transition-all duration-300 button-press">
+              <div className="bg-gradient-to-br from-indigo-500 to-indigo-600 p-1.5 rounded-lg">
                 <Upload size={16} className="text-white" />
               </div>
               <span className="font-['JetBrains_Mono']">添加证件</span>
@@ -347,7 +347,7 @@ export default function Profile(props) {
           
           {personnelInfo?.documents && personnelInfo.documents.length > 0 ? <div className="p-4 grid grid-cols-2 gap-4">
               {personnelInfo.documents.map((doc, index) => <div key={index} className="relative group">
-                  <div onClick={() => handleDocumentClick(index)} className="aspect-[3/4] bg-slate-100 rounded-lg overflow-hidden cursor-pointer hover:ring-2 hover:ring-slate-700 transition-all duration-300 hover-lift">
+                  <div onClick={() => handleDocumentClick(index)} className="aspect-[3/4] bg-slate-100 rounded-lg overflow-hidden cursor-pointer hover:ring-2 hover:ring-indigo-500 transition-all duration-300 hover-lift">
                     <img src={doc} alt={`证件${index + 1}`} className="w-full h-full object-cover" />
                     <div className="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-30 transition-all duration-300 flex items-center justify-center">
                       <Camera className="text-white opacity-0 group-hover:opacity-100 transition-opacity" size={24} />
@@ -362,8 +362,8 @@ export default function Profile(props) {
                   <p className="text-xs text-slate-500 mt-2 text-center font-['JetBrains_Mono']">证件 {index + 1}</p>
                 </div>)}
             </div> : <div className="p-8 text-center text-slate-400">
-              <div className="bg-gradient-to-br from-slate-100 to-slate-200 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-2">
-                <Camera size={32} className="text-slate-400" />
+              <div className="bg-gradient-to-br from-indigo-100 to-indigo-200 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-2">
+                <Camera size={32} className="text-indigo-400" />
               </div>
               <p className="font-['Space_Grotesk']">暂无证件信息</p>
               <p className="text-sm mt-1 font-['JetBrains_Mono']">点击上方按钮添加证件</p>
@@ -371,7 +371,7 @@ export default function Profile(props) {
         </div>
 
         {/* 个人信息列表 - 装饰边框 */}
-        <div className="bg-white rounded-xl shadow-card overflow-hidden mb-4 border-l-4 border-[#3B82F6] animate-fade-in-up hover-lift" style={{
+        <div className="bg-white rounded-xl shadow-card overflow-hidden mb-4 border-l-4 border-[#6366F1] animate-fade-in-up hover-lift" style={{
         animationDelay: '0.3s'
       }}>
 
@@ -381,8 +381,8 @@ export default function Profile(props) {
           <div className="divide-y divide-slate-100">
             <div className="flex items-center justify-between p-4 hover:bg-slate-50 transition-all duration-300">
               <div className="flex items-center gap-3">
-                <div className="bg-gradient-to-br from-slate-100 to-slate-200 p-2 rounded-lg">
-                  <Phone className="text-slate-600" size={20} />
+                <div className="bg-gradient-to-br from-blue-100 to-blue-200 p-2 rounded-lg">
+                  <Phone className="text-blue-600" size={20} />
                 </div>
                 <span className="text-slate-600 font-['JetBrains_Mono']">手机号</span>
               </div>
@@ -390,8 +390,8 @@ export default function Profile(props) {
             </div>
             <div className="flex items-center justify-between p-4 hover:bg-slate-50 transition-all duration-300">
               <div className="flex items-center gap-3">
-                <div className="bg-gradient-to-br from-slate-100 to-slate-200 p-2 rounded-lg">
-                  <User className="text-slate-600" size={20} />
+                <div className="bg-gradient-to-br from-green-100 to-green-200 p-2 rounded-lg">
+                  <User className="text-green-600" size={20} />
                 </div>
                 <span className="text-slate-600 font-['JetBrains_Mono']">身份证号</span>
               </div>
@@ -399,8 +399,8 @@ export default function Profile(props) {
             </div>
             <div className="flex items-center justify-between p-4 hover:bg-slate-50 transition-all duration-300">
               <div className="flex items-center gap-3">
-                <div className="bg-gradient-to-br from-slate-100 to-slate-200 p-2 rounded-lg">
-                  <MapPin className="text-slate-600" size={20} />
+                <div className="bg-gradient-to-br from-orange-100 to-orange-200 p-2 rounded-lg">
+                  <MapPin className="text-orange-600" size={20} />
                 </div>
                 <span className="text-slate-600 font-['JetBrains_Mono']">户籍所在地</span>
               </div>
@@ -410,8 +410,8 @@ export default function Profile(props) {
             </div>
             <div className="flex items-center justify-between p-4 hover:bg-slate-50 transition-all duration-300">
               <div className="flex items-center gap-3">
-                <div className="bg-gradient-to-br from-slate-100 to-slate-200 p-2 rounded-lg">
-                  <User className="text-slate-600" size={20} />
+                <div className="bg-gradient-to-br from-purple-100 to-purple-200 p-2 rounded-lg">
+                  <User className="text-purple-600" size={20} />
                 </div>
                 <span className="text-slate-600 font-['JetBrains_Mono']">紧急联系人</span>
               </div>
@@ -433,7 +433,7 @@ export default function Profile(props) {
           <div className="divide-y divide-slate-100">
             <button className="w-full flex items-center justify-between p-4 hover:bg-slate-50 transition-all duration-300 button-press">
               <div className="flex items-center gap-3">
-                <div className="bg-gradient-to-br from-slate-700 to-slate-800 p-2 rounded-lg">
+                <div className="bg-gradient-to-br from-blue-500 to-blue-600 p-2 rounded-lg">
                   <Shield className="text-white" size={20} />
                 </div>
                 <span className="text-slate-800 font-['Space_Grotesk']">账号安全</span>
@@ -442,7 +442,7 @@ export default function Profile(props) {
             </button>
             <button className="w-full flex items-center justify-between p-4 hover:bg-slate-50 transition-all duration-300 button-press">
               <div className="flex items-center gap-3">
-                <div className="bg-gradient-to-br from-slate-700 to-slate-800 p-2 rounded-lg">
+                <div className="bg-gradient-to-br from-green-500 to-green-600 p-2 rounded-lg">
                   <Settings className="text-white" size={20} />
                 </div>
                 <span className="text-slate-800 font-['Space_Grotesk']">系统设置</span>
@@ -454,7 +454,7 @@ export default function Profile(props) {
             params: {}
           })} className="w-full flex items-center justify-between p-4 hover:bg-slate-50 transition-all duration-300 button-press">
               <div className="flex items-center gap-3">
-                <div className="bg-gradient-to-br from-slate-700 to-slate-800 p-2 rounded-lg">
+                <div className="bg-gradient-to-br from-orange-500 to-orange-600 p-2 rounded-lg">
                   <Mail className="text-white" size={20} />
                 </div>
                 <span className="text-slate-800 font-['Space_Grotesk']">意见反馈</span>
@@ -465,12 +465,12 @@ export default function Profile(props) {
         </div>
 
         {/* 退出登录按钮 */}
-        <button onClick={handleLogout} className="w-full bg-white rounded-xl shadow-card p-4 flex items-center justify-center gap-2 text-red-600 hover:bg-red-50 transition-all duration-300 button-press animate-fade-in-up hover-lift" style={{
+        <button onClick={handleLogout} className="w-full bg-white rounded-xl shadow-card p-4 flex items-center justify-center gap-2 text-red-500 hover:bg-red-50 transition-all duration-300 button-press animate-fade-in-up hover-lift" style={{
         animationDelay: '0.5s'
       }}>
 
           <div className="bg-red-100 p-2 rounded-lg">
-            <LogOut size={20} className="text-red-600" />
+            <LogOut size={20} className="text-red-500" />
           </div>
           <span className="font-medium font-['Space_Grotesk']">退出登录</span>
         </button>
@@ -486,7 +486,7 @@ export default function Profile(props) {
             <p className="text-sm text-slate-600 mb-4 font-['JetBrains_Mono']">
               请上传证件照片（支持 JPG、PNG 格式，最大 10MB）
             </p>
-            <input type="file" accept="image/*" onChange={handleDocumentUpload} disabled={uploading} className="w-full p-3 border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-slate-700 font-['JetBrains_Mono']" />
+            <input type="file" accept="image/*" onChange={handleDocumentUpload} disabled={uploading} className="w-full p-3 border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 font-['JetBrains_Mono']" />
             <div className="flex gap-3 mt-4">
               <button onClick={handleCloseDocumentModal} disabled={uploading} className="flex-1 py-2 px-4 border border-slate-300 rounded-lg text-slate-700 hover:bg-slate-50 transition-all duration-300 button-press disabled:opacity-50 font-['JetBrains_Mono']">
                 取消
