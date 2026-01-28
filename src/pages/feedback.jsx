@@ -51,7 +51,7 @@ export default function Feedback(props) {
           }
         }
       });
-      if (result.success) {
+      if (result && result.id) {
         toast({
           title: '提交成功'
         });
@@ -68,7 +68,7 @@ export default function Feedback(props) {
           });
         }, 1500);
       } else {
-        throw new Error(result.message || '提交失败');
+        throw new Error(result?.message || '提交失败，未返回有效数据');
       }
     } catch (error) {
       console.error('提交反馈失败:', error);
