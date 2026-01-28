@@ -514,10 +514,10 @@ export default function RegistrationPage(props) {
                 }) => <FormItem>
                         <FormLabel className="text-[#333333]">身份证号码 *</FormLabel>
                         <FormControl>
-                          <Input placeholder="上传身份证正面自动识别" {...field} readOnly className="bg-[#F5F7FA] border-[#E8E8E8]" />
+                          <Input placeholder="请输入身份证号码或上传身份证正面自动识别" {...field} className="border-[#E8E8E8] focus:border-[#0A2463]" />
                         </FormControl>
                         <FormDescription className="text-xs">
-                          上传身份证正面照片可自动识别
+                          上传身份证正面照片可自动识别，也可手动输入
                         </FormDescription>
                         <FormMessage />
                       </FormItem>} />
@@ -527,8 +527,11 @@ export default function RegistrationPage(props) {
                 }) => <FormItem>
                         <FormLabel className="text-[#333333]">户籍所在地 *</FormLabel>
                         <FormControl>
-                          <Input placeholder="上传身份证正面自动识别" {...field} className="border-[#E8E8E8] focus:border-[#0A2463]" />
+                          <Input placeholder="请输入户籍地址或上传身份证正面自动识别" {...field} className="border-[#E8E8E8] focus:border-[#0A2463]" />
                         </FormControl>
+                        <FormDescription className="text-xs">
+                          上传身份证正面照片可自动识别，也可手动输入
+                        </FormDescription>
                         <FormMessage />
                       </FormItem>} />
                 </div>
