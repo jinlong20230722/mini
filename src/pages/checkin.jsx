@@ -39,7 +39,7 @@ export default function CheckIn(props) {
     try {
       // 使用腾讯地图逆地理编码 API
       const controller = new AbortController();
-      const timeoutId = setTimeout(() => controller.abort(), 8000); // 8秒超时
+      const timeoutId = setTimeout(() => controller.abort(), 10000); // 10秒超时
 
       // 腾讯地图 API Key
       const API_KEY = 'J5BBZ-YPECN-XOBFC-STPG6-YSTRV-3FBCK';
@@ -47,17 +47,28 @@ export default function CheckIn(props) {
       // 腾讯地图 API 参数格式：location=纬度,经度
       // 浏览器定位返回的是 WGS84 坐标，需要添加 coord_type=1 参数
       const url = `https://apis.map.qq.com/ws/geocoder/v1/?location=${latitude},${longitude}&key=${API_KEY}&get_poi=1&coord_type=1`;
+      console.log('开始逆地理编码:', {
+        latitude,
+        longitude,
+        url
+      });
       const response = await fetch(url, {
+        method: 'GET',
         headers: {
-          'Accept': 'application/json'
+          'Accept': 'application/json',
+          'Content-Type': 'application/json'
         },
         signal: controller.signal
       });
       clearTimeout(timeoutId);
+      console.log('API 响应状态:', response.status, response.statusText);
       if (!response.ok) {
+        const errorText = await response.text();
+        console.error('HTTP 错误:', response.status, errorText);
         throw new Error(`HTTP ${response.status}: ${response.statusText}`);
       }
       const data = await response.json();
+      console.log('API 返回数据:', data);
       if (data.status === 0 && data.result) {
         const result = data.result;
         const addr = result.address_component || {};
@@ -70,6 +81,12 @@ export default function CheckIn(props) {
         const township = addr.township || '';
         const street = addr.street || '';
         const streetNumber = addr.street_number || '';
+        console.log('解析成功:', {
+          formattedAddress,
+          province,
+          city,
+          district
+        });
 
         // 组合详细地址
         let detailAddress = '';
@@ -90,13 +107,14 @@ export default function CheckIn(props) {
           streetNumber
         };
       } else {
-        throw new Error(data.message || '地址解析失败');
+        console.error('API 返回错误:', data);
+        throw new Error(data.message || `地址解析失败 (status: ${data.status})`);
       }
     } catch (error) {
       console.error('逆地理编码失败:', error);
       return {
         formatted: '地址解析失败',
-        detail: '无法获取详细地址信息',
+        detail: `无法获取详细地址信息: ${error.message}`,
         province: '',
         city: '',
         district: '',
