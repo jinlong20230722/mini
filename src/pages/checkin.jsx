@@ -300,7 +300,7 @@ export default function CheckIn(props) {
           address: errorMsg
         });
       }, {
-        enableHighAccuracy: true,
+        enableHighAccuracy: false,
         timeout: 10000,
         maximumAge: 0
       });
